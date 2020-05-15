@@ -1,0 +1,11 @@
+#从配置中心拉取需要的配置信息
+spring:
+  #配置所属的环境，dev=开发，test=测试，prod=正式环境.通过参数指定-Dspring.profiles.active=dev
+  profiles:
+    active: dev
+  cloud:
+    config:
+      profile: dev
+      label: dev
+      uri: http://config.51wanxue.com/,http://10.98.2.15:1081/
+      name: wantong-admin,zookeeper,redis,management,common-qiniu,common-storage,common-dbtts,common-order,common-cms,base-mq,topic-consumer,common-device

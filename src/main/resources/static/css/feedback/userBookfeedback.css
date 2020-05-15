@@ -1,0 +1,110 @@
+
+#selector {
+  position: relative;
+  height: 30px;
+  width: 200px;
+  font-size: 13px;
+  line-height: 30px;
+  text-align: left;
+  user-select: none;
+  float: left;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+#selector select {
+  display: none;
+}
+
+#selector .arrow {
+  position: absolute;
+  right: 5px;
+  top: 12px;
+  display: block;
+  height: 0;
+  width: 0;
+  border-top: 8px solid lightgreen;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+#selector .mr-selector {
+  display: block;
+  height: 33px;
+  width: 200px;
+  padding-left: 10px;
+  border: 1px solid #CCCCCC;
+  cursor: default;
+  overflow: hidden;
+}
+
+#selector .select {
+  display: none;
+  margin-top: -1px;
+  border: 1px solid #CCCCCC;
+  background: rgb(255, 255, 255);
+  width: 500px;
+  float: left;
+}
+
+#selector .select li {
+  padding-left: 10px;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  width: 120px;
+}
+
+#selector .select li input{
+  margin-right: 5px;
+}
+
+.create-update-work-order {
+  height: 100%;
+}
+
+.create-update-work-order .work-order-message {
+  height: 70%;
+}
+
+.create-update-work-order .work-order-message label {
+  margin-left: 18%;
+  margin-top: 10%;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.create-update-work-order .work-order-message input {
+  margin-left: 20px;
+  width: 200px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.work-order-action {
+  border-top: 1px solid #EFEFEF;
+  width: 100%;
+}
+
+.work-order-action .confirm-button {
+  float: left;
+  margin-left: 229px;
+  margin-top: 4px;
+}
+
+.work-order-action .cancel-button {
+  float: left;
+  margin-left: 13px;
+  margin-top: 4px;
+}
+
+.red{
+  color: red;
+}
+.work-list-top .Button-line:hover{
+  background: #e9f6fe;
+}
+
+.work-list-top li span{
+  line-height: 45px;
+}

@@ -1,0 +1,24 @@
+.partner-list-panel{
+	margin-bottom: 30px;
+	padding: 30px;
+}
+
+.partner-list-panel .partner-name-col{
+	background-color: #fcf8e3;
+}
+
+.partner-list-panel .app-list-table{
+	margin-top: 10px;
+}
+
+.partner-selector{	margin-bottom: 15px;
+}
+
+.partner-selector .title{
+	display: inline-block;
+	margin-left:  0px;
+}
+
+.partner-selector .selector{
+	margin-left: 0px;
+}

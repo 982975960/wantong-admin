@@ -1,0 +1,18 @@
+#bindCustomerAppDialog{
+    margin-top: 10px;
+}
+
+#bindCustomerAppDialog .form-group{
+    width: 80%;
+    margin-left: 10%;
+    height: 40px;
+}
+#bindCustomerAppDialog .form-group label{
+    width: 25%;
+    float: left;
+}
+
+#bindCustomerAppDialog .form-group select{
+    width: 70%;
+    display: inline-block;
+}

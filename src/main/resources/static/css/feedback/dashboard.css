@@ -1,0 +1,54 @@
+#moduleBodyDiv{
+    padding: 0;
+    z-index: 1;
+}
+.dashboard_title{
+    font-size: 16px;
+    line-height: 32px;
+    margin-left: 20px;
+}
+.content-pro{
+    background-color: white;
+}
+.dashboard_chart {
+    width: 800px;
+    height: 600px;
+}
+.dashboard_scroller{
+    font-size: 20px;
+    color: #3dbceb;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.dashboard_foot{
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+.el-icon-arrow-down:before{
+    font-size: 16px;
+    font-weight: bold;
+    color: #cdcdcd;
+}
+.el-submenu__title{
+    height: 40px!important;
+    line-height: 40px!important;
+}
+.el-menu-item-group__title{
+    display: none;
+}
+.el-menu-item{
+    height: 40px!important;
+    line-height: 40px!important;
+}
+.text-block-con{
+    margin: 0 1%!important;
+    width: 98%!important;
+}
+#dashboard_pagination{
+    border: 0px;
+    margin-bottom: 10px;
+    padding-right: 1%;
+}

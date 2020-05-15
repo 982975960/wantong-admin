@@ -1,0 +1,89 @@
+#createBook .form-control{
+  display: inline;
+  width: 30%;
+  border-radius: unset;
+}
+
+#full {
+  text-align: center;
+  color: white;
+  background: black;
+}
+
+#createBookFrom .form-group label{
+  width: 11%;
+}
+#createBook{
+  overflow-x: hidden; 
+}
+
+#createBook .secondList{
+  margin-left: 11%;
+}
+
+#createBook #description{
+  width: 84%;
+  height: 100px;
+}
+#createBook #extraData{
+  width: 84%;
+  height: 70px;
+}
+#popupcontent{
+  position: absolute;
+  visibility: hidden;
+  overflow: hidden;
+  border:1px solid #CCC;
+  background-color:#F9F9F9;
+  border:1px solid #333;
+  padding:5px;
+}
+
+#innercontent{
+  padding:20px;
+
+}
+
+#topTitle{
+  text-align:center
+}
+#createBook .form-group{
+  margin-bottom: 20px;
+}
+#createBook .red{
+  color: red;
+}
+
+#lastImage{
+  margin-top: 50px;
+}
+
+.tab-line{ border:1px solid #eeeeee; border-bottom:none;border-top: none;}
+.tab-line2{ border-right:1px solid #eeeeee; border-bottom:1px solid #eeeeee; line-height:20px; padding-left:10px;}
+
+.vtOrPartner{
+  float:left; width:109px; font-size:12px; padding-left:10px;  border-top: 1px solid #eeeeee;padding-top: 2px;
+}
+
+.labelDiv1{
+  width:508px; float:left; border-left:1px solid #eeeeee;
+}
+.labelDiv2{
+  float:left; border-top:1px solid #eeeeee;
+}
+.lable-h4{
+  float:left; font-size:12px; width:149px; padding-left:10px;padding-top: 2px;
+}
+.labelDiv3{
+  float:left; border-left:1px solid #eeeeee; width:358px;
+}
+.label-p{
+  width:358px; float:left; border-top:1px solid #eeeeee; margin-top:-1px;padding-top: 2px;
+}
+.label-span-2{
+  width:160px; float:left; padding-left:10px;border-right: 1px solid #eeeeee;
+}
+.label-span-3{
+  width:184px; float:left;
+}
+.textline{padding-left:10px; padding-right:10px;}

@@ -1,0 +1,83 @@
+.index-container {
+  position: relative;
+  float: left;
+}
+.layer-warpper {
+  position: absolute;
+  z-index: 100;
+  float: left;
+}
+.layer-index {
+  border: 1px solid;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  display: inline-block;
+  background-color: #FFF;
+  float: left;
+  position: relative;
+  left: -22px;
+}
+
+.right-container {
+  width: 15%;
+  display: inline-block;
+  text-align: center;
+}
+.control-menu {
+  font-size: 14px;
+  text-align: left;
+  color: #000;
+}
+
+.control-menu .tip {
+  cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+.control-menu #toggleRegion {
+  margin-right: 4px;
+}
+.layer-inputs {
+  border: 1px solid #000;
+  width: 100%;
+  text-align: center;
+  overflow-y: scroll;
+  min-height: 380px;
+}
+.layer-inputs .delete-btn {
+  padding: 0 3px 0 3px;
+  font-size: 15px;
+  line-height: 28px;
+  cursor: pointer;
+  color: #ff0000;
+  visibility: hidden;
+}
+
+.layer-inputs .layer {
+  padding: 5px 3px;
+  border-radius: 5px;
+  border: 1px solid;
+  width: 100px;
+  margin: 10px auto;
+}
+.layer-input-warpper label {
+  display: inline-block;
+  border: 1px solid;
+  height: 24px;
+  border-radius: 12px;
+  width: 24px;
+  line-height: 24px;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.active-warpper {
+  background: #5BC0DE;
+}

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.wantong</groupId>
+  <artifactId>wantong-admin</artifactId>
+  <version>3.21.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <description>web</description>
+
+  <parent>
+    <groupId>com.wantong</groupId>
+    <artifactId>wantong-parent</artifactId>
+    <version>3.20.0-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+
+  <!-- 本项目所要依赖的jar包，如果是wantong-paren或者spring-boot-starter-parent里包含的依赖则不需要填写<version>参数,注意加上<optional>true</optional>选项避免依赖传递-->
+  <dependencies>
+    <dependency>
+      <groupId>cn.visiontalk</groupId>
+      <artifactId>interservice</artifactId>
+      <version>3.21.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- 监控,健康检测组件-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!--config配置中心组件-->
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-config</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.5</version>
+    </dependency>
+
+
+    <!-- Java音频视频编码器 -->
+    <dependency>
+      <groupId>ws.schild</groupId>
+      <artifactId>jave-all-deps</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--用来多段PCM合成-->
+    <dependency>
+      <groupId>java-lame</groupId>
+      <artifactId>java-lame</artifactId>
+      <version>3.98.4</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <optional>true</optional>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-freemarker</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.0-jre</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.boot</groupId>
+      <artifactId>dubbo-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>content-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.21.1-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>card-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.21.1-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>record-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.21.1-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>elasticsearch-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.21.1-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>config-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.21.1-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.wantong</groupId>
+      <artifactId>native-service</artifactId>
+      <version>3.20.0-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+    </dependency>
+    <dependency>
+      <artifactId>wantong-common</artifactId>
+      <groupId>com.wantong</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>wechat-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.14.0-SNAPSHOT</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>mongo-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.16.0-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>recognition-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.19.0-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <artifactId>publish-service</artifactId>
+      <groupId>com.wantong</groupId>
+      <version>3.20.0-SNAPSHOT</version>
+      <classifier>dubbo</classifier>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--session-->
+    <dependency>
+      <groupId>org.springframework.session</groupId>
+      <artifactId>spring-session-data-redis</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- 图片压缩 -->
+    <dependency>
+      <groupId>net.coobird</groupId>
+      <artifactId>thumbnailator</artifactId>
+      <version>0.4.8</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.qiniu</groupId>
+      <artifactId>qiniu-java-sdk</artifactId>
+      <version>7.0.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>5.1.5.RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
+
+     <!-- excel工具 -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-excelant</artifactId>
+      <version>4.0.1</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>it.sauronsoftware</groupId>
+      <artifactId>jave</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+  <!--视频截图的jar包-->
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv</artifactId>
+      <version>1.4.1</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacpp</artifactId>
+      <version>1.4.1</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>ffmpeg-platform</artifactId>
+      <version>3.4.2-1.4.1</version>
+      <optional>true</optional>
+    </dependency>
+<!--Mp3 格式判断-->
+    <dependency>
+      <groupId>org</groupId>
+      <artifactId>jaudiotagger</artifactId>
+      <version>2.0.3</version>
+      <optional>true</optional>
+    </dependency>
+  <!--end -->
+
+  </dependencies>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>assembly.xml</descriptor>
+          </descriptors>
+          <!--这样配置后，mvn deploy不会把assembly打的zip包上传到nexus-->
+          <attach>false</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <name>nexus-releases</name>
+      <url>http://nexus.51wanxue.com:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <name>nexus-snapshots</name>
+      <url>http://nexus.51wanxue.com:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>

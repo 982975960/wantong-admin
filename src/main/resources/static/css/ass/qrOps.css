@@ -1,0 +1,10 @@
+.search-qr {
+  border: 1px solid #cccccc;
+  color: #000000;
+  padding: 7px 1%;
+  width: 270px;
+}
+
+#startTime {
+  height: 32px;
+}

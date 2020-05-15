@@ -1,0 +1,48 @@
+.leftDiv{
+    width: 100%;
+    float: left;
+}
+.leftLable{
+    float: left;
+    line-height: 35px;
+    font-weight: normal;
+    margin-right: 10px;
+    text-align: right;
+    width: 60px;
+}
+.textareaLable{
+    font-weight: normal;
+    float: left;
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+}
+.sdkTypeDiv{
+    float: left;
+    width: 250px;
+    margin-left: 78px;
+    margin-top: 15px;
+}
+
+.sdkTypeImg{
+    float: left;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+.webuploader-pick{
+    background: none;
+    border: 1px solid #cccccc;
+    height: 120px;
+    padding: 0;
+    width: 355px;
+}
+
+.uploadFileName{
+    width: 100%;
+    float: left;
+    height: 32px;
+    word-wrap: break-word;
+    LINE-HEIGHT: 15px;
+}
+

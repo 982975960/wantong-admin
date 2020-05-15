@@ -1,0 +1,6 @@
+[
+	{
+		"to": "common.js",
+		"from": ["controls.js","frame.js","global.js"]
+	}
+]

@@ -1,0 +1,41 @@
+.surplus-isbn-container {
+  display: inline-block;
+  height: 30px;
+  border: 1px solid #CCC;
+  line-height: 30px;
+  padding: 0 5px 0 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  min-width: 125px;
+}
+.surplus-isbn-container span {
+  user-select: text;
+}
+.surplus-isbn-container .glyphicon-remove {
+  cursor: pointer;
+  padding: 8px 3px;
+  float: right;
+}
+#surplusIsbn {
+  color: #737373;
+  float: left;
+  width: 85%;
+  min-height: 50px;
+  padding-left: 10px;
+}
+.surplus-isbn {
+  border: 0;
+  display: inline-block;
+  height: 100%;
+  line-height: 28px;
+}
+.surplus-isbn-container.isbn-btn:hover {
+  color: #18b0e7;
+  border-color: #18b0e7;
+}
+.isbn-btn {
+  color: #3dbceb;
+  cursor: pointer;
+  padding: 0 13px;
+  border-color: #3dbceb;
+}

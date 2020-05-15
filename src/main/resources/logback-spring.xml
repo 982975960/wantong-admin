@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <contextName>Logback For Admin</contextName>
+
+    <!-- （改）设置log日志存放地址，需要把最后面的admin-log改成相应项目的log目录 -->
+    <property name="LOG_HOME" value="/data/logs/wantong-admin-log"/>
+
+    <!-- 控制台输出配置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder默认配置为PartternLayoutEncoder -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level (%logger{80} %line\) : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <target>System.out</target>
+    </appender>
+
+    <!-- 日志文件配置 -->
+    <!-- RollingFileAppender：滚动日志文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 -->
+    <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前日志文件的文件名 -->
+        <File>${LOG_HOME}/stdout.log</File>
+        <!-- 滚动日志设置 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件的文件名格式 -->
+            <FileNamePattern>${LOG_HOME}/stdout-%d-%i.log</FileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>180</MaxHistory>
+            <!-- 日志文件stdout.log的大小，当超过该值时，自动修改文件名（按照上面的格式修改），并新建一个stdout.log继续保存最新的日志  -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level (%logger{80} %line\) : %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 全局日志输出等级 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </root>
+
+    <!-- （可选）局部日志输出等级。过滤器，可以指定哪些包，哪个记录等级 -->
+    <!-- 运用的场景比如，你只需要com.demo.controller包下的error日志输出。定义好name="com.demo.controller" level="ERROR" 就行了 -->
+    <!--<logger name="com.wantong.admin.api" level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>-->
+
+</configuration>

@@ -1,0 +1,46 @@
+#cardPageAdd .layui-tab-title li {
+  height: 38px;
+  border: none;
+  border-bottom: #e6e6e6;
+}
+#cardPageAdd .layui-tab-title li a {
+  color: #737373;
+}
+#cardPageAdd .layui-tab-brief>.layui-tab-title .layui-this {
+  color: #3DBEED;
+  height: 40px;
+  border-radius: 0;
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 2px solid #3dbeed;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #E6E6E6;
+}
+#cardPageAdd .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+  border:none;
+}
+#cardPageAdd .layui-tab-brief>.layui-tab-title .layui-this a {
+  /*color: #FFFFFF;*/
+}
+/*2个元素*/
+#cardPageAdd .layui-tab-title li:nth-last-child(2):first-child {
+  /*border-top-right-radius: 0px;*/
+}
+#cardPageAdd .layui-tab-title li + li {
+  /*border-top-left-radius: 0px;*/
+}
+.webuploader-pick{
+  padding: 5px 10px;
+}
+
+
+.webuploader-pick-hover{
+  background: #00a2d4;
+}
+
+#sampleUploadBtn label{
+  margin-top: unset;
+}
+
+#scanUploadBtn label{
+  margin-top: unset;
+}

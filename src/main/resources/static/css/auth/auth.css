@@ -1,0 +1,54 @@
+.grant-auth-form {
+  width: 100%;
+  height: 100%;
+}
+
+.grant-auth-form .row {
+  width: 33%;
+}
+
+.grant-auth-form .form-container {
+  margin: 0px;
+}
+
+
+.grant-auth-form .form-container input {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.grant-auth-form .panel {
+  margin-bottom: 0px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 0px 1px rgba(0, 0, 0, .05);
+}
+
+.grant-auth-form .tth {
+  padding: 0px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  text-align: left;
+  border-top: 1px solid #ddd;
+}
+
+.grant-auth-form .top {
+  float: left;
+  width: 100%;
+  height: 85%;
+}
+
+#grantAuth {
+  width: 100%;
+  height: 100%;
+}
+
+.grant-auth-form .layui-layer-btn0 {
+  padding-top: 0px;
+}
+
+#createAuthority .input-group {
+  margin-left: 20%;
+}

@@ -1,0 +1,139 @@
+.create-partner-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+.create-partner-container .authority-title {
+  margin-top: 30px;
+  /* line-height: 50px; */
+  padding-bottom: 0px;
+}
+
+.create-partner-container .authority-title h5 {
+  margin-top: 5px;
+}
+
+.create-partner-container .authority-list {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col-md-12 {
+  height: 100%;
+}
+
+#createSupplierForm {
+  height: 98%;
+}
+
+.top {
+  height: 60%;
+}
+
+.create-partner-container .form-group {
+  width: 60%;
+}
+
+.create-partner-container .form-group label {
+  width: 20%;
+}
+
+.create-partner-container .form-group .form-control {
+  width: 50%;
+  display: inline;
+}
+
+
+#createSupplierContainer .picture-book-thumbnail-container {
+  margin: 5px auto;
+  height: 154px;
+  width: 215px;
+  display: block;
+  cursor: pointer;
+}
+
+#createSupplierContainer .picture-book-thumbnail-container .picture-book-thumbnail {
+  height: 154px;
+  width: 215px;
+  display: block;
+  cursor: pointer;
+  z-index: -1;
+}
+
+#createSupplierContainer .picture-book-thumbnail-container .picture-book-thumbnail img {
+  height: 154px;
+  width: 215px;
+  z-index: -1;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#createSupplierContainer .upload-btn-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -155px;
+  margin-bottom: 10px;
+  height: 154px;
+  width: 215px;
+  background-color: #333;
+  background-color: rgba(51, 51, 51, .2);
+  z-index: 1;
+}
+
+#createSupplierContainer .upload-btn-container span {
+  margin-top: 30px;
+  margin-left: 0px;
+  font-size: 400%;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+}
+
+#createSupplierContainer .upload-btn-container .webuploader-pick {
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 100%;
+}
+
+
+#createSupplierContainer .upload-pictuer {
+  width: 40%;
+  float: right;
+  margin-top: -22%;
+}
+
+#emailContentContainer textarea {
+  width: 760px;
+  height: 650px;
+}
+
+#emailContentContainer #emailTip {
+  color: red;
+  float: left;
+}
+
+#supplierManager .form-inline {
+  width: 20%;
+  text-align: left;
+  float: left;
+  margin-top: 15px;
+}
+
+#createSupplierContainer .upload-btn-container div[id] {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+#createSupplierContainer .page-header{
+ border-bottom: 0px;
+}
+
+.chosen-container a span{
+  color: #737373;
+}

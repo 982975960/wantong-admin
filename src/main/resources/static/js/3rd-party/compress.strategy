@@ -1,0 +1,6 @@
+[
+	{
+		"to": "3rd-party.js",
+		"from": ["jquery-2.2.4.min.js","json2.js","bootstrap.js"]
+	}
+]

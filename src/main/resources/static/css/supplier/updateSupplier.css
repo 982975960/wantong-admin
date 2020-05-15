@@ -1,0 +1,110 @@
+#editSupplierContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+#editSupplierContainer .authority-title {
+  margin-top: 30px;
+  /* line-height: 50px; */
+  padding-bottom: 0px;
+}
+
+#editSupplierContainer .authority-title h5 {
+  margin-top: 5px;
+}
+#editSupplierContainer .authority-list {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col-md-12 {
+  height: 100%;
+}
+
+#editSupplierForm {
+  height: 98%;
+}
+
+.top {
+  height: 60%;
+}
+#updateSupplier{
+  height: 100%;
+}
+#editSupplierContainer .form-group{
+  width: 60%;
+}
+#editSupplierContainer .form-group label{
+  width: 20%;
+}
+#editSupplierContainer .form-group .form-control{
+  width: 50%;
+  display: inline;
+}
+
+
+#editSupplierContainer .picture-book-thumbnail-container {
+  margin: 5px auto;
+  height: 154px;
+  width: 215px;
+  display: block;
+  cursor: pointer;
+}
+
+#editSupplierContainer .picture-book-thumbnail-container .picture-book-thumbnail {
+  height: 154px;
+  width: 215px;
+  display: block;
+  cursor: pointer;
+  z-index: -1;
+}
+
+#editSupplierContainer .picture-book-thumbnail-container .picture-book-thumbnail img {
+  height: 154px;
+  width: 215px;
+  z-index: -1;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#editSupplierContainer .upload-btn-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -155px;
+  margin-bottom: 10px;
+  height: 154px;
+  width: 215px;
+  background-color: #333;
+  background-color: rgba(51, 51, 51, .2);
+  z-index: 1;
+}
+
+#editSupplierContainer .upload-btn-container span {
+  margin-top: 30px;
+  margin-left: 0px;
+  font-size: 400%;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+}
+
+#editSupplierContainer .upload-btn-container .webuploader-pick {
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 100%;
+}
+
+
+#editSupplierContainer .upload-pictuer {
+  width: 40%;
+  float: right;
+  margin-top: -22%;
+}
+
+#editSupplierContainer .page-header{
+  border-bottom: 0px;
+}

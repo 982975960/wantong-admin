@@ -1,0 +1,352 @@
+.partner-detail-panel .create-dialog {
+}
+
+.partner-detail-panel .create-dialog .create-dialog-body {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.partner-detail-panel .content-pro .Button-line{
+  margin-top: 1%;
+}
+
+.partner-detail-panel .row {
+  margin-top: 0.5em;
+}
+
+.partner-detail-panel .short-input-group {
+  width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#appTypeList {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+#uploadFilePicker {
+  display: inline-block;
+  line-height: 1.428571429;
+  vertical-align: middle;
+  margin: 0 12px 0 0;
+}
+
+
+#uploadAPKDialog .modal-dialog {
+  width: 500px;
+}
+
+
+#uploadFileList {
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.progress {
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+
+.partner-detail-panel .modal-footer {
+  border-top: none;
+}
+
+.partner-detail-panel #modifyLicenseAmountDialog .alert-info {
+  margin-top: 20px;
+  width: 60%;
+  margin-left: 20%;
+}
+
+.partner-detail-panel #error {
+  width: 80%;
+  margin-top: 1%;
+  margin-left: 10%;
+}
+
+#appTypeList #appTypeSelect {
+  float: left;
+  width: 46%;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.partner-detail-panel #modifyLicenseAmountDialog #limitDiv label{
+  float: left;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.partner-detail-panel #modifyLicenseAmountDialog #limitDiv input{
+  float: left;
+}
+
+.partner-detail-panel #createNewAppDialog select{
+  padding-right: 20px;
+}
+.partner-detail-panel #createNewAppDialog .input-group{
+  width: 100%;
+}
+
+.partner-detail-panel #createNewAppDialog .input-group-addon{
+  background-color: #FFFFFF;
+  border: none;
+}
+
+
+/*创建应用*/
+.cicle {
+  cursor: pointer;
+  margin-left: 16px;
+  float: left;
+  width: 16px;
+  height: 16px;
+
+  border-radius: 25px;
+  border: 1px solid #737373;
+}
+
+span.priority {
+  height: 16px;
+  line-height: 16px;
+  display: block;
+  text-align: center;
+}
+
+div.prioritycicles {
+  padding-top: 5px;
+  height: 30px;
+  float: left;
+}
+
+.cicle-clicked {
+  background-color: #3DBEED;
+  color: white;
+  border: 1px solid #3DBEED;
+}
+
+.cicle-disabled {
+  background-color: #CDCCCC;
+  color: #A6A2AE;
+  border: 1px solid #CCCBCB;
+}
+
+.repoSetDiv {
+  float: left;
+  width: 400px;
+}
+
+.oneRepo {
+  float: left;
+  width: 600px;
+  height: 32px;
+  margin-left: 10px;
+}
+#repoDiv{
+  font-size: 14px;
+}
+
+
+
+.repoName {
+  width: 220px;
+  height: 30px;
+  float: left;
+  padding-top: 8px;
+}
+
+
+.enableRepo {
+  float: left;
+  margin-right: 10px;
+  height: 30px;
+  padding-top: 8px;
+}
+
+#wantongRepoTag, #clientRepoTag{
+  cursor: pointer;
+  color: #3DBEED;
+}
+
+#createNewAppDialog{
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+/*新增*/
+
+.frame-line{ border: 1px solid #cccccc; color: #737373;padding-left:8px; float:left; height:30px; width:190px;}
+.frame-line02{ border: 1px solid #cccccc; color: #737373;padding-left:8px; float:left;  height:30px; width:470px;}
+
+.width-w{ width:80px; float:left; height:30px; line-height:30px;}
+.margin-l{ margin-left:10px;}
+.margin-b{ margin-bottom:10px; width:100%; float:left;}
+
+.bot-line{border-top: 1px solid #eceff8; margin-top: 20px;float: left;width: 100%; text-align:right; padding:10px 0;}
+
+
+#partnerDetailPanel #limitDiv{
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  display: inline;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 10px;
+}
+
+#partnerDetailPanel #limitDiv {
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  display: inline;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 10px;
+}
+
+#partnerDetailPanel #limitDiv #limitDaysDiv {
+  margin-bottom: 7px;
+  width: 100%;
+  float: left;
+}
+
+.authorityTypeDiv{
+  width: 30px;
+  height: 32px;
+  float: left;
+}
+
+.authorityTypeDiv select{
+  height: 25px;
+  border: 1px solid #CCCCCC;
+  padding-left: 5px;
+}
+
+.chosen-container a span{
+  color: #737373;
+}
+
+#partnerDetailPanel .Button-line:hover {
+  border:1px solid #18b0e7;
+}
+
+.mr-selector-wrapper {
+  position: relative;
+  height: 30px;
+  width: 200px;
+  font-size: 13px;
+  line-height: 30px;
+  text-align: left;
+  user-select: none;
+  float: left;
+  margin-left: 17px;
+  margin-right: 10px;
+}
+
+.mr-selector-wrapper select {
+  display: none;
+}
+
+.mr-selector-wrapper .arrow {
+  position: absolute;
+  right: 5px;
+  top: 12px;
+  display: block;
+  height: 0;
+  width: 0;
+  border-top: 8px solid lightgreen;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+.mr-selector-wrapper .mr-selector {
+  display: block;
+  height: 33px;
+  width: 191px;
+  padding-left: 10px;
+  border: 1px solid #CCCCCC;
+  cursor: default;
+  overflow: hidden;
+}
+
+.mr-selector-wrapper .select {
+  display: none;
+  margin-top: -1px;
+  border: 1px solid #CCCCCC;
+  background: rgb(255, 255, 255);
+  width: 190px;
+  float: left;
+  position: relative;
+  z-index: 6;
+}
+
+.mr-selector-wrapper .select li {
+  padding-left: 10px;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  width: 90px;
+}
+
+.mr-selector-wrapper .select li input{
+  margin-right: 5px;
+}
+
+#uploadAPKDialog label {
+  font-weight: normal;
+  float: left;
+  width: 100px;
+  line-height: 33px;
+}
+
+#uploadAPKDialog .form-group input {
+  width: 300px;
+  border-radius: 0;
+}
+
+
+#partnerDetailPanel .layui-tab-title li {
+  height: 38px;
+  border: none;
+  border-bottom: #e6e6e6;
+}
+#partnerDetailPanel .layui-tab-title li a {
+  color: #737373;
+}
+#partnerDetailPanel .layui-tab-brief>.layui-tab-title .layui-this {
+  color: #3DBEED;
+  height: 40px;
+  border-radius: 0;
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 2px solid #3dbeed;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #E6E6E6;
+}
+#partnerDetailPanel .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+  border:none;
+}
+#partnerDetailPanel .layui-tab-brief>.layui-tab-title .layui-this a {
+  /*color: #FFFFFF;*/
+}
+/*2个元素*/
+#partnerDetailPanel .layui-tab-title li:nth-last-child(2):first-child {
+  /*border-top-right-radius: 0px;*/
+}
+#partnerDetailPanel .layui-tab-title li + li {
+  /*border-top-left-radius: 0px;*/
+}
+
+.summary{
+  resize: none;
+  width: 610px;
+  border-radius: 0;
+  margin-top: 20px;
+}
+
+#changeAppImageBtn div:nth-child(2){width:100%!important;height:100%!important;}

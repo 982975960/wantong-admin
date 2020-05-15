@@ -1,0 +1,60 @@
+.flat-button {
+  margin-left: auto;
+  margin-right: auto;
+  background: #00b7ee;
+  border-radius: 1.5em;
+  margin-bottom: 0em;
+}
+
+.uploadFrameworkBtn .webuploader-pick {
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.framework-upload-progress {
+  margin-left: 10%;
+  height: 5px;
+  width: 80%;
+  display: none;
+}
+
+.framework-upload-progress-bar {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error-msg-panel {
+  margin-left: 10%;
+  width: 80%;
+  display: none;
+}
+
+.list-panel {
+
+}
+
+.list-panel thead tr {
+  background-color: #FFF;
+}
+
+.list-panel thead tr th {
+  text-align: left;
+  font-size: 12pt;
+  vertical-align: middle;
+  background-color: #e5e6e8;
+}
+
+.list-panel .center {
+  text-align: center;
+}
+
+.show-grid {
+  margin-bottom: 15px;
+}
+
+.standard-margin {
+  margin-top: 20px;
+}

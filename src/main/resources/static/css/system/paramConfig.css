@@ -1,0 +1,124 @@
+#systemParamConfig .form-control {
+  width: 300px;
+  display: inline-block;
+  border-radius: 0px;
+}
+
+#domainName {
+
+}
+
+.levelDiv {
+  display: inline-block;
+}
+
+#paramForm input {
+  width: 300px;
+}
+
+
+#paramConfigDialog {
+  height: 90%;
+}
+
+#paramConfigDialog #paramForm {
+  width: 100%;
+  height: 100%;
+}
+
+#paramConfigDialog #paramDiv {
+  width: 90%;
+  height: 56%;
+  margin-left: 5%;
+  background-color: white;
+}
+
+#paramConfigDialog #div2 {
+  margin-left: 12%;
+  width: 88%;
+  text-align: center;
+  margin-top: -10px;
+}
+#paramConfigDialog #div2 .wxParam {
+  margin-top: 15px;
+}
+
+#paramConfigDialog #div2 label {
+  width: 20%;
+  text-align: right;
+  margin-right: 10px;
+}
+
+#paramConfigDialog #div1 {
+  float: left;
+  width: 20%;
+  margin-top: 10%;
+}
+
+#paramConfigDialog #parentDiv {
+  width: 90%;
+  font-size: 20px;
+  margin-left: 5%;
+}
+
+#paramConfigDialog .modal-footer {
+  border-top: 0px;
+}
+#qrCode{
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  float: left;
+}
+
+#parentUrlDiv{
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  line-height: 12px;
+  display: inline-block;
+  float: left;
+}
+#qrImg{
+  width: 50%;
+}
+
+#parentUrlBtn{
+  margin-left: 42%;
+  margin-top: 25px;
+}
+
+#parentUrlP{
+  font-size: 80%;
+}
+
+#saveAndCloseDiv{
+  margin-top: 200px;
+}
+
+#qrCode p{
+  font-size: 80%;
+}
+
+.wxParam{
+  float: left;
+  width: 100%;
+}
+
+.wxParam label{
+  float: left;
+  margin-top: 10px;
+}
+
+.wxParam input{
+  float: left;
+}
+.wxParam b{
+  float: left;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.layui-layer-tips .layui-layer-content {
+  background-color: rgb(53, 149, 204) !important;
+}

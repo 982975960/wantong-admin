@@ -1,0 +1,16 @@
+#fingerBookDiv label {
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+
+#fingerBookDiv .finger-image {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#fingerBookDiv #fingerImage{
+  width: auto;
+  height: auto;
+}

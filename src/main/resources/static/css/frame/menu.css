@@ -1,0 +1,28 @@
+.tab-content{
+  position: fixed;
+  text-align: left;
+  line-height: 20px;
+  bottom: 10px;
+  margin-left: 20px
+}
+#link1{
+color: #333230c7
+}
+#link2{
+  color: #333230c7
+}
+#link3{
+  color: #333230c7
+}
+
+#link1:hover{
+color: #337ab7;
+}
+
+#link2:hover{
+  color: #337ab7;
+}
+#link3:hover{
+  color: #337ab7;
+}
+

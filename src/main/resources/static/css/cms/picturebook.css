@@ -1,0 +1,1073 @@
+.picture-book-list {
+
+}
+
+dl {
+  padding: 0px;
+  margin-top: 15px;
+  display: block;
+  /* height: 160px; */
+}
+
+dl .picture-book-thumbnail-container {
+  display: block;
+}
+
+dl .picture-book-thumbnail-container .picture-book-thumbnail {
+  z-index: -1;
+  display: block;
+}
+
+dl .picture-book-thumbnail-container .picture-book-thumbnail img {
+  z-index: -1;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+dl .picture-book-title-container {
+  margin-right: 0px;
+  margin-left: 0px;
+  margin-top: 3px;
+}
+
+.picture-book-title-container .picture-book-author {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+dl .picture-book-title {
+  margin: 5px auto 0 auto;
+  font-family: inherit;
+  font-weight: 550;
+  line-height: 1.1;
+  color: inherit;
+  font-size: 120%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1366px) {
+  dl .picture-book-status-container {
+    margin-top: -34px !important;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  dl .picture-book-status-container {
+    margin-top: -34px !important;
+  }
+}
+@media screen and (max-width: 1400px) {
+  dl .picture-book-status-container {
+    margin-top: -34px !important;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  dl .picture-book-status-container {
+    margin-top: -34px !important;
+  }
+}
+
+dl .picture-book-status-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
+  margin-bottom: 0px;
+  height: 20px;
+  line-height: 20px;
+  width: 100%;
+  z-index: 5;
+  display: inline-block;
+}
+
+dl .picture-book-status-container .picture-book-status {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
+  margin-bottom: 0px;
+  height: 20px;
+  line-height: 20px;
+  width: 100%;
+  z-index: 5;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+dl .picture-book-status-container .picture-book-status {
+  margin-left: 0px;
+  margin-top: 0px;
+  z-index: 10;
+  color: white;
+}
+
+dl .picture-book-status-container .picture-book-status-failure {
+  margin-left: 0px;
+  margin-right: auto;
+  margin-top: -90px;
+  margin-bottom: 0px;
+  height: 20px;
+  line-height: 20px;
+  width: 100%;
+  z-index: 10;
+  display: inline-block;
+  color: red;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+dl img {
+  margin-top: 0px;
+  z-index: -1;
+}
+
+dl .editBtn-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -109px;
+  margin-bottom: 0px;
+  width: 100%;
+  height: 109px;
+  z-index: 20;
+  background-color: #333;
+  background-color: rgba(51, 51, 51, .2);
+  display: inline-block;
+  visibility: hidden;
+}
+
+dl .editBtn-container span {
+  width: 100%;
+  height: 100%;
+  padding: 32%;
+  margin-left: 0px;
+  font-size: 250%;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  color: #FFF;
+  cursor: pointer;
+}
+
+
+.picture-book-add .error {
+  margin-top: 10px;
+  display: none;
+}
+
+.picture-book-add .picture-book-thumbnail-container {
+  margin: 5px auto;
+  height: 154px;
+  width: 215px;
+  display: block;
+  cursor: pointer;
+}
+
+.picture-book-add .picture-book-thumbnail-container .picture-book-thumbnail {
+  height: 154px;
+  display: block;
+  cursor: pointer;
+  z-index: -1;
+}
+
+.picture-book-add .picture-book-thumbnail-container .picture-book-thumbnail img {
+  height: 154px;
+  width: 215px;
+  z-index: -1;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+form#createBookFrom span#upload div[id] {
+  width: 60px !important;
+  height: 60px !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.picture-book-add .upload-btn-container {
+  margin-right: 15%;
+  margin-top: -155px;
+  margin-bottom: 10px;
+  height: 154px;
+  width: 215px;
+  background-color: #333;
+  background-color: rgba(51, 51, 51, .2);
+  z-index: 1;
+  padding-left: 20%;
+  user-select: none;
+}
+
+.picture-book-add .upload-btn-container span {
+  margin-top: 57px;
+  margin-right: 15px;
+  font-size: 300%;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+}
+
+.picture-book-add .upload-btn-container .webuploader-pick {
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.picture-book-page-add {
+  margin-bottom: 0px;
+  overflow-x: hidden;
+}
+
+.picture-book-page-add nav {
+
+  min-height: 0px;
+  margin-bottom: 0px;
+}
+
+.picture-book-page-add .page-list-container {
+  height: 96%;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.picture-book-page-add .page-list-container .page-list-row {
+  margin-top: 15px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.picture-book-page-add .page-list-container .page-list-row .page-thumbnail-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
+  height: 112px;
+}
+
+.picture-book-page-add .page-list-container .page-list-row .page-status-container {
+  margin-left: 10px;
+  margin-top: -102px;
+  height: 102px;
+  width: 150px;
+  text-align: left;
+}
+
+.picture-book-page-add .page-list-container .page-list-row .page-status-container span {
+  /*margin-left: 8px;*/
+  /* margin-top: 30px; */
+}
+
+.picture-book-page-add .page-list-container .page-list-row .page-thumbnail-container img {
+  width: inherit;
+  height: inherit;
+}
+
+.picture-book-page-add .page-list-container .page-list-row .page-thumbnail-container .active {
+  background-color: #5bc0de;
+}
+/*鼠标放入图片上时，更改背景色*/
+.picture-book-page-add .page-list-container .page-list-row .page-thumbnail-container .mouseHover{
+  background-color: #9a9898;
+}
+
+.picture-book-page-add .page-list-container .edit-btn-container {
+  font-size: 250%;
+  color: white;
+  margin-top: -105px;
+  height: 100px;
+  width: 142px;
+  /*background-color: #333;*/
+  /*background-color: rgba(51, 51, 51, .2);*/
+  z-index: 1;
+  display: inline-block;
+}
+
+.picture-book-page-add .page-list-container .edit-btn-container span {
+  margin-left: 110px;
+  cursor: pointer;
+}
+
+.picture-book-page-add .page-list-container .edit-btn-container span:hover {
+  color: #d9d9d9;
+}
+.picture-book-page-add .page-list-container .edit-btn-container .view-btn{
+  background-color: #272736;
+  width: 30px;
+  border-radius: 5px;
+  float: right;
+  padding: 3px 0;
+  margin-right: 3px;
+}
+.picture-book-page-add .page-list-container .edit-btn-container .deleteBtn {
+  background-color: #272736;
+  width: 30px;
+  border-radius: 5px;
+  float: right;
+  padding: 3px 0;
+  margin-right: 3px;
+}
+
+.picture-book-page-add .toolbar {
+  height: 20px;
+  background-color: #EEE;
+  border-top-style: solid;
+  border-width: 1px;
+  border-top-color: #BBB;
+}
+
+#pageAdd .toolbar {
+  height: 100%;
+  width: 15px;
+}
+
+.picture-book-page-add .toolbar .toolbar-btn-container {
+  text-align: right;
+  height: 100%;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.picture-book-page-add .toolbar .toolbar-btn-container .glyphicon {
+  margin-top: 300px;
+}
+
+.picture-book-page-add .toolbar .toolbar-btn-container span {
+  margin-right: 3px;
+  color: #999;
+}
+
+.picture-book-page-add {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.picture-book-page-add .error-panel div[class^="col-"] {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.picture-book-page-add .create-page-form-1 {
+  width: 960px;
+  height: 36px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFF;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: rgba(51, 51, 51, .2);
+}
+
+.picture-book-page-add .pic-upload-panel {
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 970px;
+}
+
+.picture-book-page-add .pic-upload-panel div[class^="col-"] {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.picture-book-page-add .pic-upload-panel .upload-button-container {
+  height: 30px;
+  margin: 0px 0px 15px 0px;
+}
+
+.picture-book-page-add .pic-upload-panel .upload-button-container div {
+  width: 100%;
+}
+
+.picture-book-page-add .pointer-config-container {
+  background-color: #333;
+  background-color: rgba(51, 51, 51, .2);
+  margin: 10px 0px 0px 0px;
+  height: 100%;
+}
+
+.picture-book-page-add .pointer-config-container .panel {
+  margin: 5px;
+  background-color: #EFEFEF;
+  height: 427px;
+  width: 97%;
+  overflow: scroll;
+}
+
+.picture-book-page-add .pointer-config-container ul {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.picture-book-page-add .pointer-config-container li {
+  line-height: 60px;
+  height: 50px;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-bottom-color: #BBB;
+  font-size: 120%;
+  color: #666;
+  cursor: pointer;
+}
+
+.picture-book-page-add .pointer-config-container li:hover {
+  background-color: #FFFFFF;
+}
+
+.picture-book-page-add .create-page-form-2 {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background-color: #FFF;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: rgba(51, 51, 51, .2);
+}
+
+.picture-book-page-add .create-page-form-2 {
+  width: 970px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  background-color: #FFF;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: rgba(51, 51, 51, .2);
+}
+
+.picture-book-page-add .create-page-form-2 div[class^="col-"] {
+  padding: 0;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel {
+  height: 256px;
+  margin: -1px 0 0 0;
+  background-color: #FFF;
+  border-radius: 4px;
+  overflow-y: scroll;
+  padding: 10px 0 10px 0;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel span {
+  margin-top: 0px;
+  font-size: 90%;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel span #fileName {
+  margin-top: 14px;
+  font-size: 100%;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel ul {
+  margin-top: 6px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel li {
+  margin-top: 10px;
+  line-height: 35px;
+  height: 40px;
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-bottom-color: #BBB;
+  font-size: 120%;
+  color: #666;
+  cursor: pointer;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel li:hover {
+  background-color: rgba(51, 51, 51, .2);
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel li.new-item {
+  line-height: 40px;
+  height: 40px;
+  border-bottom-style: solid;
+  border-width: 0px;
+  border-bottom-color: #BBB;
+  font-size: 120%;
+  color: #BBB;
+  cursor: pointer;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel li.new-item:hover {
+  background-color: inherit;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .new-item .button {
+  width: 150px;
+  height: 48px;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .new-item .button:hover {
+  background-color: #EFEFEF;
+  border-radius: 4px;
+  border: 1px solid #EFEFEF;
+  color: #337ab7;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .voice-item {
+  margin: 0 0 0 10px;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .voice-item div[class^="col-"] {
+  line-height: 40px;
+  height: 100%;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .time-setup-container input {
+  margin-top: 10px;
+  margin-right: 10px;
+  float: left;
+  height: 29px;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .delete-button {
+  padding-right: 10px;
+  color: #d41a1a;
+  font-size: 120%;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .time-setup-container h5 {
+  margin-top: 18px;
+}
+
+.picture-book-page-add .save-button-container {
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 15px;
+}
+
+.picture-book-page-add-voice-editor {
+  margin: 10px auto 0px auto;
+  width: 90%;
+}
+
+.picture-book-page-add-voice-editor .voice-panel {
+  height: 646px;
+  margin: -1px 0 0 0;
+  background-color: #FFF;
+  border-radius: 4px;
+  overflow: scroll;
+  padding: 10px 10px 10px 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.picture-book-page-add-voice-editor .voice-panel .voice-item {
+  padding: 40px 0px 10px 0;
+  margin-top: 0px;
+  font-size: 120%;
+  color: #AAA;
+  cursor: pointer;
+}
+
+.picture-book-page-add-voice-editor .voice-panel .voice-item .webuploader-pick {
+  color: inherit;
+  background-color: inherit;
+}
+
+.picture-book-page-add-voice-editor .voice-panel .voice-item .icon {
+  font-size: 320%;
+}
+
+.picture-book-page-add-voice-editor .voice-panel .auto-ocr-button {
+  width: 95%;
+}
+
+.picture-book-page-add-voice-editor .speaker-container {
+  width: 100%;
+  height: 150px;
+  margin-top: -2px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: scroll;
+  padding: 10px 10px 10px 10px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.picture-book-page-add-voice-editor .speaker-container li {
+  display: inline;
+  width: 300px;
+  margin-right: 30px;
+}
+
+.picture-book-page-add-voice-editor .speaker-container .voice-selector-line {
+  margin-bottom: 10px;
+}
+
+.picture-book-page-add-voice-editor .operation-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#bookList #bookTab {
+  margin-top: 40px;
+}
+
+.navbar navbar-default navbar-static-top {
+  width: 240px;
+}
+
+.error-panel {
+  width: 20px;
+}
+
+#bookEdit {
+  width: 97%;
+  margin-left: 6px;
+  min-width: 947px;
+}
+
+#pageAdd {
+  height: 758px;
+}
+
+.flt {
+  float: left;
+  height: 100%;
+}
+
+#picManager {
+  height: 70%;
+}
+
+#picManager .uploadImage  {
+  width: 20%;
+  margin-top: 5%;
+  margin-left: 10%;
+  float: left;
+  text-align: center;
+  height: 30%;
+}
+
+#picManager #image1 img {
+  width: 194px;
+  height: 114px;
+}
+
+#picManager #image2 img {
+  width: 194px;
+  height: 114px;
+}
+
+#picManager #image3 img {
+  width: 90px;
+  height: 114px;
+}
+
+#picManager #image4 img {
+  width: 90px;
+  height: 114px;
+}
+
+#picManager #image5 img {
+  width: 194px;
+  height: 114px;
+}
+
+#picManager #image6 img {
+  width: 194px;
+  height: 114px;
+}
+
+#picManager #image7 img {
+  width: 194px;
+  height: 114px;
+}
+
+#picManager label {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+#pageItem {
+  margin-bottom: 15px;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .time-setup-container0 h5 {
+  margin-top: 15px;
+  margin-right: 10px;
+  float: left;
+}
+
+.picture-book-page-add .create-page-form-2 .voice-panel .time-setup-container0 input {
+  margin-top: 10px;
+  height: 29px;
+}
+
+.voice-progress-bar {
+  width: 940px;
+  border: 1px solid;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: #c3c3c3;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#editorProgressBar {
+  border: 1px solid;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: #c3c3c3;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.voice-test-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+}
+.voice-editor-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.voice-test-progress-bar {
+  position: relative;
+  width: 70%;
+  height: 5px;
+  background-color: #ddd;
+  vertical-align: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.voice-editor-progress-bar {
+  position: relative;
+  width: 70%;
+  height: 5px;
+  background-color: #ddd;
+  vertical-align: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.voice-test-now {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 5px;
+  width: 50%;
+  background: #31c27c;
+  margin-top: 1px;
+}
+
+.voice-editor-now {
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 5px;
+  width: 50%;
+  background: #31c27c;
+  margin-top: 1px;
+}
+
+.voice-test-now::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  width: 3px;
+  height: 7px;
+  background-color: lightblue;
+  margin-top: 1px;
+}
+
+.voice-editor-now::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  width: 3px;
+  height: 7px;
+  background-color: lightblue;
+  margin-top: 1px;
+}
+
+.voice-test-btn:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+.voice-editor-btn:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+.voice-test-btn-stop:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+.voice-editor-btn-stop:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+#addNewPageBtn {
+  width: 85%;
+  margin: 0px 12px;
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border-color: #ccc;
+  border-style: solid;
+  cursor: pointer;
+}
+
+#picManager #image1 #uploadButton {
+  height: 10px;
+  margin-top: 10px;
+  float: left;
+  margin-left: 60px;
+}
+#picManager #image1 #fingerBtn {
+  margin-top: 10px;
+  border-radius: 3px;
+}
+
+#picManager #image2 #uploadButton {
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+#picManager #image3 #uploadButton {
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+#picManager #image4 #uploadButton {
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+#picManager #image5 #uploadButton {
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+#picManager #image6 #uploadButton {
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+}
+
+#picManager #image1 #bigButton {
+  position: fixed;
+  font-size: 400%;
+  margin-top: -80px;
+  margin-left: 70px;
+  color: white;
+}
+
+#picManager #image2 #bigButton {
+  position: fixed;
+  font-size: 400%;
+  margin-top: -80px;
+  margin-left: 70px;
+  color: white;
+}
+
+#picManager #image3 #bigButton {
+  position: fixed;
+  font-size: 200%;
+  margin-top: -70px;
+  margin-left: 80px;
+  color: white;
+}
+
+#picManager #image4 #bigButton {
+  position: fixed;
+  font-size: 200%;
+  margin-top: -70px;
+  margin-left: 80px;
+  color: white;
+}
+
+#picManager #image5 #bigButton {
+  position: fixed;
+  font-size: 400%;
+  margin-top: -80px;
+  margin-left: 70px;
+  color: white;
+}
+
+#picManager #image6 #bigButton {
+  position: fixed;
+  font-size: 400%;
+  margin-top: -80px;
+  margin-left: 70px;
+  color: white;
+}
+
+#picManager #image7 #bigButton {
+  position: fixed;
+  font-size: 400%;
+  margin-top: -80px;
+  margin-left: 70px;
+  color: white;
+}
+
+#picManager #uploadButton .webuploader-pick {
+
+}
+
+.choose {
+  float: left;
+}
+
+.isbn {
+  margin-left: 15%;
+}
+
+.modal {
+  margin-top: 20%;
+}
+
+.short-input-group {
+  width: 100%;
+}
+
+#connectIp {
+  margin-left: 20%;
+  float: left;
+  width: 50%;
+}
+
+.modal #saveButton {
+  margin-left: 5%;
+  float: left;
+  background-color: #00a2d4;
+}
+
+.check-book {
+  border: 1px solid #3dbeed;
+}
+
+#clearBtn:hover{
+  transition: 0.25s;
+  color: #00b7ee;
+}
+
+#clearBtn{
+  color: black;
+}
+
+
+.rotate-loading {
+  cursor: no-drop;
+  -webkit-animation:rotate-round-wait 1.8s linear infinite;
+}
+
+@-webkit-keyframes rotate-round-wait {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  30% {
+    -webkit-transform: rotate(180deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  80% {
+    -webkit-transform: rotate(360deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate-round {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(90deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  75% {
+    -webkit-transform: rotate(270deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.layui-none{
+  margin-top: 100px;
+  font-size: 20px;
+}
+
+#excelTemplate{
+  margin-left: 645px;
+  margin-top: 30px;
+}
+#historyWord{
+  padding-left: 2.5%;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+#excelImportUpload{
+  width: 100%;
+  height: 100px;
+
+}
+#excelImportHistory{
+  height: 523px;
+  float: left;
+  width: 95%;
+  margin: 0 2.5%;
+
+}
+#uploadExcelBtn27, #uploadExcelBtn28, #uploadExcelBtn29{
+  margin-left: 24px;
+  margin-top: 30px;
+}
+
+
+
+
+
+
+.message-group {
+  margin-top: 40px;
+}
+
+.message-group .search-item {
+  margin-top: 10px;
+}
+
+.message-group .search-item label {
+  float: left;
+  text-align: right;
+  line-height: 40px;
+  width: 80px;
+}
+
+.message-group .search-item input {
+  width: 180px;
+}
+
+/*元素在鼠标放上时出现外框*/
+.picture-hover:hover {
+  border: 1px solid #3dbeed;
+  cursor: pointer;
+}
