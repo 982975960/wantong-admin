@@ -10,6 +10,7 @@ wantong.cms.bookAdd = (function () {
       _coverImage = null,
       _speakerValue = -1,
       _index = null,
+      _lIndex = -1,
       _hintIndex = null,
       _exHintIndex = null,
       _changeRecordIndex = null,
@@ -57,8 +58,8 @@ wantong.cms.bookAdd = (function () {
         GET_PROCESSED_IMAGE: "cms/getProcessImg.do",
         SET_BOOK_STATE: "cms/changeBookState.do",
         GET_LABEL_NAMES: "cms/getLabelNames",
-        GET_BOOK_STATE:"cms/getBookState.do",
-        CHANGE_RECORD_STATE_URL:"/cms/changeRecordBookState.do"
+        GET_BOOK_STATE: "cms/getBookState.do",
+        CHANGE_RECORD_STATE_URL: "/cms/changeRecordBookState.do"
       },
       _init = function (conf) {
         $.extend(_conf, conf);
@@ -68,12 +69,23 @@ wantong.cms.bookAdd = (function () {
         _uploadButton = _root.find("#upload");
         _editButton = _root.find("#editBtn2");
         _moduleValue = conf.moduleValue,
-        _bookState = conf.bookState,
-        _bookInfoState= conf.bookInfoState,
-        _index = layer.index;
+            _bookState = conf.bookState,
+            _bookInfoState = conf.bookInfoState,
+            _index = layer.index;
         if (_conf.bookId > 0) {
           _loadData(_conf.bookId);
           _editButton.css('display', 'inline');
+        }
+
+        if (_conf.entryType == 1 && _conf.bookId > 0) {
+          _root.find("#editLabel").css('display', 'none');
+          _root.find("#saveAndNextBtn").css('display', 'none');
+          _root.find("#enterBooks").css('display', 'none');
+          _root.find("#editFinger").css('display', 'none');
+          _root.find("#extraDataDiv").css('display', 'none');
+          _root.find(".detail-course-bot").css('display', 'block');
+          _root.find("#nbeDiv").css("height","385px");
+          _showCourse();
         }
 
         _initBtnEvent();
@@ -99,7 +111,7 @@ wantong.cms.bookAdd = (function () {
         _root.find('#editLabel').on('click', function () {
           var bookId = $(this).attr("bookId");
 
-          if(!_isClickAddLabel) {
+          if (!_isClickAddLabel) {
             _isClickAddLabel = true;
             $.get(_conf.ADD_ALBEL_URL, {bookId: bookId, isMakePic: false},
                 function (data) {
@@ -119,7 +131,7 @@ wantong.cms.bookAdd = (function () {
                       console.log("success label end");
                     },
                     end: function () {
-                      if(_isClickAddLabel){
+                      if (_isClickAddLabel) {
                         _isClickAddLabel = false;
                       }
                     }
@@ -164,15 +176,15 @@ wantong.cms.bookAdd = (function () {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          async : false,    //表示请求是否异步处理
-          type : "post",    //请求类型
-          url : _conf.GET_LABEL_NAMES,//请求的 URL地址
+          async: false,    //表示请求是否异步处理
+          type: "post",    //请求类型
+          url: _conf.GET_LABEL_NAMES,//请求的 URL地址
           data: JSON.stringify(data),
-          dataType : "json",//返回的数据类型
+          dataType: "json",//返回的数据类型
           success: function (reData) {
             labelData = reData.data;
           },
-          error:function () {
+          error: function () {
             layer.msg("添加标签失败")
           }
         });
@@ -183,14 +195,16 @@ wantong.cms.bookAdd = (function () {
         console.log('isbn init');
         var isbnsContainer = _root.find("#surplusIsbn");
         //清除所有surplus ISBN
-        isbnsContainer.find('.surplus-isbn').parent('.surplus-isbn-container').remove();
+        isbnsContainer.find('.surplus-isbn').parent(
+            '.surplus-isbn-container').remove();
         if (!_conf.initData.isbns || _conf.initData.isbns.length < 1) {
           return;
         }
 
         var isbns = _conf.initData.isbns;
         for (var i = 0; i < isbns.length; i++) {
-          var h = '<div class="surplus-isbn-container" pkval="' + isbns[i].id + '">';
+          var h = '<div class="surplus-isbn-container" pkval="' + isbns[i].id
+              + '">';
           h += '<span class="surplus-isbn">' + isbns[i].isbn + '</span>';
           //h += '<span class="glyphicon glyphicon-remove"></span>';
           h += '</div>';
@@ -249,27 +263,31 @@ wantong.cms.bookAdd = (function () {
           var theme = _root.find('#theme');
           theme.html('');
           var dom = '';
-          if(_conf.initData.labels == null){
+          if (_conf.initData.labels == null) {
             return;
           }
           var labels = _conf.initData.labels;
           var wtLabels = labels.wtLabels;
           var partnerLabels = labels.partnerLabels;
 
-          dom += '<dl style="width:620px; background:#eeeeee; float:left; line-height:25px;">\n' +
-            '              <span style="margin-left:130px; width:160px; float:left;">一级标签</span>\n' +
-            '              <span style=" width:170px;float:left;">二级标签</span>\n' +
-            '              <span style=" width:160px;float:left;">三级标签</span>\n' +
-            '            </dl>\n' +
-            '            <div>\n' +
-            '              <div style="width:619px; float:left; border:1px solid #eeeeee; line-height:20px;" >';
+          dom += '<dl style="width:620px; background:#eeeeee; float:left; line-height:25px;">\n'
+              +
+              '              <span style="margin-left:130px; width:160px; float:left;">一级标签</span>\n'
+              +
+              '              <span style=" width:170px;float:left;">二级标签</span>\n'
+              +
+              '              <span style=" width:160px;float:left;">三级标签</span>\n'
+              +
+              '            </dl>\n' +
+              '            <div>\n' +
+              '              <div style="width:619px; float:left; border:1px solid #eeeeee; line-height:20px;" >';
 
           if (partnerLabels.length > 0) {
             $.each(partnerLabels, function (index1, item1) {
               dom += '<h3 class="vtOrPartner">客户标签</h3>' +
                   '<div class="labelDiv1">' +
                   '<div class="labelDiv2">' +
-                  '<h4 class="lable-h4">' + item1.name + '</h4>'+
+                  '<h4 class="lable-h4">' + item1.name + '</h4>' +
                   '<div class="labelDiv3">';
               $.each(item1.childNames, function (index2, item2) {
                 var thirdLabelsStr = "";
@@ -280,15 +298,18 @@ wantong.cms.bookAdd = (function () {
                     thirdLabelsStr += item3.name + " / ";
                   }
                 });
-                if(thirdLabelsStr == ""){
+                if (thirdLabelsStr == "") {
                   dom += '<p class="label-p">' +
-                      '<span class="label-span-2" style="color: #3dbeed;">' + item2.name + '</span>' +
-                      '<span class="label-span-3 textline">'+ thirdLabelsStr +'</span>' +
+                      '<span class="label-span-2" style="color: #3dbeed;">'
+                      + item2.name + '</span>' +
+                      '<span class="label-span-3 textline">' + thirdLabelsStr
+                      + '</span>' +
                       '</p>';
-                }else {
-                  dom +='<p class="label-p">' +
+                } else {
+                  dom += '<p class="label-p">' +
                       '<span class="label-span-2">' + item2.name + '</span>' +
-                      '<span class="label-span-3 textline" style="color: #3dbeed;">'+ thirdLabelsStr +'</span>' +
+                      '<span class="label-span-3 textline" style="color: #3dbeed;">'
+                      + thirdLabelsStr + '</span>' +
                       '</p>';
                 }
 
@@ -301,7 +322,7 @@ wantong.cms.bookAdd = (function () {
               dom += '<h3 class="vtOrPartner">玩瞳标签</h3>' +
                   '<div class="labelDiv1">' +
                   '<div class="labelDiv2">' +
-                  '<h4 class="lable-h4">' + item1.name + '</h4>'+
+                  '<h4 class="lable-h4">' + item1.name + '</h4>' +
                   '<div class="labelDiv3">';
               $.each(item1.childNames, function (index2, item2) {
 
@@ -313,15 +334,18 @@ wantong.cms.bookAdd = (function () {
                     thirdLabelsStr += item3.name + " / ";
                   }
                 });
-                if(thirdLabelsStr == ""){
+                if (thirdLabelsStr == "") {
                   dom += '<p class="label-p">' +
-                      '<span class="label-span-2" style="color: #3dbeed;">' + item2.name + '</span>' +
-                      '<span class="label-span-3 textline">'+ thirdLabelsStr +'</span>' +
+                      '<span class="label-span-2" style="color: #3dbeed;">'
+                      + item2.name + '</span>' +
+                      '<span class="label-span-3 textline">' + thirdLabelsStr
+                      + '</span>' +
                       '</p>';
-                }else {
+                } else {
                   dom += '<p class="label-p">' +
                       '<span class="label-span-2">' + item2.name + '</span>' +
-                      '<span class="label-span-3 textline" style="color: #3dbeed;">'+ thirdLabelsStr +'</span>' +
+                      '<span class="label-span-3 textline" style="color: #3dbeed;">'
+                      + thirdLabelsStr + '</span>' +
                       '</p>';
                 }
               });
@@ -332,7 +356,7 @@ wantong.cms.bookAdd = (function () {
           if (wtLabels.length == 0 && partnerLabels.length == 0) {
             dom = "暂无标签";
             theme.html(dom);
-          }else {
+          } else {
             theme.html(dom);
           }
         }
@@ -341,7 +365,8 @@ wantong.cms.bookAdd = (function () {
         if (_conf.initData) {
           _coverImage = _conf.initData.coverImage;
           _root.find("#coverImage").attr("src",
-              GlobalVar.services.FDS + GlobalVar.services.BOOKIMAGEPATH + "/" + _conf.baseModelId + "/" + _conf.baseBookId
+              GlobalVar.services.FDS + GlobalVar.services.BOOKIMAGEPATH + "/"
+              + _conf.baseModelId + "/" + _conf.baseBookId
               + "/" + _coverImage);
         }
       },
@@ -437,7 +462,7 @@ wantong.cms.bookAdd = (function () {
         _root.find("#saveAndNextBtn").click(function () {
           // _submitAndNext();
 
-          if(!_isClickSave) {
+          if (!_isClickSave) {
             //用来控制电机保存按钮
             _isClickSave = true;
             _saveBookMessage(false, $(this));
@@ -457,9 +482,10 @@ wantong.cms.bookAdd = (function () {
           // if (_conf.examine == "true") {
           //   _showExamineFingerPageDialog(_conf.bookId, _conf.baseBookId)
           // } else {
-            _showEditFingerDataDialog(_conf.bookId, _conf.baseBookId);
+          _showEditFingerDataDialog(_conf.bookId, _conf.baseBookId);
 //          }
         });
+
       },
 
       _saveBookMessage = function (isEnter, jqObj) {
@@ -486,12 +512,12 @@ wantong.cms.bookAdd = (function () {
         }).always(function () {
           jqObj.html(btnTxt).attr('disabled', false);
 
-          if(_isClickSave){
-            _isClickSave=false;
+          if (_isClickSave) {
+            _isClickSave = false;
           }
         });
       },
-      _showExamineFingerPageDialog = function (bookId,baseBookId) {
+      _showExamineFingerPageDialog = function (bookId, baseBookId) {
         $.get(_conf.EDIT_FINGER_URL, {
           bookId: bookId,
           baseBookId: baseBookId,
@@ -502,7 +528,7 @@ wantong.cms.bookAdd = (function () {
         }, function (html) {
           var layerIndex = layer.index;
           layer.open({
-            title: "编辑书页 - 《"+ _conf.initData.name + "》",
+            title: "编辑书页 - 《" + _conf.initData.name + "》",
             type: 1,
             maxmin: false,
             resize: false,
@@ -520,7 +546,7 @@ wantong.cms.bookAdd = (function () {
           layer.close(layerIndex);
         });
       },
-      _showExaminePageDialog = function (bookId,baseBookId) {
+      _showExaminePageDialog = function (bookId, baseBookId) {
         $.get(_conf.ADD_PAGE_URL, {
           bookId: bookId,
           baseBookId: baseBookId,
@@ -531,7 +557,7 @@ wantong.cms.bookAdd = (function () {
         }, function (html) {
           var layerIndex = layer.index;
           layer.open({
-            title: "审核书页 - 《"+ _conf.initData.name + "》",
+            title: "审核书页 - 《" + _conf.initData.name + "》",
             type: 1,
             maxmin: false,
             resize: false,
@@ -539,9 +565,9 @@ wantong.cms.bookAdd = (function () {
             scrollbar: true,
             content: html,
             end: function () {
-             setTimeout(()=>{
-               wantong.cms.booklist_resource.refreshCurrentPage();
-             }, 1000);
+              setTimeout(() => {
+                wantong.cms.booklist_resource.refreshCurrentPage();
+              }, 1000);
             },
             cancel: function () {
               wantong.cms.pageAdd.checkExamineBookStatus();
@@ -563,7 +589,7 @@ wantong.cms.bookAdd = (function () {
           var layerIndex = layer.index;
           layer.close(layerIndex);
           layerIndex = layer.open({
-            title: "添加书页资源 - 《"+ _conf.initData.name + "》",
+            title: "添加书页资源 - 《" + _conf.initData.name + "》",
             type: 1,
             maxmin: false,
             resize: false,
@@ -571,10 +597,11 @@ wantong.cms.bookAdd = (function () {
             offset: 'lt',
             scrollbar: true,
             content: html,
-            success: function(layero) {
-               var html =  $(layero).find(".layui-layer-setwin").prop("outerHTML");
-               $(layero).find(".layui-layer-setwin").remove();
-               $(layero).append(html);
+            success: function (layero) {
+              var html = $(layero).find(".layui-layer-setwin").prop(
+                  "outerHTML");
+              $(layero).find(".layui-layer-setwin").remove();
+              $(layero).append(html);
             },
             end: function () {
               wantong.cms.booklist_resource.refreshCurrentPage();
@@ -585,9 +612,10 @@ wantong.cms.bookAdd = (function () {
                 return false;
               }
               wantong.cms.pageAdd.destory();
-              if (wantong.cms.pageAdd.flag && $('#saveAndNextButton').attr('disabled') != 'disabled') {
+              if (wantong.cms.pageAdd.flag && $('#saveAndNextButton').attr(
+                  'disabled') != 'disabled') {
                 layer.confirm('当前书页有资源尚未保存', {
-                  title:'提示',
+                  title: '提示',
                   btn: ['确认保存', '取消保存'] //按钮
                 }, (index) => {
                   $('#saveAndNextButton').click();
@@ -602,7 +630,7 @@ wantong.cms.bookAdd = (function () {
           });
           layer.full(layerIndex);
           wantong.cms.booklist_resource.refreshEvent();
-          setTimeout(()=> {
+          setTimeout(() => {
             //#变更后的基本样式
             $('#picManager').css('float', 'left');
             $('#picManager').css('height', 'auto');
@@ -661,7 +689,7 @@ wantong.cms.bookAdd = (function () {
           var layerIndex = layer.index;
           layer.close(layerIndex);
           layer.open({
-            title: "编辑书页资源 - 《"+ _conf.initData.name + "》",
+            title: "编辑书页资源 - 《" + _conf.initData.name + "》",
             type: 1,
             maxmin: false,
             resize: false,
@@ -669,12 +697,12 @@ wantong.cms.bookAdd = (function () {
             scrollbar: false,
             content: html,
             end: function () {
-              setTimeout(()=>{
+              setTimeout(() => {
                 wantong.cms.booklist_resource.refreshCurrentPage();
               }, 1000);
             },
             cancel: function () {
-              if(_moduleValue != -1) {
+              if (_moduleValue != -1) {
                 if (_bookState == 1 || (_bookState == 5 && _bookInfoState
                     == 0)) {
                   _showSaveBookMessageHintFrame();
@@ -702,31 +730,31 @@ wantong.cms.bookAdd = (function () {
         });
       },
 
-      _showChangeBookRecordStateHint = function(){
-          var content = _onlySave_BookRecord+_changeBookRecordState;
-          if (!_isChangeRecordStateHint){
-            _isChangeRecordStateHint = true;
-            _changeRecordIndex = layer.open({
-              type: 1,
-              shade: 0.3,
-              title: false,
-              area: ['300px', '200px'],
-              content: content,
-              success: function (layero, index) {
+      _showChangeBookRecordStateHint = function () {
+        var content = _onlySave_BookRecord + _changeBookRecordState;
+        if (!_isChangeRecordStateHint) {
+          _isChangeRecordStateHint = true;
+          _changeRecordIndex = layer.open({
+            type: 1,
+            shade: 0.3,
+            title: false,
+            area: ['300px', '200px'],
+            content: content,
+            success: function (layero, index) {
 
-              },
-              cancel: function () {
-                layer.close();
-              },
-              end:function () {
-                _isChangeRecordStateHint = false;
-              }
-            });
-          }
+            },
+            cancel: function () {
+              layer.close();
+            },
+            end: function () {
+              _isChangeRecordStateHint = false;
+            }
+          });
+        }
       },
-      _showExBookMessageHintFrame = function(){
+      _showExBookMessageHintFrame = function () {
         var content = _onlySaveNextEx + _keepEx;
-        if(!_isExBookMessageHint) {
+        if (!_isExBookMessageHint) {
           _isExBookMessageHint = true;
           _exHintIndex = layer.open({
             type: 1,
@@ -740,7 +768,7 @@ wantong.cms.bookAdd = (function () {
             cancel: function () {
               layer.close();
             },
-            end:function () {
+            end: function () {
               _isExBookMessageHint = false;
             }
           });
@@ -867,9 +895,9 @@ wantong.cms.bookAdd = (function () {
 
         $("body").off("click", "#changeBookStatus .btn").on("click",
             "#changeBookStatus .btn", function () {
-               let isAuth = JSON.parse($("#allowNull").attr("isAllow"));
+              let isAuth = JSON.parse($("#allowNull").attr("isAllow"));
               $.get(_conf.SET_BOOK_STATE + "?bookId=" + _conf.bookId + "&state="
-                  + 7+"&isAuth="+isAuth, {}, function (data) {
+                  + 7 + "&isAuth=" + isAuth, {}, function (data) {
                 if (data.code == 0) {
                   layer.closeAll();
 
@@ -886,37 +914,41 @@ wantong.cms.bookAdd = (function () {
               })
             });
 
-        $("body").off("click","#onlySaveNext .btn").on("click","#onlySaveNext .btn",function () {
-           layer.closeAll();
-          wantong.cms.booklist_resource.refreshEvent();
-        });
-
-        $("body").off("click","#keepEx .btn").on("click","#keepEx .btn",function () {
-          layer.close(_exHintIndex);
-        });
-        $("body").off("click","#changeRecordBookStatus .btn").on("click","#changeRecordBookStatus .btn",function () {
-          // 修改书本记录
-          $.get(_conf.CHANGE_RECORD_STATE_URL,{
-            bookId:_conf.bookId,
-            state:1
-          },function (data) {
-            if(data.code == 0){
+        $("body").off("click", "#onlySaveNext .btn").on("click",
+            "#onlySaveNext .btn", function () {
               layer.closeAll();
               wantong.cms.booklist_resource.refreshEvent();
-              wantong.cms.booklist_resource.refreshCurrentPage();
+            });
 
-              if (wantong.cms.pageAdd != undefined) {
-                wantong.cms.pageAdd.destory();
-              }
-            }else {
-              layer.msg("服务异常");
-            }
-          });
-        });
-        $("body").off("click","#bookRecordOnlySave .btn").on("click","#bookRecordOnlySave .btn",function () {
-          layer.closeAll();
-          wantong.cms.booklist_resource.refreshEvent();
-        });
+        $("body").off("click", "#keepEx .btn").on("click", "#keepEx .btn",
+            function () {
+              layer.close(_exHintIndex);
+            });
+        $("body").off("click", "#changeRecordBookStatus .btn").on("click",
+            "#changeRecordBookStatus .btn", function () {
+              // 修改书本记录
+              $.get(_conf.CHANGE_RECORD_STATE_URL, {
+                bookId: _conf.bookId,
+                state: 1
+              }, function (data) {
+                if (data.code == 0) {
+                  layer.closeAll();
+                  wantong.cms.booklist_resource.refreshEvent();
+                  wantong.cms.booklist_resource.refreshCurrentPage();
+
+                  if (wantong.cms.pageAdd != undefined) {
+                    wantong.cms.pageAdd.destory();
+                  }
+                } else {
+                  layer.msg("服务异常");
+                }
+              });
+            });
+        $("body").off("click", "#bookRecordOnlySave .btn").on("click",
+            "#bookRecordOnlySave .btn", function () {
+              layer.closeAll();
+              wantong.cms.booklist_resource.refreshEvent();
+            });
       },
 
       _closeBookMessageLayer = function () {
@@ -934,6 +966,73 @@ wantong.cms.bookAdd = (function () {
         }
 
         return new Blob([ab], {type: mime});
+      },
+      _destroy = function() {
+        console.log('开始销毁message监听');
+        window.removeEventListener('message', _handleNbeEvent);
+        window.removeEventListener('message', _closeAddEnterAudio);
+      },
+      _handleNbeEvent = function(event) {
+        //到NBE编辑器
+        if (event.data.cmd === 'editResource') {
+          var url = "/nbe/toNbeEditor?bookId="+_conf.bookId + "&packageId=" + event.data.data.packageId;
+          var indexTpl = layer.open({
+            title: 'NBE',
+            type: 2,
+            content: url,
+            maxmin: false,
+            area: ['100%', '90%'],
+            success: function (layero, index) {
+              // 新iframe窗口的对象
+              var iframeWin = layero.find('iframe')[0].contentWindow;
+              // 重新渲染checkbox,select同理
+              iframeWin.layui.form.render('checkbox');
+            },
+          });
+          layer.full(indexTpl);
+        }
+
+        if (event.data.cmd === 'addEnterAudio') {
+          console.log('data', event.data);
+          var url = "/nbe/toNbeEnterAudio?bookId="+_conf.bookId + "&packageId=" + event.data.data.packageId;
+          var indexTpl = layer.open({
+            title: 'NBE',
+            type: 2,
+            content: url,
+            maxmin: true,
+            area: ['73%', '60%'],
+            success: function (layero, index) {
+              // 新iframe窗口的对象
+              var iframe = layero.find('iframe')[0];
+              var iframeWin = iframe.contentWindow;
+              // 重新渲染checkbox,select同理
+              // iframeWin.layui.form.render('checkbox');
+              window.addEventListener('message', _closeAddEnterAudio, false);
+            },
+            end: function () {
+              window.removeEventListener('message', _closeAddEnterAudio);
+            }
+          });
+          layer.full(indexTpl);
+          _lIndex = indexTpl;
+        }
+      },
+      _closeAddEnterAudio = function(event) {
+          if (event.data.cmd === 'close') {
+            console.log('关闭窗口');
+            layer.close(_lIndex);
+          }
+      },
+      _showCourse = function () {
+        console.log("adddddddddddd");
+        //到NBE资源包列表页面
+        var iframe = $('.detail-course-bot iframe');
+        iframe.attr('src',"/nbe/toNbePackageList?entityId="+_conf.bookId);
+        //监听从NBE发送回来的事件
+        iframe.load(function () {
+          console.log('加载完毕');
+          window.addEventListener('message', _handleNbeEvent, false);
+        });
       };
   return {
     init: function (conf) {
@@ -954,8 +1053,11 @@ wantong.cms.bookAdd = (function () {
     editCover: function () {
       _editCover();
     },
-    showExBookMessageHintFrame:function () {
+    showExBookMessageHintFrame: function () {
       _showExBookMessageHintFrame();
+    },
+    destroy: function () {
+      _destroy();
     }
   }
 })();

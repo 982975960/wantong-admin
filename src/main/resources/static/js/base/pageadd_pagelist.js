@@ -216,7 +216,7 @@ wantong.base.pageAdd.pageList = (function () {
                       "审核通过");
                 }
               }
-              if (_origin == 0){
+              if (_origin != 2){
                 //_bookState == 4 说明在全部搜索模块，_bookInfoState是书本状态state的值
                 if (_bookState == 1 || ( _bookState == 4 && _bookInfoState == 1 )) {
                   console.log("bookstate:" + _bookState + "===bookInfoState: " + _bookInfoState);

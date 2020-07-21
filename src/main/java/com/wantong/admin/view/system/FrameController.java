@@ -2,11 +2,13 @@ package com.wantong.admin.view.system;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.wantong.admin.config.BrandingConfig;
 import com.wantong.admin.config.ImageValidationConfig;
 import com.wantong.admin.config.ThirdPartyConfig;
 import com.wantong.admin.domain.FileEndpoint;
 import com.wantong.admin.domain.vo.Menu;
 import com.wantong.admin.session.AdminSession;
+import com.wantong.admin.session.SubDomain;
 import com.wantong.admin.view.BaseController;
 import com.wantong.common.storage.StorageConfig;
 import com.wantong.common.utils.json.JsonUtil;
@@ -15,7 +17,6 @@ import com.wantong.config.service.system.IMenuRelatedService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +42,14 @@ public class FrameController extends BaseController {
 
     @Autowired
     private ImageValidationConfig imageValidationConfig;
+    @Autowired
+    private BrandingConfig brandingConfig;
+    @Autowired
+    private ThemeUtil themeUtil;
 
     @RequestMapping("/main.do")
-    public String handleIndexRequest(HttpServletRequest request, Model model) {
+    public String handleIndexRequest(Model model) {
+        themeUtil.setThemeIfAbsent(request);
         List<AuthorityVO> authorities = menuRelatedService.getMenu(fatherId);
         if (authorities == null) {
             return "system/login";
@@ -55,6 +61,7 @@ public class FrameController extends BaseController {
             //throw new LoginInterceptionException();
         }
 
+        //组装菜单
         List<Menu> menus = new ArrayList<>();
         for (AuthorityVO authorityVO : authorities) {
             if (adminSession.canAccessUrl(refineURL(authorityVO.getUrl()))) {
@@ -65,7 +72,7 @@ public class FrameController extends BaseController {
                 menus.add(menu);
             }
         }
-
+        handleCustomizeMenu(menus);
         String fdsEndpoint = thirdPartyConfig.getFileEndpoint();
         List<FileEndpoint> fdsEndpoints = thirdPartyConfig.getFileEndpoints();
         String downloadEndpoint = thirdPartyConfig.getDownloadEndpoint();
@@ -107,6 +114,8 @@ public class FrameController extends BaseController {
             return "static/images/icoimg7.png";
         } else if ("KPI".equals(menuName)) {
             return "static/images/icoimg8.png";
+        } else if ("AI课程制作".equals(menuName)) {
+            return "static/images/icoimg9.png";
         }
 
         return "static/images/icoimg1.png";
@@ -124,4 +133,27 @@ public class FrameController extends BaseController {
         }
         return url;
     }
+
+    private void handleCustomizeMenu(List<Menu> menus){
+        if(menus != null){
+            //获取当前的样式模板
+            SubDomain subDomainStyle =(SubDomain) request.getSession().getAttribute(BrandingConfig.BRANDING_SUBDOMAINSTYLE);
+            for(Menu menu : menus){
+                AuthorityVO topMenu =  menu.getTopMenu();
+                List<AuthorityVO>  authoritys =  menu.getSceondsMenu();
+                authoritys.add(topMenu);
+                for (AuthorityVO authorityVO : authoritys){
+                    if (authorityVO != null) {
+                        String customizeMenu =  brandingConfig.getCustomizeMenu(subDomainStyle.getStyle(),authorityVO.getId());
+                        if (customizeMenu != null) {
+                            authorityVO.setName(customizeMenu);
+                        }
+                    }
+                }
+                authoritys.remove(topMenu);
+            }
+        }
+
+    }
+
 }

@@ -9,10 +9,13 @@ import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.wantong.admin.business.BaseBookImportBiz;
+import com.wantong.admin.config.PartnerModelConfig;
 import com.wantong.admin.constants.Constants;
 import com.wantong.admin.domain.vo.BookInfoModelVO;
 import com.wantong.admin.session.AdminSession;
 import com.wantong.admin.view.BaseController;
+import com.wantong.common.cms.CmsConfig;
+import com.wantong.common.cms.CmsConfig.Origin;
 import com.wantong.common.exception.ServiceException;
 import com.wantong.common.model.PageResult;
 import com.wantong.common.model.Pagination;
@@ -53,6 +56,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -139,19 +143,57 @@ public class BookBaseInfoController extends BaseController {
     @Reference
     private IBookPlatformInfoService bookPlatformInfoService;
 
+    @Autowired
+    private PartnerModelConfig partnerModelConfig;
+
+    @Autowired
+    private CmsConfig cmsConfig;
+
     private static final Logger logger = LoggerFactory.getLogger(BookBaseInfoController.class);
 
     @RequestMapping("bookListFrame.do")
     public String bookListFrame(Model model) {
 
         AdminSession session = getAdminSession();
-        long partnerId = session.getPartnerId();
-
+        Long partnerId = session.getPartnerId();
         Pagination pagination = new Pagination();
         pagination.setCurrentPage(1);
         pagination.setPageSize(1000);
         List<ModelPO> dto = modelService.listLibraries();
-        model.addAttribute("models", dto);
+        List<ModelPO> result = new ArrayList<>();
+        //过滤此合作商允许使用的图像库id
+        if (session.getModelIds() != null && session.getModelIds().size() != 0) {
+            result = dto.stream().filter(p -> session.getModelIds().contains(p.getId()))
+                    .collect(Collectors.toList());
+        } else {
+            result = dto;
+        }
+
+        //添加来源选项
+        List<Origin> origins = new ArrayList<>();
+        Map<Integer, Origin> commonOrigin = cmsConfig.getOrigin().getCommonOrigin();
+        Map<Integer, Origin> custom = cmsConfig.getOrigin().getCustom();
+        boolean isShowOrigin = false;
+        if (partnerId.equals(1L)) {
+            Origin origin = new Origin();
+            origin.setOrigin(-1);
+            origin.setName("全部书本图片");
+            origins.add(origin);
+            origins.addAll(commonOrigin.values());
+            origins.addAll(custom.values());
+            isShowOrigin = true;
+        } else {
+            Origin o = custom.get(partnerId.intValue());
+            if (o == null) {
+                origins.addAll(commonOrigin.values());
+            } else {
+                origins.add(o);
+            }
+        }
+
+        model.addAttribute("origin", origins);
+        model.addAttribute("isShowOrigin", isShowOrigin);
+        model.addAttribute("models", result);
         model.addAttribute("adminemail", session.getEmail());
         return "base/listBook";
     }
@@ -162,6 +204,8 @@ public class BookBaseInfoController extends BaseController {
             @RequestParam(value = "pageSize", required = false, defaultValue = "16") int pageSize,
             @RequestParam(value = "origin", required = false, defaultValue = "-1") Integer origin)
             throws ServiceException {
+        AdminSession adminSession = getAdminSession();
+        Long partnerId = adminSession.getPartnerId();
         Pagination pagination = new Pagination();
         pagination.setCurrentPage(currentPage);
         pagination.setPageSize(pageSize);
@@ -175,12 +219,27 @@ public class BookBaseInfoController extends BaseController {
         }
 
         Integer[] originValue = null;
+        Origin o = cmsConfig.getOrigin().getCustom().get(partnerId.intValue());
         if (origin == 0) {
-            originValue = new Integer[]{0};
+            if (partnerId.equals(1L)) {
+                originValue = new Integer[]{0};
+            } else {
+                if (o != null) {
+                    originValue = new Integer[]{o.getOrigin()};
+                } else {
+                    originValue = new Integer[]{0};
+                }
+            }
         } else if (origin == 2) {
             originValue = new Integer[]{1, 2};
+        } else if (origin == -1) {
+            if (o != null) {
+                originValue = new Integer[]{o.getOrigin()};
+            }
         }
 
+        log.info("listBaseBook.modelId:{},statusIntArray:{},pagination:{},originValue:{}", modelId, statusIntArray,
+                pagination, originValue);
         BookListDTO dto = searchService.listBaseBook(modelId, statusIntArray, pagination,
                 BookQuery.builder().bookId("").bookNumber("")
                         .bookName("").dubble("")
@@ -196,6 +255,7 @@ public class BookBaseInfoController extends BaseController {
         model.addAttribute("books", dto.getListBook());
         model.addAttribute("currentTabBookCount", dto.getCurrentTabCount());
         model.addAttribute("modelBookCount", dto.getRepoBookCount());
+        model.addAttribute("partnerId", partnerId);
         return "base/listBook_list";
     }
 
@@ -308,6 +368,7 @@ public class BookBaseInfoController extends BaseController {
         bookBaseInfoPO.setSeriesTitle(seriesTitle);
         bookBaseInfoPO.setInnerId(innerId);
         bookBaseInfoPO.setEdition(edition);
+
         List<IsbnVO> isbns = JSONObject.parseObject(isbnsStr, new TypeReference<List<IsbnVO>>() {
         });
 
@@ -320,6 +381,15 @@ public class BookBaseInfoController extends BaseController {
             isbnInfoService.updateBaseBook(bookBaseInfoDTO);
             data.put("bookId", String.valueOf(bookId));
         } else {
+            //根据创建合作商获取书本来源
+            Integer origin = 0;
+            Long partnerId = adminSession.getPartnerId();
+            Origin o = cmsConfig.getOrigin().getCustom().get(partnerId.intValue());
+            if (o != null) {
+                origin = o.getOrigin();
+            }
+
+            bookBaseInfoPO.setOrigin(origin);
             bookBaseInfoPO.setState(BookState.MAKING.state());
             long id = isbnInfoService.createBaseBook(bookBaseInfoDTO);
             data.put("bookId", String.valueOf(id));
@@ -574,6 +644,8 @@ public class BookBaseInfoController extends BaseController {
             throws ServiceException {
 
         Map<String, Object> data = new HashMap<>();
+        AdminSession session = getAdminSession();
+        Long partnerId = session.getPartnerId();
 
         Pagination pagination = new Pagination();
         pagination.setCurrentPage(currentPage);
@@ -589,6 +661,7 @@ public class BookBaseInfoController extends BaseController {
         modelAndView.addObject("pageSize", pagination.getPageSize());
         modelAndView.addObject("currentTabBookCount", dto.getCurrentTabCount());
         modelAndView.addObject("modelBookCount", dto.getRepoBookCount());
+        modelAndView.addObject("partnerId", partnerId);
 
         if (isSearchAll) {
             modelAndView.addObject("isSearchAll", "1");
@@ -698,7 +771,7 @@ public class BookBaseInfoController extends BaseController {
         }
 
         AdminSession session = getAdminSession();
-        long partnerId = session.getPartnerId();
+        Long partnerId = session.getPartnerId();
         bookName = bookName.trim();
         isbn = isbn.trim();
         press = press.trim();
@@ -743,14 +816,19 @@ public class BookBaseInfoController extends BaseController {
         }
 
         Integer[] originValue = null;
-        if (origin == 0) {
-            originValue = new Integer[]{0};
-        } else if (origin == 2) {
-            originValue = new Integer[]{1, 2};
+        if (partnerId.equals(1L)) {
+            originValue = origin == -1 ? null : new Integer[]{origin};
+        } else {
+            Origin o = cmsConfig.getOrigin().getCustom().get(partnerId.intValue());
+            originValue = o == null ? null : new Integer[]{o.getOrigin()};
         }
+
         if (labelIdArray != null) {
             label = "";
         }
+
+        log.info("listBaseBook.modelId:{},statusIntArray:{},pagination:{},originValue:{}", modelId, statusIntArray,
+                pagination, originValue);
         BookListDTO dto = searchService.listBaseBook(modelId, statusIntArray, pagination,
                 BookQuery.builder().bookId(bookIdString).bookNumber(bookNumberString)
                         .bookName(bookName).dubble(dubble)

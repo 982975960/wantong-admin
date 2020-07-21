@@ -5,21 +5,25 @@
   <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8"/>
   <title>登录 - 玩瞳慧读云控制台</title>
   <@script src="/js/layui/layui.all.js"/>
-  <link rel="stylesheet" href="/static/css/system/login.css" type="text/css"/>
+  <@link href="/css/system/login.css" rel="stylesheet" />
+  <@link href="/css/branding-${Session.subDomainStyle.style!'original'}.css" rel="stylesheet" />
 </head>
-<body style="background:#b1b2b3;">
+<body class="branding-copybgck">
+ <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}">
 <div class="top">
   <div class="top_color"></div>
   <div class="top_logo">
     <div class="box">
-      <div class="logo"><img src="/static/images/login/log.png"/></div>
+      <div class="logo"><img src="<@staticPath/>/images/login/log.png"/></div>
       <div class="logo_right">
       </div>
     </div>
   </div>
 </div>
-<div class="banner">
+</@checkDefaultTheme>
+<div class="banner branding-banner">
   <div class="box">
+   <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}">
     <div class="banner_left">
       <h2>AI慧读平台</h2>
       <h3>提供8岁以下的机器人辅助儿童阅读功能</h3>
@@ -27,28 +31,28 @@
       <span class="c_font">并且以高度的开放性支持客户快速定制</span>
       <span class="c_font">个性化的开发属于自己的“AI阅读机器人”</span>
     </div>
-    <div class="banner_right">
-      <h1>VisionTalk 管理系统</h1>
+   </@checkDefaultTheme>
+    <div class="banner_right branding-banner_right">
+      <h1 class="branding-logintextcolor branding-loginline"><img src="<@staticPath/>/images/log.png" width="70" height="32" align="absmiddle" style="margin-right:10px; margin-bottom:10px;" />VisionTalk 管理系统</h1>
       <div class="login_box">
         <form action="" method="get">
-          <div class="login_text">
+          <div class="login_text branding-login_text">
             <input class="login_text_input" aria-label="请输入用户账号" placeholder="请输入用户账号" type="text" id="email"/>
           </div>
-          <div class="login_text02">
-
-            <input class="login_text_input" aria-label="请输入密码" placeholder="请输入密码" type="password" id="password"/>
+          <div class="login_text02 branding-login_text02">
+            <input  class="login_text_input" aria-label="请输入密码" placeholder="请输入密码" type="password" id="password"/>
           </div>
-          <input name="登录" class="login_but" id="signinButton" value="登录" type="button"/>
+          <input name="登录" class="login_but branding-login_but" id="signinButton" value="登录" type="button"/>
           <span class="login_left" id="prompt"></span>
-          <div class="login_right"><a id="forgetpassword" style="cursor: pointer;">忘记密码？</a></div>
+          <div class="login_right branding-login-tetxtcolor"><a id="forgetpassword" style="cursor: pointer;">忘记密码？</a></div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<div class="copy">
+<div class="copy branding-copybgck">
   <div class="box">
-    <span>地址：深圳福田保税区英达利数码科技园C栋302E/F   联系电话：0755-26919530/13570860239   邮箱：bd@51wanxue.com<br/>深圳市玩瞳科技有限公司 © 2018     粤ICP备1505863</span>
+    <span class="branding-copytextcolor">地址：深圳福田保税区英达利数码科技园C栋302E/F   联系电话：0755-26919530/13570860239   邮箱：bd@51wanxue.com<br/>深圳市玩瞳科技有限公司 © 2018     粤ICP备1505863</span>
   </div>
 </div>
 

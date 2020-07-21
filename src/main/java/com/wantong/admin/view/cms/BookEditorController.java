@@ -20,6 +20,7 @@ import com.wantong.admin.session.AdminSession;
 import com.wantong.admin.view.BaseController;
 import com.wantong.admin.view.common.UploadController;
 import com.wantong.common.cms.CmsConfig;
+import com.wantong.common.cms.CmsConfig.Origin;
 import com.wantong.common.exception.ServiceException;
 import com.wantong.common.model.Pagination;
 import com.wantong.common.redis.RedisDao;
@@ -252,8 +253,11 @@ public class BookEditorController extends BaseController {
     @RequestMapping("listBooks.do")
     public String listBook(Integer modelId, Long module, int currentPage, boolean isRef, String status, String content,
             int forbidden, Model model,
-            String beginTime, String endTime,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "16") int pageSize)
+            @RequestParam(value = "beginTime", required = false, defaultValue = "") String beginTime,
+            @RequestParam(value = "endTime", required = false, defaultValue = "") String endTime,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "16") int pageSize,
+            @RequestParam(value = "isShowWanTongState", required = false, defaultValue = "true") boolean isShowWanTongState,
+            @RequestParam(value = "isNbe", required = false, defaultValue = "false") boolean isNbe)
             throws ServiceException {
 
         Integer forb = null;
@@ -315,6 +319,19 @@ public class BookEditorController extends BaseController {
         if (searchContent.getLabelIds() != null) {
             searchContent.setLabelName("");
         }
+
+        Integer[] searchOrigin = null;
+        //处理origin图像库
+        Origin origin = cmsConfig.getOrigin().getCustom().get((int) partnerId);
+        Set<Integer> integers = new HashSet<>();
+        integers.addAll(cmsConfig.getOrigin().getCommonOrigin().keySet());
+        if (origin != null) {
+            integers.add(origin.getOrigin());
+        }
+
+        searchOrigin = integers.toArray(new Integer[0]);
+
+        searchContent.setOrigin(searchOrigin);
 //        格式搜索内容
         searchContent.getBookId().trim();
         searchContent.getBookName().trim();
@@ -384,6 +401,8 @@ public class BookEditorController extends BaseController {
         model.addAttribute("modu", modu);
         model.addAttribute("cmsRepoId", repoIds);
         model.addAttribute("isPublish", isPublish);
+        model.addAttribute("isShowWanTongState", isShowWanTongState);
+        model.addAttribute("isNbe", isNbe);
         return "cms/listResourceBook_list";
     }
 
@@ -545,6 +564,8 @@ public class BookEditorController extends BaseController {
         model.addAttribute("books", books);
         model.addAttribute("modu", -1);
         model.addAttribute("ref", false);
+        model.addAttribute("isShowWanTongState",true);
+
         return "cms/listResourceBook_list";
     }
 
@@ -605,13 +626,20 @@ public class BookEditorController extends BaseController {
     @RequestMapping("showAddBookPage.do")
     public String showAddBookPage(long modelId, long baseModelId, long bookId, long baseBookId, Model model,
             boolean examine,
-            int moduleValue, int bookState, long bookInfoState) throws ServiceException {
+            int moduleValue, int bookState, long bookInfoState,
+            @RequestParam(value = "entryType",required = false,defaultValue = "0") Integer entryType) throws ServiceException {
         BookBaseInfoPO bookBaseInfoPO = bookBaseInfoService.loadBookBaseInfo((int) baseBookId);
+        AdminSession adminSession = getAdminSession();
+        if(adminSession == null){
+            throw new ServiceException(ServiceError.creatFail("未登陆"));
+        }
+        //entryType 入口来源 0 图书管理资源制作 、1 AI课程制作 图书制作
         model.addAttribute("modelId", modelId).addAttribute("bookId", bookId)
                 .addAttribute("examine", examine).addAttribute("moduleValue", moduleValue)
                 .addAttribute("bookState", bookState).addAttribute("baseBookId", baseBookId)
                 .addAttribute("baseModelId", baseModelId).addAttribute("bookInfoState", bookInfoState)
-                .addAttribute("bookName", bookBaseInfoPO.getName()).addAttribute("origin", bookBaseInfoPO.getOrigin());
+                .addAttribute("bookName", bookBaseInfoPO.getName()).addAttribute("origin", bookBaseInfoPO.getOrigin())
+                .addAttribute("entryType",entryType).addAttribute("partnerId",adminSession.getPartnerId());
         return "cms/addBook";
     }
 

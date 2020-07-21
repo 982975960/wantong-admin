@@ -327,8 +327,8 @@ wantong.addCardPageInfo = (function () {
             success: function () {
               wantong.cardFingerBook.init({
                 groupId: _conf.groupId,
-                image: _conf.currentPanelData.sampleImageName,
-                imageId: _conf.currentPanelData.imageId,
+                image: _conf.sampleImage,
+                imageId: _conf.sampleImageId,
                 position: position
               });
             },
@@ -626,13 +626,10 @@ wantong.addCardPageInfo = (function () {
       return false;
     }
 
-    // if (scanImage == undefined || scanImage == "") {
-    //   layer.msg("请上传扫描图");
-    //   _managerBtnClickState.isClickSavePageBtn = false;
-    //   return false;
-    // }
-    if(scanImage == undefined || scanImage == ""){
-         scanImage = null;
+    if (scanImage == undefined || scanImage == "") {
+      layer.msg("请上传扫描图");
+      _managerBtnClickState.isClickSavePageBtn = false;
+      return false;
     }
 
     if (voiceData == "1") {

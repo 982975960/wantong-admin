@@ -23,24 +23,26 @@
            class="button" onmouseover="this.style.backgroundColor='#D3D3D3'" onMouseOut="this.style.backgroundColor='white'"  style="display:
           /*检测有没有上传图片的权限*/
       <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none;">inline;</@checkPrivilege>
-          <#if (module == 10)>visibility: hidden;</#if><#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">
+          <#if (module == 10)>visibility: hidden;</#if><#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">
         &nbsp;
         <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
         <span> &nbsp;&nbsp;添加新书页</span>
       </div>
       <#--判断书本在书本信息待采样模块-->
       <#if (bookState == 1)>
-       <div id="batchImageItem" style="float: left;margin-bottom: 5px;margin-left: 5px;<#if (module == 10)>visibility: hidden;</#if>">
-         <div id="batchUploadImageBtn" class="button" onmouseover="this.style.backgroundColor='#D3D3D3'"
-              onMouseOut="this.style.backgroundColor='white'"
-              style="display: inline-block;margin-left: 16px;float: left;cursor: pointer">
-           <span class="batch-btn" style="background: #42bcef;padding: 8px 10px;color: #ffffff; float: left;cursor: pointer;text-align: center;width: 125px;" >批量上传书页</span>
-         </div>
+        <@checkPrivilege url="/base/savePagesData.do">
+         <div id="batchImageItem" style="float: left;margin-bottom: 5px;margin-left: 5px;<#if (module == 10)>visibility: hidden;</#if>">
+           <div id="batchUploadImageBtn" class="button" onmouseover="this.style.backgroundColor='#D3D3D3'"
+                onMouseOut="this.style.backgroundColor='white'"
+                style="display: inline-block;margin-left: 16px;float: left;cursor: pointer">
+             <span class="batch-btn" style="background: #42bcef;padding: 8px 10px;color: #ffffff; float: left;cursor: pointer;text-align: center;width: 125px;" >批量上传书页</span>
+           </div>
 
-         <div id="helpUploadImageBtn" class="button" style="margin-top: 5px;margin-left: 11px;float: left;cursor: pointer">
+           <div id="helpUploadImageBtn" class="button" style="margin-top: 5px;margin-left: 11px;float: left;cursor: pointer">
            <img src="/static/images/help.png" style="width: 20px;">
          </div>
-       </div>
+         </div>
+        </@checkPrivilege>
       </#if>
 
       <div id="pageListContainer" class="page-list-container" style="height: 89%">
@@ -60,7 +62,7 @@
             <#--检测有没有删除书页的权限-->
               <@checkPrivilege url="/base/deletePage.do">
                 <span id="deleteBtn" class="deleteBtn"
-                      aria-hidden="true" style="<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>"><img src="/static/images/deleteBtn.png"></span>
+                      aria-hidden="true" style="<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>"><img src="/static/images/deleteBtn.png"></span>
               </@checkPrivilege>
             </div>
           </div>
@@ -103,7 +105,7 @@
                     "true"
                     </@checkPrivilege>
                     style="width: 100px" name="pageType" id="pageType"
-            <#if ((originValue != 0)&&(bookInfoState == 3))>disabled="disabled"</#if> >
+            <#if ((originValue == 2)&&(bookInfoState == 3))>disabled="disabled"</#if> >
               <option value="0">请选择</option>
               <option value="1">封面</option>
               <option value="2">封里</option>
@@ -122,7 +124,7 @@
             <@checkPrivilege url="/virtual/pageEditor/uploadPage.do" def="'false' disabled= 'disabled'">"true"</@checkPrivilege>
                    style="width:50px" type="text" class="form-control"
                    onkeyup="wantong.base.pageAdd.pageLimit(this)"
-                    <#if ((originValue != 0)&&(bookInfoState == 3))>disabled="disabled"</#if>>
+                    <#if ((originValue == 2)&&(bookInfoState == 3))>disabled="disabled"</#if>>
             <input type="text" style="display:none"/>
             <label for="pagination">页</label>
           </div>
@@ -145,7 +147,7 @@
             <@checkPrivilege url="/virtual/pageEditor/uploadPage.do" def="'false' disabled= 'disabled'">
             "true"
                 </@checkPrivilege>onkeyup="wantong.base.pageAdd.pageLimit(this)"
-                    <#if ((originValue != 0)&&(bookInfoState == 3))>disabled="disabled"</#if>>
+                    <#if ((originValue == 2)&&(bookInfoState == 3))>disabled="disabled"</#if>>
               <option value="0">无</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -166,7 +168,7 @@
             <@checkPrivilege url="/virtual/pageEditor/uploadPage.do" def="'false' disabled= 'disabled'">"true"</@checkPrivilege>
                    style="width:50px" type="text" class="form-control"
                    onkeyup="wantong.base.pageAdd.pageLimit(this)"
-                    <#if ((originValue != 0)&&(bookInfoState == 3))>disabled="disabled"</#if>>
+                    <#if ((originValue == 2)&&(bookInfoState == 3))>disabled="disabled"</#if>>
             <input type="text" style="display:none"/>
             <label for="phyPage">页</label>
           </div>
@@ -201,12 +203,12 @@
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>;
                  margin-left: <@checkPrivilege url = "/base/fingerBook.do" def="60px">60px</@checkPrivilege>;
-                 <#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 <#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
 
           <@checkPrivilege url = "/base/fingerBook.do">
         <div>
-          <button id="fingerBtn" class="frame-Button-b" style="display: none;<#if (module == 10)>visibility: hidden;</#if><#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">标定书本</button>
+          <button id="fingerBtn" class="frame-Button-b" style="display: none;<#if (module == 10)>visibility: hidden;</#if><#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">标定书本</button>
         </div>
           </@checkPrivilege>
       </div>
@@ -229,7 +231,7 @@
         <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="false">true</@checkPrivilege>
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>
-                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
       </div>
 
@@ -252,7 +254,7 @@
         <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="false">true</@checkPrivilege>
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>
-                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
       </div>
 
@@ -274,7 +276,7 @@
         <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="false">true</@checkPrivilege>
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>
-                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
       </div>
 
@@ -297,7 +299,7 @@
         <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="false">true</@checkPrivilege>
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>
-                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
       </div>
 
@@ -320,7 +322,7 @@
         <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="false">true</@checkPrivilege>
              style="display:
              <@checkPrivilege url = "/virtual/pageEditor/uploadPage.do" def="none">inline-block</@checkPrivilege>
-                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue != 0)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
+                 ;<#if (module == 10)>visibility: hidden;</#if> <#if ((originValue == 2)&&(bookInfoState == 3))>visibility: hidden;</#if>">上传图片
         </div>
       </div>
 

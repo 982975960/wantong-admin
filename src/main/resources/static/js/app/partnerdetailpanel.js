@@ -17,8 +17,6 @@ wantong.partnerDetailPanel = (function () {
             GlobalVar.contextPath + "/app/checkAppNameExists.do",
         VIEW_AUTHORIZATION_RECORD_URL =
             GlobalVar.contextPath + "/app/viewAuthrizationCodeRecord.do",
-        UPLOAD_EXCEL_URL =
-            GlobalVar.contextPath + "/app/leadingInDeviceID.do",
         SWITCH_PARTNER_URL =
             GlobalVar.contextPath + "/app/listpartners.do",
         GET_APP_PARAM_URL =
@@ -36,16 +34,17 @@ wantong.partnerDetailPanel = (function () {
         GET_UPDATE_APP_INFO = "/app/getUpdateAppInfo.do",
         LOOK_RELATION_REPO = "/app/lookRelationRepo.do",
         APP_REPO_COUNT = "/app/appRepoCount.do",
+        SHOW_BIND_DEVICEID_URL = "/app/showBindDeviceId.do",
+        SHOW_LOGIN_EXCEPTION = "/app/showDeviceIdLoginException.do",
+        SHOW_LEAD_DEVICE = "/app/showLeadDevice.do",
         _root = null,
         _createNewAppDialog = null,
         _uploadAPKDialog = null,
         _uploadResourceDialog = null,
         _modifyLicenseAmountDialog = null,
-        _leadingDeviceIdDialog = null,
         _saveBtn = null,
         _uploadInitialized = false,
         _uploadResourceInitialized = false,
-        _uploadExcelInitialized = false,
         _uploader = null,
         _uploaderImage = null,
         _waitAplSaveIndex = 0,
@@ -83,6 +82,7 @@ wantong.partnerDetailPanel = (function () {
             _lisenterAppType();
             _initTabToggle();
             _initDownloadAuthorizationQRCode();
+            _initBindDeviceIdList();
             _initShowDownloadAPKQRCode();
             _initOperatingConfigEvent();
             _initLeadingDeviceId();
@@ -102,22 +102,53 @@ wantong.partnerDetailPanel = (function () {
         _initPointReadToggle = function() {
             var normal = _root.find('#pointReadNormal');
             var high =  _root.find('#pointReadHigh');
+            var ocrSupport = _root.find("#ocrSupport");
+            var onlineDiv = _root.find("#onlineDiv");
             console.log('?????');
             normal.off('click').on('click', function() {
                 //click 先checked事件触发
-                if (normal.attr('checked') != 'checked') {
+                if (normal.prop('checked')) {
                     high.removeAttr('checked');
+                    ocrSupport.css("display","none");
+                    $("input[name='online'][value='"+50+"']").prop("checked","checked");
+                    $("input[name='online'][value='"+51+"']").removeAttr("checked");
+                } else {
+                    $("input[name='online'][value='"+50+"']").removeAttr("checked");
+                    $("input[name='online'][value='"+51+"']").removeAttr("checked");
                 }
             });
 
             high.off('click').on('click', function() {
-                if (high.attr('checked') != 'checked') {
+                if (high.prop('checked')) {
                     normal.removeAttr('checked');
+                    ocrSupport.css("display","inline-block");
+                    $("input[name='online'][value='"+50+"']").prop("checked","checked");
+                    $("input[name='online'][value='"+51+"']").removeAttr("checked");
+                } else {
+                    ocrSupport.css("display","none");
+                    $("input[name='online'][value='"+50+"']").removeAttr("checked");
+                    $("input[name='online'][value='"+51+"']").removeAttr("checked");
                 }
             });
 
             _root.find('.radio-check').off('click').on('click', function() {
                 $(this).parent().find('input').click();
+            });
+
+            ocrSupport.find(":checkbox").off("click").on("click",function() {
+                ocrSupport.find(":checkbox").removeAttr("checked");
+                $(this).prop("checked","checked");
+            });
+
+            onlineDiv.find(":checkbox").off("click").on("click",function() {
+                if ($("#pointReadNormal").is(':checked')|| $("#pointReadHigh").is(':checked')){
+                    console.log("dddddddd");
+                    onlineDiv.find(":checkbox").removeAttr("checked");
+                    $(this).prop("checked","checked");
+                } else {
+                    onlineDiv.find(":checkbox").removeAttr("checked");
+                }
+
             });
         },
         _initTabToggle = function () {
@@ -288,7 +319,7 @@ wantong.partnerDetailPanel = (function () {
         _selectStrDisplay = function () {
             console.log('choose str');
             var _selectStr = '';
-            var selectDom = _root.find(".mr-selector-wrapper .product-skill:visible :checked");
+            var selectDom = _root.find(".mr-selector-wrapper .product-skill:visible  input[name!='support']:checked");
             if (selectDom.length > 3) {
                 _selectStr = $(selectDom.eq(0)).parent().text() + '、' + $(selectDom.eq(1)).parent().text()
                     + '、' + $(selectDom.eq(2)).parent().text() + '...';
@@ -642,6 +673,17 @@ wantong.partnerDetailPanel = (function () {
                         });
                 });
         },
+        _initBindDeviceIdList= function () {
+            _root.find("#partnersListPanel").delegate(".show-bind-deviceId",
+                "click", function () {
+                    var thisBtn = $(this);
+                    $.post(SHOW_BIND_DEVICEID_URL + "?appId=" + thisBtn.attr(
+                        "appId"), {},
+                        function (data) {
+                            _showDialog("查看导入设备ID", '800px', '600px', data);
+                        });
+                });
+        },
         _initShowDownloadAPKQRCode = function () {
             var _downloadApkQrCode = _root.find("#downloadApkQrCode");
             _root.find("#partnersListPanel").delegate(
@@ -893,18 +935,6 @@ wantong.partnerDetailPanel = (function () {
             _uploadResourceDialog.find("#saveButton").click(function () {
                 _uploadResourceAndSave();
             });
-        },
-        _uploadExcelReset = function () {
-            var _progressBar = _leadingDeviceIdDialog.find("#uploadProgress");
-            var _uploadFileList = _leadingDeviceIdDialog.find("#uploadFileList");
-            _excelUploader.stop(true);
-            _progressBar.hide();
-            _progressBar.find("div:first").css("width", "0");
-            _uploadFileList.html("还没有选择任何xls格式的Excel文件");
-            _leadingDeviceIdDialog.find("#saveButton").removeAttr("disabled").html(
-                "保存");
-            _leadingDeviceIdDialog.find("#uploadFilePicker").css("visibility",
-                "inherit");
         },
         _uploadAPKReset = function () {
             var _progressBar = _uploadAPKDialog.find("#uploadProgress");
@@ -1185,66 +1215,27 @@ wantong.partnerDetailPanel = (function () {
         });
       },
         _initLeadingDeviceId = function () {
-            _leadingDeviceIdDialog = _root.find("#leadingDeviceDialog");
             var appId = 0;
-            var unusedAmount = 0;
-            var partnerId = 0;
             _root.find("#partnersListPanel").delegate(".leadingin-deviceId-button",
                 "click", function () {
                     appId = $(this).attr("appId");
-                    unusedAmount = $(this).attr("unusedAmount");
-                    partnerId = $(this).attr("partnerId");
-                    var _progressBar = _leadingDeviceIdDialog.find("#uploadProgress");
-                    _progressBar.hide();
-                    var model = _leadingDeviceIdDialog.find("#model");
-                    model.val("ImportedModel");
-                    _showDialog("导入设备ID", '600px', '350px', _leadingDeviceIdDialog);
-                    model.focus();
-                    if (!_uploadExcelInitialized) {
-                        _initUploadExcel();
-                        _uploadExcelInitialized = true;
-                    }
+                    $.get(SHOW_LEAD_DEVICE,{appId: appId},
+                        function(data) {
+                            content = data;
+                        }).always(function(){
+                        _showDialog("导入设备ID", '600px', '350px', content);
+                    });
                 });
-            _leadingDeviceIdDialog.find("#saveButton").click(function () {
-                _leadingDeviceIdDialog.find("#saveButton").attr("disabled",
-                    "disabled").html("正在上传");
-                _leadingDeviceIdDialog.find("#uploadFilePicker").css("visibility",
-                    "hidden");
-                _uploadExcelAndSave(appId, unusedAmount, partnerId);
+            _root.find("#partnersListPanel").delegate(".show-bind-deviceId-excepition","click",function () {
+                let appId = $(this).attr("appId");
+                let content = "";
+                $.get(SHOW_LOGIN_EXCEPTION,{appId: parseInt(appId)},
+                    function(data) {
+                    content = data;
+                }).always(function(){
+                    _showDialog("异常设备ID信息", '850px', '720px', content);
+                });
             });
-            _leadingDeviceIdDialog.on('hidden.bs.modal', function () {
-                wantong.frame.showPage(GlobalVar.backPath, GlobalVar.data);
-                _uploadExcelReset();
-                layer.close(_layerIndex);
-            });
-            _leadingDeviceIdDialog.find("#closeButton").click(function () {
-                _uploadExcelReset();
-                layer.close(_layerIndex);
-            });
-
-        },
-        _uploadExcelAndSave = function (appId, unusedAmount, partnerId) {
-            var error = _leadingDeviceIdDialog.find("#error");
-            var model = _leadingDeviceIdDialog.find("#model").val();
-
-            if (_excelFileList == null || _excelFileList.length == 0) {
-                /*error.html("请添加Excel文件");
-                error.show();*/
-                layer.msg("请添加Excel文件");
-                _leadingDeviceIdDialog.find("#saveButton").removeAttr(
-                    "disabled").html(
-                    "保存");
-                _leadingDeviceIdDialog.find("#uploadFilePicker").css("visibility",
-                    "inherit");
-                return;
-            }
-
-            _excelUploader.option("formData", {
-                appId: appId,
-                unusedAmount: unusedAmount,
-                partnerId: partnerId
-            });
-            _excelUploader.upload();
         },
         _uploadAPKAndSave = function (oldversion) {
             var version = _uploadAPKDialog.find("#version").val();
@@ -1480,67 +1471,6 @@ wantong.partnerDetailPanel = (function () {
                 }
             });
         },
-        _initUploadExcel = function () {
-            var _progressBar = _leadingDeviceIdDialog.find("#uploadProgress");
-            var _uploadFileList = _leadingDeviceIdDialog.find("#uploadFileList");
-            _excelUploader = WebUploader.create({
-                swf: GlobalVar.contextPath + '/js／uploader/Uploader.swf',
-                server: UPLOAD_EXCEL_URL,
-                pick: {
-                    id: _leadingDeviceIdDialog.find("#uploadFilePicker"),
-                    multiple: false
-                },
-                fileNumLimit: 2,
-                duplicate: true,
-                accept: {
-                    title: 'Excel',
-                    extensions: 'xls',
-                    mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                }
-            });
-            _excelUploader.on('fileQueued', function (file) {
-                _leadingDeviceIdDialog.find("#error").hide();
-                _excelFileList.push(file.id);
-                if (_excelFileList.length >= 2) {
-                    _excelUploader.removeFile(
-                        _excelUploader.getFile(_excelFileList[_fileIndex]));
-                    _fileIndex++;
-                }
-                _uploadFileList.attr("fileId", file.id);
-                _uploadFileList.html(file.name);
-            });
-            _excelUploader.on('uploadProgress', function (file, percentage) {
-                if (percentage > 0) {
-                    _progressBar.show();
-                }
-                _progressBar.find("div:first").css("width",
-                    parseInt(percentage * 100) + "%");
-                if (parseInt(percentage * 100) >= 100) {
-                    _progressBar.hide();
-                    _leadingDeviceIdDialog.find("#saveButton").attr("disabled",
-                        "disabled").html("上传成功，正在保存！");
-                    _leadingDeviceIdDialog.find("#cancelBtn").css("display", "none");
-                }
-            });
-            _excelUploader.on('uploadSuccess', function (file, response) {
-                if (response.code == 0) {
-                    layer.msg("导入成功");
-                    setTimeout(function () {
-                        layer.close(_layerIndex);
-                    }, 500);
-                } else {
-                    layer.msg(response.msg);
-                    setTimeout(function () {
-                        layer.close(_layerIndex);
-                    }, 500);
-                }
-            });
-            _excelUploader.on("error", function (type) {
-                if (type == "Q_TYPE_DENIED") {
-                    layer.msg("还没有选择任何Excel.xls文件。");
-                }
-            });
-        },
         _saveApp = function () {
             console.log('create app');
             var name = _createNewAppDialog.find("#name").val();
@@ -1557,14 +1487,27 @@ wantong.partnerDetailPanel = (function () {
 
             //技能
             var skills = [];
+            //
+            var ocrSupport = -1;
+            var onLine = -1;
             if (appTypeId == 0) {
                 _createNewAppDialog.find("#bookSkill input:checked").each(function () {
                     skills.push($(this).val());
                 });
-            } else if (appTypeId == 10) {
-                _createNewAppDialog.find("#k12Skill input:checked").each(function () {
+            } else if (appTypeId == 10) { // k12类型
+                _createNewAppDialog.find("#k12Skill input[name!='support'][name!='online']:checked").each(function () {
                     skills.push($(this).val());
                 });
+                if(skills.indexOf("6")!= -1){
+                    ocrSupport = parseInt(_root.find("#ocrSupport input[name='support']:checked").val());
+                }
+
+                if(skills.indexOf("6")!= -1 || skills.indexOf("1")!= -1){
+                    onLine = parseInt(_root.find("#onlineDiv input[name='online']:checked").val());
+                }
+
+                console.log(ocrSupport);
+
             } else if (appTypeId == 11) {
                 _createNewAppDialog.find("#wordSearch input:checked").each(function () {
                     skills.push($(this).val());
@@ -1574,7 +1517,6 @@ wantong.partnerDetailPanel = (function () {
                     skills.push($(this).val());
                 });
             }
-
             var platforms = [];
             _createNewAppDialog.find(".platform-select .select input:checked").each(function () {
                 platforms.push($(this).val());
@@ -1586,6 +1528,12 @@ wantong.partnerDetailPanel = (function () {
             _createNewAppDialog.find(".function-select input:checked").each(function () {
                 functions.push($(this).val());
             });
+
+            var nbeOpen = _createNewAppDialog.find('#nbeOpen').val();
+            if (nbeOpen === '1') {
+                //开启NBE
+                functions.push(1);
+            }
 
             //点读配置
             // var pointingReadDom = _createNewAppDialog.find(".mr-selector-wrapper").find(
@@ -1651,8 +1599,10 @@ wantong.partnerDetailPanel = (function () {
                 disableBothRepoSet();
             }
 
-
-
+            if(skills.indexOf("6") != -1 && ocrSupport == -1){
+                layer.msg("请选择OCR服务提供方");
+                return;
+            }
             var repo = getAllData();
             /*if (appTypeName == "绘本" && repoPri.length == 0) {
               layer.msg("请至少选择一个资源库");
@@ -1699,7 +1649,9 @@ wantong.partnerDetailPanel = (function () {
                 data: repoPri,
                 skills: skills,
                 platforms: platforms,
-                functions: functions
+                functions: functions,
+                ocrSupport: ocrSupport,
+                onLine: onLine
                 // ocr: ocr
             }
 
@@ -1950,9 +1902,30 @@ wantong.partnerDetailPanel = (function () {
             // _createNewAppDialog.find("#platform").val(data.platform);
             console.log('load app');
             //技能
+            if(data.skills.indexOf(6) != -1){
+                _createNewAppDialog.find("#ocrSupport input:checkbox").removeAttr("checked");
+                data.functions.forEach(function (e) {
+                    if(e >= 100){
+                        _createNewAppDialog.find("#ocrSupport input[value='" + e + "']").prop( 'checked', true);
+                    } else if (e >= 50){
+                        _createNewAppDialog.find("#onlineDiv input[value='" + e + "']").prop( 'checked', true);
+                    }
+                });
+                _createNewAppDialog.find("#ocrSupport").css("display","inline-block");
+            }
+
+            if (data.skills.indexOf(1) != -1){
+                data.functions.forEach(function (e) {
+                    if (e >= 50){
+                        _createNewAppDialog.find("#onlineDiv input[value='" + e + "']").prop( 'checked', true);
+                    }
+                });
+            }
+
             data.skills.forEach(function (e) {
-                _createNewAppDialog.find(".product-skill input[value='"+ e +"']").prop(
+                _createNewAppDialog.find(".product-skill input[value='" + e + "']").prop(
                     'checked', true);
+
             });
             _selectStrDisplay();
 
@@ -2072,6 +2045,8 @@ wantong.partnerDetailPanel = (function () {
         initEdition = function (data, createDialog) {
             var typeVal = data.appTypeId;
             console.log('init', typeVal, 'tttttttttttttt');
+            //是否包含NBE
+            $('#nbeOpen').val(data.functions.indexOf(1) === -1 ? 0 : 1);
             if (typeVal == 0 || typeVal == 10 || typeVal == 11 || typeVal == 12) {
                 $("#repoDiv").removeAttr("hidden")
                 $("#platformSelect").removeAttr("hidden");

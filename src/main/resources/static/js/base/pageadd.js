@@ -951,7 +951,7 @@ wantong.base.pageAdd = (function () {
                   _setSaveNextButtonState(false);
                 });
                 //判断有没有添加书页的权限
-                if (_authorityManagement.addPage && _conf.origin == 0) {
+                if (_authorityManagement.addPage && _conf.origin != 2) {
                   layer.confirm('是否继续添加新的一页？',
                     {
                       icon: 3,

@@ -10,7 +10,7 @@
     <div class="col-md-10">
 
       <div id="error" class="alert alert-danger error" role="alert"></div>
-      <form class="form" id="createBookFrom" action="" method="post" style="margin-top:30px;"
+      <form class="form" id="createBookFrom" action="" method="post" style="margin-top:30px;overflow: hidden;"
             enctype="multipart/form-data">
 
         <div class="form-group" style="min-height: 17px;">
@@ -51,8 +51,20 @@
         <div class="form-group">
           <label for="edition">版次：</label>
           <input type="text" id="edition" class="form-control" disabled="disabled">
-          <label for="innerId" class="secondList">书本编号：</label>
-          <input type="text" id="innerId" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]+/,'');" placeholder="书本编号不能大于12位" maxlength="12" disabled="disabled">
+          <#if entryType == 1>
+              <#if partnerId == 1>
+                 <label for="innerId" class="secondList">书本编号：</label>
+                 <input type="text" id="innerId" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]+/,'');" placeholder="书本编号不能大于12位" maxlength="12" disabled="disabled">
+               <#else>
+                  <label for="innerId" class="secondList" style="display: none">书本编号：</label>
+                  <input type="text" id="innerId" style="display: none" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]+/,'');" placeholder="书本编号不能大于12位" maxlength="12" disabled="disabled">
+              </#if>
+          <#else>
+            <label for="innerId" class="secondList">书本编号：</label>
+            <input type="text" id="innerId" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]+/,'');" placeholder="书本编号不能大于12位" maxlength="12" disabled="disabled">
+          </#if>
+<#--          <label for="innerId" class="secondList">书本编号：</label>-->
+<#--          <input type="text" id="innerId" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9]+/,'');" placeholder="书本编号不能大于12位" maxlength="12" disabled="disabled">-->
         </div>
 
         <div class="form-group">
@@ -69,7 +81,7 @@
           <textarea id="description" class="form-control" style="resize: none" disabled="disabled"></textarea>
         </div>
 
-          <div class="form-group">
+          <div class="form-group" id="extraDataDiv">
               <label for="description" style="float: left">Extra Data：</label>
               <textarea
                   <@checkPrivilege url="/virtual/books/editExtraData.do" def = "disabled = 'disabled'">
@@ -78,10 +90,14 @@
               </textarea>
           </div>
 
-        <div class="form-group">
+        <div class="form-group" id="nbeDiv">
           <label for="theme" style="float: left;width: 10%">书本标签：</label>
           <div style="color: #737373;float: left;width: 85%;" id="theme">
 
+          </div>
+          <div class="detail-course-bot" style="height: 100%;display: none;">
+            <!-- <button id="btn_course" type="button" class="layui-btn layui-btn-normal layui-btn-radius">轻课制作</button>-->
+            <iframe  frameborder="0"  scrolling="no" width="100%" style="width: 100%;height: 100%;"></iframe>
           </div>
           <#--判断有没有编辑书页的权限-->
           <div class="show-grid" style="float: right;margin-top: 20px;">
@@ -133,7 +149,8 @@
       examine: "${examine?c}",
       moduleValue: "${moduleValue}",
       bookState:"${bookState}",
-      bookInfoState:"${bookInfoState}"
+      bookInfoState:"${bookInfoState}",
+      entryType: "${entryType}"
       });
   });
 </script>

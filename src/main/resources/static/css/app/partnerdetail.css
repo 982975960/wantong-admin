@@ -232,7 +232,7 @@ div.prioritycicles {
   color: #737373;
 }
 
-#partnerDetailPanel .Button-line:hover {
+.Button-line:hover {
   border:1px solid #18b0e7;
 }
 

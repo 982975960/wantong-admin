@@ -2,6 +2,7 @@
 <@link rel="stylesheet" href="/js/3rd-party/element-ui/2.12.0/lib/theme-chalk/index.css" />
 <@script src="/js/3rd-party/element-ui/2.12.0/lib/index.js" />
 <#--<@script src="/js/cms/booklist.js"></@script>-->
+<@script src="/js/cms/cmsInit.js"/>
 <@script src="/js/cms/booklist_resource.js"/>
 <#--<@script src = "/js/cms/booklist_search.js"></@script>-->
 <@link href="/css/cms/picturebook.css" rel="stylesheet"/>
@@ -109,7 +110,12 @@
               <#--领书模块的提示-->
               <div class="ref-module-hint">
                 <a href="#" style="width: 20px;float: left">
-                  <img src="/static/images/hint-ico.png"></img>
+                    <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}" match="TRUE">
+                      <img src="<@staticPath/>/images/${Session.subDomainStyle.style!'original'}/hint-ico.jpg" style="width: 20px">
+                    </@checkDefaultTheme>
+                    <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}" match="FALSE">
+                      <img src="<@staticPath/>/images/hint-ico.jpg" style="width: 20px">
+                    </@checkDefaultTheme>
                 </a>
                 <div class="hint-content" style="float: left;width: 90%;">
                   <label class="text" style="font-weight: normal;line-height: 19px">请先在上方搜索您想要制作资源的书本，领取书本。<br/> 领取后，在“资源待编辑”菜单下，可对书本进行资源制作。</label>

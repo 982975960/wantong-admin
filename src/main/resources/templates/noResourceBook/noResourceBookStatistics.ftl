@@ -42,7 +42,7 @@
                                 <thead>
                                 <tr class="text-block-head">
                                     <td>
-                                        <el-checkbox  v-model="checkAll" @change="handleCheckAllChange"></el-checkbox>
+                                        <el-checkbox  v-if="body.length > 0" v-model="checkAll" @change="handleCheckAllChange"></el-checkbox>
                                     </td>
                                     <td v-for="(a,index) in head" :width="a.width + '%'" :align="a.align"
                                         :valign="a.valign" :nowrap="a.nowrap" :bgcolor="a.bgcolor" :style="a.style">

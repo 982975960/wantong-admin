@@ -1,0 +1,19 @@
+@charset "utf-8";
+body,ul{margin:0;padding:0}
+li{list-style:none}
+a{text-decoration:none}
+.main-w-nav .nav{width:160px;height:100%;transition:all .3s; float:left; font-size:14px;}
+.main-w-nav .nav a{display:block;overflow:hidden;padding-left:20px;line-height:46px;max-height:46px;transition:all .3s}
+.main-w-nav .nav a span{margin-left:30px}
+.main-w-nav .nav .nav-item{position:relative}
+.main-w-nav .nav .nav-item.nav-show{border-bottom:none}
+.main-w-nav .nav .nav-item ul{display:none;}
+.main-w-nav .nav .nav-item.nav-show ul{display:block}
+.main-w-nav .nav .nav-item>a:before{content:"";position:absolute;left:0;width:2px;height:46px;opacity:0;transition:all .3s}
+.main-w-nav .nav .nav-icon{font-size:20px;position:absolute;margin-left:-1px}
+.main-w-nav .nav .nav-icon img{ margin-top:15px;}
+.main-w-nav .nav .nav-more{float:right;margin-right:15px;font-size:14px;transition:transform .3s}
+.main-w-nav .nav .nav-more::after{content:"\e621"}
+.main-w-nav .nav .nav-show .nav-more{transform:rotate(90deg)}
+.main-w-nav .nav .nav-show>a:before,.nav-item>a:hover:before{opacity:1}
+.main-w-nav .nav .nav-margin a{ line-height:43px; }

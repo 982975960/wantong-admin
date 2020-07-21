@@ -46,7 +46,7 @@
 
     <!-- （可选）局部日志输出等级。过滤器，可以指定哪些包，哪个记录等级 -->
     <!-- 运用的场景比如，你只需要com.demo.controller包下的error日志输出。定义好name="com.demo.controller" level="ERROR" 就行了 -->
-    <!--<logger name="com.wantong.admin.api" level="DEBUG">
+    <!--<logger name="com.wantong.admin.nbe" level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING_FILE"/>
     </logger>-->

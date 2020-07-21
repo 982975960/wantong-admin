@@ -16,7 +16,6 @@
                 <option value="${model.id}"><label class="define-option">${model.name}</label></option>
               </#list>
           </select>
-          <div style="font-size: 10px;color: darkgrey;width: 100%;float: left;line-height: 16px;">制作商用图片请选择绘本图像库</br>制作测试图片请选择测试图像库</div>
         </form>
       </div>
       <div class="con-nav-cen">
@@ -113,11 +112,12 @@
                     <button type="button" id="importExcelBtn" class="frame-Button-b Button-left" style="margin-left: 10px">批量创建书本信息</button>
                   </@checkPrivilege>
               </div>
-              <div id="bookOriginDiv" style="display: none;float: left;width: 100%;padding-right: 20px;border: 0;font-size: 14px;">
+              <div id="bookOriginDiv" style="display: none;float: left;width: 100%;padding-right: 20px;border: 0;font-size: 14px;
+                  <#if !isShowOrigin>visibility: hidden;</#if>">
                 <select id="bookOriginSelect">
-                  <option value="-1">全部书本图片</option>
-                  <option value="0">玩瞳书本图片</option>
-                  <option value="2">NY书本图片</option>
+                    <#list origin as o>
+                      <option value="${o.origin}"><label class="define-option">${o.name}</label></option>
+                    </#list>
                 </select>
               </div>
             </div>

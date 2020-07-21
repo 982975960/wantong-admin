@@ -1,22 +1,35 @@
 package com.wantong.admin.view.app;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSONObject;
 import com.wantong.common.device.DeviceConfig;
 import com.wantong.common.exception.ServiceException;
+import com.wantong.common.model.Pagination;
 import com.wantong.common.response.ApiResponse;
 import com.wantong.common.response.ResponseCode.Base;
+import com.wantong.common.response.ServiceError;
+import com.wantong.config.domain.dto.app.DeviceLoginExceptionAndPaginationDTO;
 import com.wantong.config.domain.dto.app.ListDevicesDTO;
 import com.wantong.config.domain.po.app.DevicePO;
 import com.wantong.config.domain.po.app.DeviceParamPO;
 import com.wantong.config.domain.vo.BaseQuery;
 import com.wantong.config.domain.vo.api.CreateDeviceParamVO;
+import com.wantong.config.domain.vo.app.DeviceLoginExceptionVO;
+import com.wantong.config.service.app.IDeviceLoginExceptionRecordService;
 import com.wantong.config.service.app.IDeviceRelatedService;
+import com.wantong.content.domain.vo.WorkOrderBookSearchVO;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @date :  2018-11-13 10:32
  **/
 @Controller
+@Slf4j
 public class DeviceController {
 
     @Reference
@@ -169,5 +183,6 @@ public class DeviceController {
 
         return ApiResponse.creatSuccess(data);
     }
+
 }
 

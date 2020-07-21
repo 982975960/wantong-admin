@@ -22,7 +22,7 @@
         </div>
         <div class="ref-book-btn" style="float: left;margin-left: 20px">
           <@checkPrivilege url="/cms/pickUpBooks.do">
-            <button type="button" id="refBookBtn" class="btn btn-info" style="background-color:#3dbeed;border-radius:0;padding:4px 12px; border:none;margin-top:2px;width: 70px">领书</button>
+            <button type="button" id="refBookBtn" class="btn btn-info frame-Button-b" style="border-radius:0;padding:4px 12px; border:none;margin-top:2px;width: 70px">领书</button>
           </@checkPrivilege >
         </div>
       </div>
@@ -61,6 +61,7 @@
                      </div>
                    </#if>
                      <#--书本领书查看玩瞳27库下书本有没有资源                     -->
+                     <#if isShowWanTongState>
                      <@checkPrivilege url="/virtual/pickupTips.do">
                          <#list books[index].source.resources as resources>
                            <#if resources.repo_id == 27>
@@ -99,6 +100,7 @@
                            </#if>
                          </#list>
                      </@checkPrivilege>
+                     </#if>
                  </dt>
                   <dd>
                      <h3>${books[index].source.name!}</h3>
@@ -137,7 +139,7 @@
                         <div class="ref-label" style="position: absolute;left: 1px;top: 4px; margin: 0;">
                            <span class="label label-default">图片维护中</span>
                         </div>
-                    <#elseif books[index].source.recordState>
+                    <#elseif books[index].source.recordState && !isNbe>
                       <@checkPrivilege url="/cms/listRecordBooks.do" >
                          <div class="ref-label" style="position: absolute;left: 0px;top: 0px; margin: 0;">
                            <span class="label label-default" style="float: left;width: 100%">请到图片更新记录中编辑</span>
@@ -180,7 +182,7 @@
                              <#assign haveRecordUrl = true>
                            </@checkPrivilege>
                            <div hidden>${haveRecordUrl?string} + ${books[index].source.recordState?string}</div>
-                              <#if haveRecordUrl>
+                              <#if haveRecordUrl && !isNbe>
                                 <#if !books[index].source.recordState>
                                   <#if (books[index].source.state==0)||(books[index].source.state==3)||(books[index].source.state==11)>
                                     <span id="editBtn" bookId="${books[index].source.id!}" bookState="${books[index].source.state!}" forbidden="${books[index].source.forbidden}" baseModelId = "${books[index].source.model_id}" baseBookId="${books[index].source.base_id}" class="glyphicon"

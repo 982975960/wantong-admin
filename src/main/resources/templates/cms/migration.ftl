@@ -21,8 +21,8 @@
         </div>
         <div  class="con-nav-cen">
             <ul>
-                <li @click="tag = 'submit', switchTag(), switchSourcePartner()"><a :style="tag == 'submit'?'color: #3dbceb;background-color: #f6f7fb;':''" href="#">资源迁移</a></li>
-                <li @click="tag = 'schedule', switchTag()"><a :style="tag == 'schedule'||tag == 'detail' ?'color: #3dbceb;background-color: #f6f7fb;':''" href="#">任务列表</a></li>
+                <li @click="tag = 'submit', switchTag(), switchSourcePartner()"><a :class="{'nav-active': tag == 'submit'}" :style="tag == 'submit'?'color: #3dbceb;background-color: #f6f7fb;':''" href="#">资源迁移</a></li>
+                <li @click="tag = 'schedule', switchTag()"><a :class="{'nav-active': tag == 'schedule'}" :style="tag == 'schedule'||tag == 'detail' ?'color: #3dbceb;background-color: #f6f7fb;':''" href="#">任务列表</a></li>
             </ul>
         </div>
     </div>

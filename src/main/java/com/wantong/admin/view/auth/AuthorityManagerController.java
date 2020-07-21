@@ -18,7 +18,7 @@ import com.wantong.config.service.auth.AuthorityRelatedService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @date 2018-08-25
  */
 @Controller
-@Log4j
+@Slf4j
 public class AuthorityManagerController extends BaseController {
 
     @Reference
@@ -96,9 +96,8 @@ public class AuthorityManagerController extends BaseController {
             @RequestParam("authList") String authList) {
 
         Gson g = new Gson();
-        if(authList.equals("]"))
-        {
-            return ApiResponse.creatFail(Base.ERROR,"权限选择不能为空！",null);
+        if (authList.equals("]")) {
+            return ApiResponse.creatFail(Base.ERROR, "权限选择不能为空！", null);
         }
         List<RoleAuthVO> roleAuthVOs = g.fromJson(authList, new TypeToken<List<RoleAuthVO>>() {
         }.getType());
@@ -111,7 +110,7 @@ public class AuthorityManagerController extends BaseController {
         } catch (Exception e) {
             log.error("赋予角色权限出现异常", e);
 
-            return ApiResponse.creatFail(Base.ERROR, "分配失败",null);
+            return ApiResponse.creatFail(Base.ERROR, "分配失败", null);
         }
 
     }

@@ -80,9 +80,6 @@ public class CardController extends BaseController {
         if (cardInfoVO == null) {
             throw new ServiceException(ServiceError.creatFail("请上传参数"));
         }
-        if("".equals(cardInfoVO.getCardName())){
-            cardInfoVO.setCardName(null);
-        }
         checkUser(cardInfoVO.getCardGroupId());
         if (cardInfoVO.getPagination() == null) {
             Pagination pagination = new Pagination();

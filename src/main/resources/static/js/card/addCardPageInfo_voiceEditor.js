@@ -574,7 +574,14 @@ wantong.addCardPageInfo.voiceEditor = (function () {
             }
             _setSelectRolesPanelGenerateBtn();
             _generatePreviewTTS(voiceId, content, "",
-                (e) => _playAuditionTTSAudio(e));
+                (e) => {
+                //防止已切换角色 继续播放
+                var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+                if (auditionBtn.attr('txt') != auditionBtn.text()) {
+                    _setPlayingSelectRolesPanelGenerateBtn();
+                    _playAuditionTTSAudio(e);
+                }
+            });
         });
     };
     function _playAuditionTTSAudio (fileName) {
@@ -583,9 +590,12 @@ wantong.addCardPageInfo.voiceEditor = (function () {
             _audioControl.pause();
         }
         _pcm_wav(previewURL, 16000, 16, 1, function (e) {
-            _audioControl = new Audio(e);
-            _audioControl.play();
-            _setSelectRolesPanelBtn();
+            var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+            if (auditionBtn.attr('txt') != auditionBtn.text()) {
+                _audioControl = new Audio(e);
+                _audioControl.play();
+                _setSelectRolesPanelBtn();
+            }
         });
 
     };
@@ -599,9 +609,9 @@ wantong.addCardPageInfo.voiceEditor = (function () {
         _checkRolesPlayingAudioStatusHandler= setInterval(_checkRolesAudio, 50)
     };
     function _checkRolesAudio(){
-        if(_audioControl.ended){
-            _rolesObject.find(".listen-form .btn-primary").text("发音试听");
-            _rolesObject.find(".listen-form .btn-primary").removeAttr("disabled");
+        var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+        if (_audioControl.paused || _audioControl.ended) {
+            _resetSelectRolesPanelGenerateBtn();
             clearInterval(_checkRolesPlayingAudioStatusHandler);
         }
     };
@@ -616,6 +626,7 @@ wantong.addCardPageInfo.voiceEditor = (function () {
         req.onload = function () {
             if (this.status != 200) {
                 alert("pcm文件不存在/文件格式错误！");
+                _resetSelectRolesPanelGenerateBtn();
                 return;
             }
             //根据pcm文件 填写 sampleRateTmp【采样率】（11025） 和sampleBits【采样精度】（16） channelCount【声道】（单声道1，双声道2）
@@ -627,8 +638,18 @@ wantong.addCardPageInfo.voiceEditor = (function () {
     };
     function _setSelectRolesPanelGenerateBtn(){
         var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+        auditionBtn.attr('txt',auditionBtn.text());
         auditionBtn.text("语音合成中...");
         auditionBtn.attr("disabled", "disabled");
+    };
+    function _setPlayingSelectRolesPanelGenerateBtn(){
+        var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+        auditionBtn.text("播放中...");
+    };
+    function _resetSelectRolesPanelGenerateBtn(){
+        var auditionBtn=_ttsTabContent.find(".listen-form .btn-primary");
+        auditionBtn.text(auditionBtn.attr('txt'));
+        auditionBtn.removeAttr("disabled");
     };
     function _initUploadButton() {
         var uploadButton = _realManTabContent.find("#uploadButton");
@@ -860,6 +881,14 @@ wantong.addCardPageInfo.voiceEditor = (function () {
             let text = '<label class="radio-inline"><input type="radio" id="'+ id +'" value="' + id + '" name="sex">' + name + '</label>';
             $targetDom.append(text);
         }
+
+        console.log('active muiti preview');
+        _ttsTabContent.find(".radio-inline").off('click').on('click', function () {
+           if (_audioControl) {
+               _audioControl.pause();
+           }
+            _resetSelectRolesPanelGenerateBtn();
+        });
     };
     function _addWavHeader(samples, sampleRateTmp, sampleBits,
                            channelCount) {

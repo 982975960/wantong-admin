@@ -41,6 +41,10 @@ public class AppVO implements Serializable {
     private Integer partnerId;
 
     private List<Integer> skills;
+    /**
+     * ocr支持者
+     */
+    private Integer ocrSupport;
 
     private List<Integer> platforms;
 
@@ -48,6 +52,10 @@ public class AppVO implements Serializable {
 
     private List<CreateAppRepoVO> data;
 
+    /**
+     * 点读 在线还是离线
+     */
+    private Integer onLine;
     public interface BaseGroup {
 
     }

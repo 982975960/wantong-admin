@@ -1,9 +1,11 @@
 package com.wantong.admin.view;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.wantong.admin.config.BrandingConfig;
 import com.wantong.admin.config.ServerConfig;
-import com.wantong.admin.session.AdminSession;
 import com.wantong.admin.domain.vo.ConsumeDataVO;
+import com.wantong.admin.session.AdminSession;
+import com.wantong.admin.session.SubDomain;
 import com.wantong.common.exception.ServiceException;
 import com.wantong.common.model.Pagination;
 import com.wantong.config.domain.dto.system.MessageCenterDTO;
@@ -18,19 +20,17 @@ import com.wantong.content.domain.vo.HotBookVO;
 import com.wantong.content.service.IBookInfoService;
 import com.wantong.record.domain.dto.AbsUserWeekDataDTO;
 import com.wantong.record.domain.dto.NetBookDTO;
-import com.wantong.record.domain.po.UsageRecordPO;
 import com.wantong.record.domain.vo.BookFeedbackVO;
 import com.wantong.record.domain.vo.DayIncrNumberVO;
 import com.wantong.record.domain.vo.NetBookVO;
 import com.wantong.record.service.IStatisticsLicenseService;
 import com.wantong.record.service.IStatisticsService;
 import com.wantong.record.service.IUserFeedbackService;
-
 import com.wantong.wechat.service.IOrderItemService;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +123,13 @@ public class DashboardController extends BaseController {
     @RequestMapping("/system/dashboard.do")
     public ModelAndView handleRequest() throws ServiceException, InterruptedException {
         ModelAndView mv = new ModelAndView();
+
+        //如果是样式模板不需要首页数据则直接放回html模板
+        SubDomain subDomainStyle =(SubDomain) request.getSession().getAttribute(BrandingConfig.BRANDING_SUBDOMAINSTYLE);
+        if (subDomainStyle != null && BrandingConfig.BRANDING_XUEXI.equals(subDomainStyle.getStyle())) {
+            mv.setViewName("frame/dashboard-xuexi");
+            return mv;
+        }
 
         AdminSession adminSession = getAdminSession();
         long partnerId = adminSession.getPartnerId();

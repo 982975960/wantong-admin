@@ -42,11 +42,8 @@ wantong.cardMakingNav = (function () {
     function _initViewModelData() {
        viewModel.currentTabName = "待采样";
        viewModel.canAddCard = true;
-       viewModel.inputCardName = null;
-       //卡片的标定选项
-       viewModel.value = 0;
         //导航栏列表
-       viewModel.navList = [{
+        viewModel.navList = [{
             tab: 0,
             id:"editCardListTab",
             name:"待采样",
@@ -127,12 +124,11 @@ wantong.cardMakingNav = (function () {
             },
             status:[5]
         }];
-       viewModel.currentCardGroupId = null;
-       viewModel.cardGroup = [];
-       viewModel.currentTab = 0;
+        viewModel.currentCardGroupId = null;
+        viewModel.cardGroup = [];
+        viewModel.currentTab = 0;
         //主题数据
-       viewModel.body = [];
-       viewModel.calibrationType = [{value : 0,label : '全部'},{value :1, label : "标定完成"},{value : 2, label : "标定为完成"}];
+        viewModel.body = [];
     };
 
     function _initVue() {
@@ -161,9 +157,6 @@ wantong.cardMakingNav = (function () {
                 clickPicture:_clickPicture,
                 editCardClick:_editCardClick,
                 deleteCard:_deleteCard,
-                clickSearchByCardNameHandle:_clickSearchByCardNameHandle,
-                clearCardNameInputHandle:_clearCardNameInputHandle,
-                selectFn:_selectFn
             }
         });
     };
@@ -417,8 +410,6 @@ wantong.cardMakingNav = (function () {
         cardInfoVO.cardGroupId = viewModel.currentCardGroupId;
         cardInfoVO.status = viewModel.navList[viewModel.currentTab].status;
         cardInfoVO.pagination = viewModel.navList[viewModel.currentTab].pagination;
-        cardInfoVO.cardName = viewModel.inputCardName;
-        cardInfoVO.calibrationState = viewModel.value;
         return cardInfoVO;
     };
     //鼠标移入
@@ -595,24 +586,6 @@ wantong.cardMakingNav = (function () {
         _changeImageTip = isChange;
     }
 
-    function _clickSearchByCardNameHandle(e) {
-        console.log(viewModel.inputCardName);
-        _initGroupCardInfoList((data) => {
-            _initCardListPanel(data);
-        });
-
-    };
-    function _clearCardNameInputHandle() {
-        viewModel.inputCardName = null;
-        _initGroupCardInfoList((data) => {
-            _initCardListPanel(data);
-        });
-    };
-    function _selectFn() {
-        _initGroupCardInfoList((data) => {
-            _initCardListPanel(data);
-        });
-    };
     return {
         init: function (conf) {
             _init(conf);

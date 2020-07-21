@@ -1,4 +1,3 @@
-wantong.cms = {};
 wantong.cms.booklist_resource = (function () {
   var _root = null,
       BOOK_PUBLISH_STATE = "3",
@@ -1296,6 +1295,7 @@ wantong.cms.booklist_resource = (function () {
           } else {
             _clearSearch(false);
           }
+          _refreshList(0);
         });
       },
       _setUpParameters = function () {

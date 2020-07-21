@@ -113,7 +113,24 @@ wantong.supplierManager = (function () {
             "/work/lookBookProgress.do",
             "/app/lookRelationRepo.do",
             "/system/userEmail.do",
-            "/cms/setRepoAdmin.do,/cms/handleRepoAdmin.do"
+            "/cms/setRepoAdmin.do,/cms/handleRepoAdmin.do",
+            "/app/showBindDeviceId.do",
+            "/app/showDeviceIdLoginException.do,/app/getDeviceIdLoginException.do,/app/delLoginExceptionRecord.do"
+            //---------------------资源制作的默认权限
+            ,"/cms/deleteBookRepo.do,/cms/deleteBook.do"
+            ,"/cms/pickUpBooks.do"
+            ,"/cms/saveBookInfo.do"
+            ,"/virtual/bookEditor/enterBook.do,/cms/showAddPage.do,/cms/listPages.do,/cms/loadPageInfo.do,/virtual/pageEditor/editingThePage.do"
+            ,"/cms/checkBook.do,/cms/changePageExamine.do,/cms/publish.do,/cms/packUp.do,/cms/changeBookStatus.do"
+            ,"/virtual/voiceEditor/oneRoleSpeechSynthesis.do,/cms/ttsConvert.do,/cms/DBttsConvert.do"
+            ,"/virtual/voiceEditor/realPersonVoiceUpload.do"
+            ,"/cms/forbiddenBook.do"
+            ,"/virtual/bookEditor/editorBookLabel.do,/cms/addLabel.do,/cms/getLabelNames,/cms/saveBookLabel.do"
+            ,"/virtual/cms/repoBooksCount.do"
+            ,"/virtual/allowBookResourcesNull.do"
+            ,"/cms/listRecordBooks.do,/cms/getBookChangeRecord.do,/cms/changeRecordBookState.do"
+            ,"/virtual/pickupTips.do"
+            //--------------------------
         );
         var _createSupplier = _root.find("#createSupplierContainer");
         // _createSupplier.find("input");

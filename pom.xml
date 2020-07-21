@@ -6,14 +6,14 @@
 
   <groupId>com.wantong</groupId>
   <artifactId>wantong-admin</artifactId>
-  <version>3.21.1-SNAPSHOT</version>
+  <version>3.26.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>web</description>
 
   <parent>
     <groupId>com.wantong</groupId>
     <artifactId>wantong-parent</artifactId>
-    <version>3.20.0-SNAPSHOT</version>
+    <version>3.25.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
 
@@ -86,11 +86,7 @@
       <artifactId>spring-boot-starter-freemarker</artifactId>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>28.0-jre</version>
-    </dependency>
+
     <dependency>
       <groupId>com.alibaba.boot</groupId>
       <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -98,9 +94,15 @@
     <dependency>
       <artifactId>content-service</artifactId>
       <groupId>com.wantong</groupId>
-      <version>3.21.1-SNAPSHOT</version>
+      <version>3.23.0-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>com.baomidou</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <artifactId>card-service</artifactId>
@@ -108,13 +110,25 @@
       <version>3.21.1-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>com.baomidou</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <artifactId>record-service</artifactId>
       <groupId>com.wantong</groupId>
-      <version>3.21.1-SNAPSHOT</version>
+      <version>3.24.0-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-jdbc</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <artifactId>elasticsearch-service</artifactId>
@@ -126,7 +140,7 @@
     <dependency>
       <artifactId>config-service</artifactId>
       <groupId>com.wantong</groupId>
-      <version>3.21.1-SNAPSHOT</version>
+      <version>3.26.0-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
     </dependency>
@@ -146,6 +160,12 @@
       <groupId>com.wantong</groupId>
       <version>3.14.0-SNAPSHOT</version>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>com.baomidou</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <artifactId>mongo-service</artifactId>
@@ -160,14 +180,26 @@
       <version>3.19.0-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>com.baidu.aip</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
       <artifactId>publish-service</artifactId>
       <groupId>com.wantong</groupId>
-      <version>3.20.0-SNAPSHOT</version>
+      <version>3.21.1-SNAPSHOT</version>
       <classifier>dubbo</classifier>
       <optional>true</optional>
+      <exclusions>
+      <exclusion>
+        <groupId>com.baomidou</groupId>
+        <artifactId>*</artifactId>
+      </exclusion>
+    </exclusions>
     </dependency>
 
     <dependency>
@@ -254,7 +286,7 @@
       <artifactId>jave</artifactId>
       <version>1.0.2</version>
     </dependency>
-  <!--视频截图的jar包-->
+    <!--视频截图的jar包-->
     <dependency>
       <groupId>org.bytedeco</groupId>
       <artifactId>javacv</artifactId>
@@ -281,6 +313,12 @@
       <optional>true</optional>
     </dependency>
   <!--end -->
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <version>2.0.2.RELEASE</version>
+    </dependency>
 
   </dependencies>
 

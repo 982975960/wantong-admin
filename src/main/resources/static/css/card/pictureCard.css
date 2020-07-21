@@ -958,9 +958,3 @@ form#createCardFrom span#upload div[id] {
 .message-group .search-item input {
   width: 180px;
 }
-
-/*元素在鼠标放上时出现外框*/
-.picture-hover:hover {
-  border: 1px solid #3dbeed;
-  cursor: pointer;
-}

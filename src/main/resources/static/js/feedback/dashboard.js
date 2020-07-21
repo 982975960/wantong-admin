@@ -67,6 +67,8 @@ wantong.feedback.dashboard.chart = (()=>{
     //切换标签
     function _changeTag(newTag) {
         viewModel.currentTag = newTag.name;
+        console.log("currentTag:"+viewModel.currentTag);
+        console.log("nav:"+viewModel.nav);
         if (viewModel.currentTag == "新增用户留存" || viewModel.currentTag == "活跃用户留存"){
             _renderDetailData(viewModel.nav);
         }
@@ -113,7 +115,7 @@ wantong.feedback.dashboard.chart = (()=>{
             data: viewModel,
             methods: {
                 render: _render,
-                changeTag: _changeTag,
+                changeTag: _changeTag
             },
             watch:{
                 chartData: ()=>{
@@ -158,13 +160,26 @@ wantong.feedback.dashboard.chart = (()=>{
                         case "拥有书本总数": return ["所有用户阅读书本总数之和（去重，相同书本只算一次） "];
                     }
                 }
+
             }
 
         });
     }
     //初始化数据
     function _setup(callback) {
-         return $.get(API_DASHBOARD_SETUP, (response) => {
+        console.log("viewModel.nav:"+viewModel.nav);
+        var type = 0;
+        if (viewModel.nav == "新增用户"){
+            type = 0;
+        } else if (viewModel.nav == "活跃用户"){
+            type = 1;
+        } else if (viewModel.nav == "累计用户数"){
+            type = 2;
+        } else if (viewModel.nav == "启动次数"){
+            type = 3;
+        }
+
+         return $.get(API_DASHBOARD_SETUP+"?type="+type+"&minDate="+viewModel.minDate+"&maxDate="+viewModel.maxDate, (response) => {
                 viewModel.sessionPartner = response.data.sessionPartner;
                 viewModel.optionalPartnerList = response.data.optionalPartnerList;
                 let dateBound = response.data.dateBound;
@@ -184,6 +199,7 @@ wantong.feedback.dashboard.chart = (()=>{
                     });
                     jqElem.on("change", () => {
                         viewModel.selectedPartner.partnerId = $("#dashboard_partner_select option:selected").val();
+                        console.log("123123123");
                         vueApp.render(viewModel.nav);
                     });
                     layui.use('laydate', function () {
@@ -199,6 +215,7 @@ wantong.feedback.dashboard.chart = (()=>{
                                 let bi = value.split(" - ");
                                 viewModel.minDate = bi[0];
                                 viewModel.maxDate = bi[1];
+                                console.log("123123123123");
                                 vueApp.render(viewModel.nav);
                                 if(callback != null){
                                     callback();
@@ -219,6 +236,8 @@ wantong.feedback.dashboard.chart = (()=>{
             viewModel.currentTag = viewModel.tags[0];
             viewModel.nav = nav;
         }
+        console.log("currentTag1:"+viewModel.currentTag);
+        console.log("nav1:"+viewModel.nav);
         let partnerId = viewModel.selectedPartner.partnerId;
         // //ajax方式
         // $.get(API_DASHBOARD_DETAIL
@@ -340,7 +359,7 @@ wantong.feedback.dashboard.chart = (()=>{
                         _renderDetailData(nav);
                     }
                 };
-                util.makePagination(paginationParam)
+                util.makePagination(paginationParam);
             }
         );
     }
@@ -437,7 +456,21 @@ wantong.feedback.dashboard.chart = (()=>{
             viewModel.currentTag = viewModel.tags[0];
             viewModel.nav = nav;
         }
-        $.get(API_DASHBOARD_SETUP, (response) => {
+      console.log("viewModel.nav:"+viewModel.nav);
+      var type = 0;
+      if (viewModel.nav == "新增用户"){
+        type = 0;
+      } else if (viewModel.nav == "活跃用户"){
+        type = 1;
+      } else if (viewModel.nav == "累计用户数"){
+        type = 2;
+      } else if (viewModel.nav == "启动次数"){
+        type = 3;
+      }
+        viewModel.minDate= moment().subtract(1,'months').subtract(1,'day').format('YYYY-MM-DD');
+        viewModel.maxDate= moment().subtract(1,'day').format('YYYY-MM-DD');
+
+        $.get(API_DASHBOARD_SETUP+"?type="+type+"&minDate="+viewModel.minDate+"&maxDate="+viewModel.maxDate, (response) => {
             viewModel.sessionPartner = response.data.sessionPartner;
             viewModel.optionalPartnerList = response.data.optionalPartnerList;
             let dateBound = response.data.dateBound;
@@ -448,16 +481,17 @@ wantong.feedback.dashboard.chart = (()=>{
             } else {
                 viewModel.selectedPartner = viewModel.sessionPartner;
             }
+            _clearSelect();
             let jqElem = $("#dashboard_partner_select");
             jqElem.chosen({
-                    allow_single_deselect: true,
-                    search_contains: true,
-                    width: '95%'
-                });
+                allow_single_deselect: true,
+                search_contains: true,
+                width: '95%'
+            });
             jqElem.on("change", () => {
-                    viewModel.selectedPartner.partnerId = $("#dashboard_partner_select option:selected").val();
-                    vueApp.render(viewModel.nav);
-                });
+                viewModel.selectedPartner.partnerId = $("#dashboard_partner_select option:selected").val();
+                vueApp.render(viewModel.nav);
+            });
             layui.use('laydate', function () {
                     var laydate = layui.laydate;
                     //执行一个laydate实例 ###
@@ -483,6 +517,18 @@ wantong.feedback.dashboard.chart = (()=>{
             }
 
         });
+    }
+    
+    function _clearSelect() {
+        $('#dashboard_partner_select').empty();
+        $('#dashboard_partner_select').chosen("destroy");
+        let html = "";
+        let list = viewModel.optionalPartnerList;
+        for (let one in list){
+            html += "<option value="+list[one].partnerId+" >"+list[one].partnerName+"</option>"
+        }
+        $('#dashboard_partner_select').append(html)
+        $('#dashboard_partner_select').chosen({width: "95%"});
     }
 
     function _eChat(callback) {
@@ -543,9 +589,18 @@ wantong.feedback.dashboard.runner = (()=>{
         scroll(0,0);
         viewModel.nav = index;
         if(oldNav != "阅读数据" && oldNav != "书籍数据" ){
-            wantong.feedback.dashboard.chart.render(viewModel.nav);
+            console.log("111111");
+            if(index != "阅读数据" && index != "书籍数据"){
+                console.log("22222");
+                wantong.feedback.dashboard.chart.change(viewModel.nav,()=>{
+                    wantong.feedback.dashboard.chart.render(viewModel.nav);
+                });
+            } else {
+                wantong.feedback.dashboard.chart.render(viewModel.nav);
+            }
         } else {
             if(index != "阅读数据" && index != "书籍数据"){
+                console.log("22222");
                 wantong.feedback.dashboard.chart.change(viewModel.nav,()=>{
                     wantong.feedback.dashboard.chart.render(viewModel.nav);
                 });
@@ -556,6 +611,7 @@ wantong.feedback.dashboard.runner = (()=>{
                 } else {
                     partnerId = t2.getPartnerId();
                 }
+                console.log("33333");
                 wantong.feedback.dashboard.chart.render(viewModel.nav);
             }
         }
@@ -588,6 +644,7 @@ wantong.feedback.dashboard.runner = (()=>{
 
 
         oldNav = index;
+
     }
 
     return {

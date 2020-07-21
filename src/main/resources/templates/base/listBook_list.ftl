@@ -5,7 +5,7 @@
 <#if (bookAmount%rowSize > 0)>
     <#assign rows = rows + 1>
 </#if>
-<div class="content-pro">
+<div class="content-pro" xmlns="http://www.w3.org/1999/html">
   <div class="content-pro-pic">
       <#if (bookAmount > 0)>
           <#list 0..(rows - 1) as i >
@@ -30,20 +30,33 @@
                                 <#if (trainTaskStatus == 6) >
                                   <span class="picture-book-status-failure">训练失败(${trainTaskStatus})</span>
                                 </#if>
+                                <#if partnerId == 1>
+                                    <#if (originValue != 0 && originValue != 2)>
+                                        <span class="picture-book-status">客户书本</span>
+                                    </#if>
+                                </#if>
                             </div>
                           <#else >
-                            <div class="picture-book-status-container">
+                            <#--<div class="picture-book-status-container" style="display: block;">
+                                <#if (originValue != 0 && originValue != 2)>
+                                  <span class="picture-book-status">客户书本</span>
+                                </#if>
+                            </div>-->
+                            <div class="picture-book-status-container" style="<#if (originValue != 0 && originValue != 2)>margin-top:-40px !important;</#if>">
+                                <#if (originValue != 0 && originValue != 2)>
+                                  <span class="picture-book-status">客户书本</span><br>
+                                </#if>
                                 <#if (trainTaskStatus == 0) >
-                                    <#if (originValue == 0)>
-                                  <span class="picture-book-status">书本信息待创建</span>
+                                    <#if (originValue == 2)>
+                                  <span class="picture-book-status">NY书本</span>
                                   <#else>
-                                    <span class="picture-book-status">NY书本</span>
+                                    <span class="picture-book-status">书本信息待创建</span>
                                   </#if>
                                 <#elseif (trainTaskStatus == 1) >
-                                    <#if (originValue == 0)>
-                                      <span class="picture-book-status">待采样</span>
-                                    <#else>
+                                    <#if (originValue == 2)>
                                       <span class="picture-book-status">NY书本</span>
+                                    <#else>
+                                      <span class="picture-book-status">待采样</span>
                                     </#if>
                                 <#elseif (trainTaskStatus == 4) || (trainTaskStatus == 6)|| (trainTaskStatus == 13)|| (trainTaskStatus == 15)>
                                   <span class="picture-book-status">待训练</span>
@@ -54,10 +67,10 @@
                                 <#elseif (trainTaskStatus == 3) >
                                   <span class="picture-book-status">已发布</span>
                                 <#elseif (trainTaskStatus == 7) || (trainTaskStatus == 8)|| (trainTaskStatus == 9)|| (trainTaskStatus == 10)|| (trainTaskStatus == 11)|| (trainTaskStatus == 12)>
-                                    <#if (originValue == 0)>
-                                      <span class="picture-book-status">待审核</span>
-                                    <#else>
+                                    <#if (originValue == 2)>
                                       <span class="picture-book-status">NY书本</span>
+                                    <#else>
+                                      <span class="picture-book-status">待审核</span>
                                     </#if>
                                 </#if>
                             </div>

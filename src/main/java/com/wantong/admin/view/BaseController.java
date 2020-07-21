@@ -1,6 +1,8 @@
 package com.wantong.admin.view;
 
+import com.wantong.admin.config.BrandingConfig;
 import com.wantong.admin.session.AdminSession;
+import com.wantong.admin.session.SubDomain;
 import com.wantong.common.session.SessionUserManager;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,14 @@ public abstract class BaseController {
         modelAndView.setView(new RedirectView(host));
 
         return modelAndView;
+    }
+
+    /**
+     * 获取session中的域名模板信息
+     * @return
+     */
+    protected SubDomain getSubDomainStyle(){
+        SubDomain subDomainStyle =(SubDomain) request.getSession().getAttribute(BrandingConfig.BRANDING_SUBDOMAINSTYLE);
+        return  subDomainStyle;
     }
 }

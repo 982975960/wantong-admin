@@ -6,6 +6,7 @@ import com.wantong.admin.config.InterfacePathConfig;
 import com.wantong.admin.config.ThirdPartyConfig;
 import com.wantong.admin.freemarker.CustomEnvironment;
 import com.wantong.admin.session.AdminSession;
+import com.wantong.admin.session.SubDomain;
 import com.wantong.admin.view.BaseController;
 import com.wantong.common.email.MailBody;
 import com.wantong.common.email.MailSendUtil;
@@ -14,15 +15,14 @@ import com.wantong.common.response.ApiResponse;
 import com.wantong.common.response.ResponseCode.Base;
 import com.wantong.common.utils.encrypt.Base64Util;
 import com.wantong.common.utils.encrypt.MD5Util;
+import com.wantong.common.utils.validate.FormatValidateUtils;
 import com.wantong.config.domain.dto.system.CreateUserDTO;
 import com.wantong.config.domain.vo.system.UserVO;
 import com.wantong.config.service.system.IEmailRelatedService;
 import com.wantong.config.service.system.IPasswordRelatedService;
 import com.wantong.config.service.system.IUserRelatedService;
-
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,6 +92,10 @@ public class AccountController extends BaseController {
             throws ServiceException {
         AdminSession adminSession = getAdminSession();
         ApiResponse apiResponse = new ApiResponse();
+        if (!FormatValidateUtils.isEmail(email)) {
+            return ApiResponse.creatFail(Base.ERROR, "验证邮件发送失败");
+        }
+
         CreateUserDTO result = userRelatedService.createUser(email, adminSession.getPartnerId(), adminSession.getId());
         if (result != null) {
             boolean res = sendActiveEmail(email, result.getIdentityCode());
@@ -110,10 +114,6 @@ public class AccountController extends BaseController {
     }
 
     public boolean sendActiveEmail(String email, String identityCode) {
-        String thisEndpoint = thirdPartyConfig.getThisEndpoint();
-        if (thisEndpoint.charAt(thisEndpoint.length() - 1) == '/') {
-            thisEndpoint = thisEndpoint.substring(0, thisEndpoint.length() - 1);
-        }
         String contextPath = CustomEnvironment.getContextPath();
         if (contextPath != "" && contextPath.charAt(0) == '/') {
             contextPath = contextPath.substring(1);
@@ -122,7 +122,7 @@ public class AccountController extends BaseController {
         StringBuffer sb = new StringBuffer();
         sb.append(emailConfig.getEmailContentStart());
         sb.append(emailConfig.getActiveContentStart());
-        sb.append(thisEndpoint);
+        sb.append(getThisEndpoint());
         if (contextPath != "") {
             sb.append("/" + contextPath);
         }
@@ -171,10 +171,7 @@ public class AccountController extends BaseController {
     }
 
     private boolean sendPasswordEmail(String email, String identityCode) {
-        String thisEndpoint = thirdPartyConfig.getThisEndpoint();
-        if (thisEndpoint.charAt(thisEndpoint.length() - 1) == '/') {
-            thisEndpoint = thisEndpoint.substring(0, thisEndpoint.length() - 1);
-        }
+
         String contextPath = CustomEnvironment.getContextPath();
         if (contextPath != "" && contextPath.charAt(0) == '/') {
             contextPath = contextPath.substring(1);
@@ -183,7 +180,7 @@ public class AccountController extends BaseController {
         StringBuffer sb = new StringBuffer();
         sb.append(emailConfig.getEmailContentStart());
         sb.append(emailConfig.getForgetPasswordContentStart());
-        sb.append(thisEndpoint);
+        sb.append(getThisEndpoint());
         if (contextPath != "") {
             sb.append("/" + contextPath);
         }
@@ -225,4 +222,18 @@ public class AccountController extends BaseController {
             return ApiResponse.creatFail(Base.ERROR, se);
         }
     }
+
+
+    private  String getThisEndpoint(){
+        SubDomain subDomain = getSubDomainStyle();
+        String  thisEndpoint = subDomain.getCurrentServerName();
+        if( thisEndpoint == null){
+            thisEndpoint = thirdPartyConfig.getThisEndpoint();
+            if (thisEndpoint.charAt(thisEndpoint.length() - 1) == '/') {
+                thisEndpoint = thisEndpoint.substring(0, thisEndpoint.length() - 1);
+            }
+        }
+        return thisEndpoint;
+    }
+
 }

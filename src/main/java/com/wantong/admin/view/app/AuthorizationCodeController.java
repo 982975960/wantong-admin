@@ -15,15 +15,14 @@ import com.wantong.common.storage.StorageConfig;
 import com.wantong.common.utils.ExcelUtil;
 import com.wantong.common.utils.encrypt.Base64Util;
 import com.wantong.common.utils.file.FileUtil;
+import com.wantong.config.domain.dto.app.BindDeviceIdDTO;
 import com.wantong.config.domain.dto.app.GetAuthCodeRecordDTO;
-import com.wantong.config.domain.dto.system.AuthorWarnDTO;
 import com.wantong.config.domain.po.app.AppPO;
 import com.wantong.config.domain.po.app.LicenseStatisticPO;
 import com.wantong.config.domain.po.app.QrCodeDownloadPO;
 import com.wantong.config.domain.po.supplier.PartnerPO;
-import com.wantong.config.domain.po.system.EmailReceiptPO;
-import com.wantong.config.domain.vo.app.AppLicenseUnusedAmountVO;
 import com.wantong.config.domain.vo.app.AppParamVO;
+import com.wantong.config.domain.vo.app.BindDeviceIdListVO;
 import com.wantong.config.domain.vo.app.PartnerVO;
 import com.wantong.config.service.app.*;
 import com.wantong.config.service.supplier.ISupplierRelatedService;
@@ -32,6 +31,16 @@ import com.wantong.config.service.system.IUserRelatedService;
 import com.wantong.wechat.domain.dto.OrderDetailsListDTO;
 import com.wantong.wechat.service.IGoodsService;
 import com.wantong.wechat.service.IOrderItemService;
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,17 +54,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.Executor;
-import java.util.stream.Collectors;
 
 /**
  * CheckAuthorizationCodeController 检查授权码excel是否准已经写入创建完毕
@@ -145,7 +143,6 @@ public class AuthorizationCodeController extends BaseController {
      * @param request
      * @param appId
      * @param filePath
-     * @param type
      */
     @RequestMapping("/app/downloadAuthorizationCode.do")
     @ResponseBody
@@ -304,7 +301,8 @@ public class AuthorizationCodeController extends BaseController {
     }
 
     @RequestMapping("/app/qrcodeDetailsList.do")
-    public String orderDetailsList(Model model, int authType,long appId, long recordId, Integer currentPage, long partnerId)
+    public String orderDetailsList(Model model, int authType, long appId, long recordId, Integer currentPage,
+            long partnerId)
             throws ServiceException {
         Pagination pagination = new Pagination();
         pagination.setCurrentPage(currentPage);
@@ -314,7 +312,7 @@ public class AuthorizationCodeController extends BaseController {
 
             OrderDetailsListDTO orderDetailsListDTO = null;
             try {
-                orderDetailsListDTO = orderItemService.getOrderDetailsList(pagination, recordId, authType == 0 ? 2:1);
+                orderDetailsListDTO = orderItemService.getOrderDetailsList(pagination, recordId, authType == 0 ? 2 : 1);
                 logger.info("------------------------------------> recordId:{} OrderDetailsListDTO 中的数量", recordId,
                         orderDetailsListDTO.getOrderItemPOList().toString());
                 pagination = orderDetailsListDTO.getPagination();
@@ -332,9 +330,11 @@ public class AuthorizationCodeController extends BaseController {
             if (authType == 1) {
                 QrCodeDownloadPO qrCodeDownloadPO = qrCodeRelatedService.getQrCodeDownloadPOById(recordId);
                 if (qrCodeDownloadPO != null) {
-                    logger.info("--------------------------------->weChat获得 qrcode的激活数量为:{}",(orderDetailsListDTO == null ? "null" :orderDetailsListDTO.getActiveRobotCount()));
+                    logger.info("--------------------------------->weChat获得 qrcode的激活数量为:{}",
+                            (orderDetailsListDTO == null ? "null" : orderDetailsListDTO.getActiveRobotCount()));
                     model.addAttribute("payAmount",
-                            qrCodeDownloadPO.getPaymentAmount().equals(-1) ? -1 : (orderDetailsListDTO == null ? 0 :orderDetailsListDTO.getActiveRobotCount()));
+                            qrCodeDownloadPO.getPaymentAmount().equals(-1) ? -1
+                                    : (orderDetailsListDTO == null ? 0 : orderDetailsListDTO.getActiveRobotCount()));
                     model.addAttribute("qrCodeCount", qrCodeDownloadPO.getDownloadAmount());
                 } else {
                     model.addAttribute("qrCodeCount", 0);
@@ -343,9 +343,11 @@ public class AuthorizationCodeController extends BaseController {
             } else if (authType == 0) {
                 LicenseStatisticPO statisticPO = appLicenseStatisticService.getAppLicenseStaticId(appId);
                 if (statisticPO != null) {
-                    logger.info("--------------------------------->weChat获得 License的激活数量为:{}",orderDetailsListDTO == null ?"null":orderDetailsListDTO.getActiveRobotCount());
+                    logger.info("--------------------------------->weChat获得 License的激活数量为:{}",
+                            orderDetailsListDTO == null ? "null" : orderDetailsListDTO.getActiveRobotCount());
                     model.addAttribute("payAmount",
-                            statisticPO.getPaymentAmount().equals(-1) ? -1 : (orderDetailsListDTO == null ? 0 : orderDetailsListDTO.getActiveRobotCount()));
+                            statisticPO.getPaymentAmount().equals(-1) ? -1
+                                    : (orderDetailsListDTO == null ? 0 : orderDetailsListDTO.getActiveRobotCount()));
                     model.addAttribute("licenseCount", statisticPO.getUsedAmount() + statisticPO.getUnusedAmount());
                 } else {
                     model.addAttribute("payAmount", 0);
@@ -367,7 +369,6 @@ public class AuthorizationCodeController extends BaseController {
      * 准备开始创建授权码Excel文件
      *
      * @param request
-     * @param response
      * @param appId
      */
     @RequestMapping("/app/prepareExcel.do")
@@ -437,7 +438,7 @@ public class AuthorizationCodeController extends BaseController {
             @RequestParam("appName") String appName,
             @RequestParam(value = "cardNum", required = false, defaultValue = "No") String cardNum,
             @RequestParam("amount") int amount,
-            @RequestParam("authType")int authType) {
+            @RequestParam("authType") int authType) {
         fileName = Base64Util.decodeBase64(fileName);
         //服务器地址
         String filePath =
@@ -447,7 +448,9 @@ public class AuthorizationCodeController extends BaseController {
         if (!file.exists()) {
             return null;
         }
-        String name = authType == 1 ? partner + "-" + appName + "-" + appId + "-" + cardNum + "-" + amount + "个授权码支付成功.xls":partner + "-" + appName + "-" + appId + "-" + amount + "个授权数量支付成功.xls";
+        String name =
+                authType == 1 ? partner + "-" + appName + "-" + appId + "-" + cardNum + "-" + amount + "个授权码支付成功.xls"
+                        : partner + "-" + appName + "-" + appId + "-" + amount + "个授权数量支付成功.xls";
 
         return downloadFile(file.getPath(), name.toString());
     }
@@ -496,7 +499,8 @@ public class AuthorizationCodeController extends BaseController {
         List<List<Object>> data = new ArrayList<>();
         //            authType 是授权方式 0 是lincense 1是qrcode good表中licens为2 qrcode为1
         //获取写入记录
-        OrderDetailsListDTO orderDetailsListDTO = orderItemService.getGoodsDetailsListToExcel(recordId, authType==1?1:2);
+        OrderDetailsListDTO orderDetailsListDTO = orderItemService
+                .getGoodsDetailsListToExcel(recordId, authType == 1 ? 1 : 2);
 
         List<String> head = authType == 1 ? Arrays
                 .asList("授权码", "openID", "商户ID", "购物订单号", "下单时间", "订单状态", "支付订单号", "支付方式", "支付金额", "支付时间")
@@ -529,11 +533,50 @@ public class AuthorizationCodeController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/app/authorizedQuantity.do")
-    public ApiResponse authorizedQuantityWarning(@RequestParam(name = "flag") boolean insertOrDel) throws ServiceException {
+    public ApiResponse authorizedQuantityWarning(@RequestParam(name = "flag") boolean insertOrDel)
+            throws ServiceException {
         AdminSession adminSession = getAdminSession();
         return ApiResponse.creatSuccess(Collections.singletonMap("flag", cache.canWarn(adminSession.getId(),
                 adminSession.getPartnerId(), insertOrDel)));
     }
 
+    /**
+     * 显示绑定设备id记录
+     *
+     * @param request
+     * @param appId
+     */
+    @RequestMapping("/app/showBindDeviceId.do")
+    public ModelAndView showBindDeviceId(HttpServletRequest request, @RequestParam("appId") long appId) {
+        GetAuthCodeRecordDTO getAuthCodeRecordDTO = qrCodeRelatedService.getAuthCodeRecord(appId);
+        ModelAndView mv = new ModelAndView("/app/bindDeviceIdRecord");
+        mv.addObject("records", getAuthCodeRecordDTO.getQrCodeDownloadPOList());
+        mv.addObject("appId", appId);
+
+        return mv;
+    }
+
+    @RequestMapping("/app/showDeivceIdList.do")
+    public ModelAndView showDeivceIdList(HttpServletRequest request, @RequestParam("recordId") long recordId,
+            @RequestParam(value = "searchText", defaultValue = "", required = false) String searchText,
+            @RequestParam(value = "currentPage", defaultValue = "1", required = false) Integer currentPage)
+            throws ServiceException {
+        Pagination pagination = new Pagination();
+        pagination.setCurrentPage(currentPage);
+        pagination.setPageSize(20);
+        BindDeviceIdListVO vo = BindDeviceIdListVO.builder().pagination(pagination).recordId(recordId)
+                .searchText(searchText).build();
+        BindDeviceIdDTO dto = qrCodeRelatedService.getBindDeviceIdList(vo);
+        pagination = dto.getPagination();
+        ModelAndView mv = new ModelAndView("/app/bindDeviceIdList");
+        mv.addObject("records", dto.getDeviceIdList());
+        mv.addObject("searchText", searchText);
+        mv.addObject("pages", pagination.getPages());
+        mv.addObject("currentPage", pagination.getCurrentPage());
+        mv.addObject("pageSize", pagination.getPageSize());
+        mv.addObject("recordId", recordId);
+
+        return mv;
+    }
 }
 

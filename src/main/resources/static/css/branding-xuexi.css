@@ -1,0 +1,371 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{background:#f6f6f6}/*内页整个背景*/
+
+/*登录*/
+.branding-top_color{background:#cf1c1a;}/*登录top条颜色*/
+.branding-banner{ background:url(../images/xuexi/indexbg.jpg) no-repeat; height:790px;}/*banner图片*/
+
+
+.branding-banner_right{  background:#FFF;}/*登录白色背景框颜色*/
+.branding-logintextcolor{ color:#3a3a3a;}/*登录系统文字颜色*/
+.branding-loginline{ border-bottom:1px solid #efefef; !important}/*登录下划线*//*把原来得这条线样式删掉*/
+.branding-login_text{ border:1px solid #eeeeee; background:url(../images/xuexi/ico.jpg) no-repeat 20px center; color:#b1b2b3;}/*账号边框和图标/文字颜色*/
+.branding-login_text02{ border:1px solid #eeeeee;  background:url(../images/xuexi/ico2.jpg) no-repeat 20px center; color:#b1b2b3;}/*密码边框和图标/文字颜色*/
+
+.branding-login_but{ background:#cf1c1a;color:#FFFFFF;}/*登录按钮颜色*/
+
+.branding-login-tetxtcolor{color:#b1b2b3 !important;}/*忘记密码文字颜色*/
+.branding-login-tetxtcolor a:hover{ color:#cf1c1a !important;}
+
+.branding-copybgck{ background:#252525;}/*底部版权背景颜色*/
+.branding-copytextcolor{ color:#FFF;}/*底部版权文字颜色*/
+
+/*一级菜单*/
+
+.branding-menuBgcolor{background:#ad0d0f}/*logo背景颜色*/
+.branding-bordercolor{border-left:2px solid #ffffff!important; background:#db120f!important;}/*首页文字背景颜色*/
+.branding-menuCollapseBgcolorl{ background:#cf1c1a;}/*菜单背景颜色*/
+.branding-menuCollapseBgcolorl a{ color:#ffffff;}/*一级菜单文字颜色*/
+.branding-menuCollapseBgcolorl a:hover{ color:#ffffff;}/*一级菜单文字颜色*/
+.branding-menuExpandBgback>a:before{background:#ffffff;}/*菜单文字前面像素长条框颜色*/
+.nav-show,.branding-menuExpandBgcolor>a:hover{background:#db120f}/*一级菜单选中背景颜色*/
+
+.branding-menuExpandBgcolor{ background:#f1eee9;}/*二级菜单背景颜色*/
+.branding-menuExpandBgcolor li:hover a{background:#ffffff}/*二级菜单鼠标滑上背景颜色*/
+.branding-menuSelectedFont{color:#737373!important}/*二级菜单文字颜色*/
+.branding-menuSelectedFont:hover{color:#cf1c1a!important;}/*二级菜单文字颜色*/
+
+.branding-navimg{ position:fixed; left:0; bottom:0;z-index: -20}/*菜单下背景图片*/
+
+/*右侧内容*/
+.branding-bannerimg{ width:100%;}/*广告大图*/
+.branding-bannerimg img{ width:100%; height:auto;}
+
+.branding-header{ background:#ffffff;}/*文档顶部背景颜色*/
+.branding-header a{ color:#737373;}/*文档顶部文字颜色*/
+.branding-header a:hover{ color:#cf1c1a;}/*文档顶部文字颜色*/
+
+
+.branding-textcolor{ color:#cf1c1a!important;}/*主色文字颜色*/
+.branding-navigatorFont{ color:#737373;}/*当前显示路径文字颜色*/
+
+
+.branding-mainBodyBgColor{ background:#f6f6f6}/*整个内容底下背景色*/
+.branding-titleFont{ color:#3a3a3a}/*文字主标题颜色*/
+.branding-titlefontcolor{ color:#737373!important;}/*文字二级标题颜色*/
+.branding-subTitleFont{ color:#b1b2b4!important;}/*文字三级标题颜色*/
+.branding-titleFontico{border-left: 3px solid #cf1c1a;padding-left: 10px;height: 13px;float: left;margin-top: 3px; }/*文字主标题前面图标颜色*/
+.branding-panelBgColor{background: #fff; box-shadow: 1px 1px 2px rgba(0,0,0,0.05);}/*内容区整个白色底色背景颜色*/
+
+.branding-panelFrColor{ background:#f6f6f6!important;}/*内容里面浅色背景颜色和标题文字背景颜色*//*资源制作里面得图片信息dd标签里面得背景颜色删掉*/
+
+.branding-Colorfont a{ color:#737373;}/*内容区文字颜色*/
+.branding-Colorfont a:hover{ color:#cf1c1a;}/*内容区文字鼠标滑上颜色**/
+
+.branding-listTitleFont{ color:#3a3a3a!important;}/*列表一级标题颜色*/
+.branding-listline{ border-bottom:1px solid #f6f6f6!important;}/*列表下划线颜色*/
+.branding-listtextcolor{ color:#737373!important;}/*列表内容文字颜色*/
+.branding-listlinetop{ border-top:1px solid #f6f6f6!important;}/*上划线颜色*/
+
+
+
+/*内容二级菜单*/
+
+.branding-subMenuBgcolor{ background:#ffffff;}/*菜单背景颜色*/
+.branding-subMenuFont{ color:#3a3a3a}/*主题文字颜色*/
+.branding-subMenuline{border-bottom:1px solid #eceff8}/*主题文字下划线*/
+.branding-subMenuSelectdfont{color:#737373; background:none!important;}/*文字灰色*/
+.branding-subMenuSelectdfont:hover{background:#f6f6f6!important; color:#737373;}/*文字滑上变色*/
+
+.branding-text{ border-top: 2px solid; border-right: 2px solid; width:7px;height:7px; border-color:#cccccc; transform: rotate(45deg); float:right; margin-top:15px;}/*箭头颜色*/
+.branding-text2{ border-top: 2px solid; border-right: 2px solid; width:7px;height:7px; border-color:#cf1c1a; transform: rotate(45deg); float:right; margin-top:15px;}/*箭头滑上变色颜色*/
+
+/*按钮颜色*/
+.branding-frame-Button{background: #ffebeb;color: #cf1c1a;}/*浅色按钮背景*/
+.branding-frame-Button_h{background: #ffdedf;color: #cf1c1a;}/*浅色按钮鼠标滑上颜色背景*/
+
+.branding-frame-Button-b{background: #cf1c1a;color: #ffffff;}/*深色按钮背景*/
+.branding-frame-Button-b_h{background: #cd0402;color: #ffffff;}/*深色按钮鼠标滑上颜色背景*/
+
+.branding-Button-line{border: 1px solid #cf1c1a; color: #cf1c1a;}/*边框深色按钮*/
+.branding-Button-line_h{border: 1px solid #cf1c1a; background:#ffebeb; color: #cf1c1a;}/*边框深色按钮鼠标滑上颜色*/
+
+.branding-Button-line2{background: #f1f1f1;color: #b1b2b3; border: 1px solid #b1b2b3;}/*不可点击按钮*/
+
+
+
+
+
+/*翻页颜色*/
+.branding-page-back{ background:#f6f6f6;}/*箭头背景灰色颜色*/
+.branding-page-back-b{ background:#cf1c1a; color:#FFF;}/*翻页背景选中颜色*/
+.branding-page-back-b2{ background:#ffebeb; color:#b1b2b3;}/*翻页背景颜色*/
+
+/*线框颜色*/
+.branding-pro-line{border: 1px solid #cf1c1a;}/*书本制作鼠标滑上边框颜色*/
+.branding-search-box{border: 1px solid #cccccc;}/*灰色输入边框颜色*/
+
+body a:hover{ color:#cf1c1a;}/*文档顶部文字颜色*/
+.main-w .dubble-toggle-btn .toggle-active {
+  color: #FFF;
+  background: #cf1c1a;
+}
+
+.con-nav-cen ul .active a {
+  color: #cf1c1a;
+}
+
+.page-input {background: #cf1c1a;color: #ffffff;}
+.con-page .active {background: #cf1c1a;color: #ffffff;}
+.frame-Button-b {background: #cf1c1a;color: #ffffff;}/*深色按钮背景*/
+.frame-Button-b:hover {background: #cd0402;color: #ffffff;}/*深色按钮鼠标滑上颜色背景*/
+.frame-Button:hover {
+  background: #ffdedf;
+  color: #cf1c1a;
+}
+.frame-Button {
+  background: #ffebeb;
+  color: #cf1c1a;
+}
+#partnerDetailPanel .Button-line:hover {
+  border: 1px solid #cf1c1a;
+}
+.main-w  .Button-line:hover {
+  border: 1px solid #cf1c1a;
+}
+
+.main-w .btn-info:hover {
+  color: #fff;
+  background-color: #cf1c1a;
+  border-color: #cd0402;
+}
+.main-w .Button-line {
+  border: 1px solid #cf1c1a;
+  color: #cf1c1a;
+  background-color: #FFFFFF;
+}
+
+.con-page .page-back-b {
+  background: #cf1c1a;
+  color: #FFF;
+}
+
+.con-page .page-back-b a {
+  color: #FFF;
+}
+
+.alert-info {
+  color: #cf1c1a;
+  background-color: #ffebeb;
+  border-color: #ffd6d6;
+}
+
+/* active menu */
+.active .branding-menuSelectedFont {
+  color: #cf1c1a!important;
+}
+.top-menu ul li.active {
+  background: #fff!important;
+}
+/*首页激活*/
+.nav .accordion>li.active {
+  border-left: 2px solid #ffffff!important;
+  background: #db120f!important;
+}
+
+/*书本hover*/
+.picture-hover:hover {
+  border: 1px solid #cf1c1a;
+  cursor: pointer;
+}
+
+/*上传按钮*/
+.main-w .webuploader-pick {
+  background: #cf1c1a;
+  color: #ffebeb;
+}
+
+.layui-layer-content .webuploader-pick {
+  background: #cf1c1a;
+  color: #ffebeb;
+}
+
+.main-w .webuploader-pick-hover {
+  background: #cd0402;
+}
+.layui-layer-content .webuploader-pick-hover {
+  background: #cd0402;
+}
+
+/*覆盖bootstrap*/
+.btn-primary {
+  color: #ffebeb;
+  background-color: #cf1c1a;
+  border-color: #cd0402;
+}
+
+
+/*加号按钮*/
+/*工单*/
+.main-w .work-ico {
+  background: #ffebeb url(../images/xuexi/ico13.png) no-repeat 13px center;
+  color: #cf1c1a;
+}
+.main-w .frame-Button-work:hover {
+  background: #ffebeb url(../images/xuexi/ico13.png) no-repeat 13px center;
+}
+/*ISBN*/
+#createBookFrom .isbn-btn {
+  color: #cf1c1a;
+  border-color: #cf1c1a;
+}
+
+
+/*向右箭头*/
+.main-w .con-nav-cen ul li a:hover{  background:#ffebeb url(../images/xuexi/ico-r.png) no-repeat 93% center; }
+.main-w .con-nav-cen ul .active a{  background:#ffebeb url(../images/xuexi/ico-r.png) no-repeat 93% center; color: #cf1c1a;}
+
+
+/*App页面toggle*/
+.main-w .tab-toggle .tab-unit.active {
+  color: #cf1c1a;
+}
+
+/*checkbox风格*/
+body input[type=checkbox]:checked {
+  background: url(../images/xuexi/ico_checked.jpg) no-repeat 0 0;
+}
+
+/*layui 弹窗头*/
+/*.layui-layer .layui-layer-title {*/
+/*  background: #ffebeb;*/
+/*}*/
+
+
+/*批量上传真人录音*/
+#batchUploadAudioBtn span {
+  background: #cf1c1a;
+  padding: 8px 10px;
+  color: #ffffff;
+  float: left;
+}
+
+button.control-extra {
+  border-color: #cf1c1a;
+}
+.control-extra #symbol {
+  color: #cf1c1a;
+  font-size: 9px;
+  margin-left: 1px;
+  margin-top: -3px;
+}
+.text-box h2 {
+  border-color: #cf1c1a;
+}
+.layui-layer-content .nav a:hover {
+  color: #cf1c1a;
+}
+
+.layui-layer-content .label-info {
+  background: #cf1c1a;
+}
+
+/*资源复制*/
+.ref-book-btn .btn-setup {
+  background-color: #cf1c1a !important;
+  color: white;
+}
+
+.con-nav-cen .nav-def {
+  color: #cf1c1a !important;
+}
+.con-nav-cen .nav-active {
+  color: #cf1c1a !important;
+  background: #ffebeb !important;
+}
+
+/*标签*/
+.layui-layer-content .label-b-img {
+  color: #cf1c1a;
+}
+
+.layui-layer-content .label-b-img2 {
+  color: #ffffff;
+  background: #cf1c1a;
+}
+#bookLabelManager .layui-tab-brief>.layui-tab-title .layui-this {
+  border-top-color: #cf1c1a;
+}
+
+/*分页*/
+.con-page .page-back-b2:hover {
+  background: #ffebeb;
+}
+.con-page .page-back-b2 {
+  background: #ffebeb;
+}
+
+.bce-content-w .el-menu-item.is-active {
+  color: #cf1c1a;
+}
+
+.el-dialog__wrapper .el-button--primary:focus,.el-dialog__wrapper .el-button--primary:hover,.el-dialog__wrapper .el-button--primary {
+  background: #cf1c1a;
+  border-color: #cf1c1a;
+  color: #FFF;
+}
+
+.el-dialog__wrapper .el-button--default:focus,.el-dialog__wrapper .el-button--default:hover,.el-dialog__wrapper .el-button--default {
+  background: #ffebeb;
+  border-color: #ffebeb;
+  color: #cf1c1a;
+}
+
+.bce-content-w .lcs_switch.lcs_on {
+  background: #cf1c1a;
+  box-shadow: 0 0 2px #cf1c1a inset;
+}
+
+.main-w .pro-block-con dl dd{background: #ffebeb;}
+.main-w .circle-data{background: #ffebeb;}
+.main-w .dubble-toggle-btn{background: #ffebeb;}
+.main-w .work-block-head {
+  background: #ffebeb !important;
+}
+.main-w .work-list-top li span {
+  border-top: 1px solid #ffebeb;
+}
+tr.text-block-head td {
+  background: #ffebeb !important;
+}
+tbody tr td {
+  border-color: #ffebeb !important;
+}
+
+.main-w .content-pro-pic dl {
+  background: #ffebeb;
+}
+.layui-tab-brief>.layui-tab-title .layui-this {
+  border-top: 2px solid #cf1c1a !important;
+}
+.layui-layer-dialog .layui-layer-btn .layui-layer-btn0 {
+  border-color: #cf1c1a;
+  background-color: #cf1c1a;
+  color: #fff;
+}
+
+.main-w .el-checkbox__input.is-checked .el-checkbox__inner,.main-w  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  background-color: #cf1c1a;
+  border-color: #cf1c1a;
+}
+
+.layui-form .layui-form-checked[lay-skin=primary] i {
+  border-color: #cf1c1a;
+  background-color: #cf1c1a;
+}
+
+.layui-form .layui-form-checkbox[lay-skin=primary]:hover i {
+  border-color: #cf1c1a;
+}

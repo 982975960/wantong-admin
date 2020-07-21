@@ -65,7 +65,6 @@ public class LoginPassUrl {
             "/system/applyConfig.do",
             "/system/createParentUrl.do",
             "/base/deletePagesAccordingToBookId.do",
-            "/base/savePagesData.do",
             "/base/checkBatchUploadPictureTaskState.do",
             "/base/checkDelBookPagesTaskState.do",
             "/work/bookProgressManager.do",
@@ -110,7 +109,11 @@ public class LoginPassUrl {
             "/api/feedback/dashboard/setup",
             "/api/feedback/dashboard/data",
             "/api/feedback/dashboard/detail",
-            "/api/feedback/dashboard/export"
+            "/api/feedback/dashboard/export",
+            "/nbe/toNbePackageList",
+            "/app/showDeivceIdList.do",
+            "/app/checkLeadInDeviceId.do",
+            "/app/deviceExcelDownload.do"
     };
 
     private static String[] passUrlsForLoginUser = new String[]{

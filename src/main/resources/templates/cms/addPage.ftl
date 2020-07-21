@@ -12,14 +12,14 @@
     <div id="pageList" style="width: 200px;height: 100%;padding-top: 10px;">
       <#--批量上传语音的按钮-->
       <div id="batchUploadAudioBtn" class="button" onmouseover="this.style.backgroundColor='#D3D3D3'" onMouseOut="this.style.backgroundColor='white'" style="display: inline-block;margin-left: 16px;float: left;cursor: pointer">
-        <span style="background: #42bcef;padding: 8px 10px;color: #ffffff; float: left;">批量上传真人录音</span>
+        <span >批量上传真人录音</span>
       </div>
        <div id="helpBtn" class="button" style="margin-top: 5px;margin-left: 11px;float: left;">
          <img src="/static/images/help.png" style="width: 20px">
        </div>
       <#--批量上传音频文件按钮-->
       <#--<div id="hint" style="float: right">-->
-        <#--<img src="/static/images/hint-ico.png" id="hint-span" onmouseover="this.style.backgroundColor='#D3D3D3'" onMouseOut="this.style.backgroundColor='white'"  style="background: url(/static/images/hint-ico.png)no-repeat;">-->
+        <#--<img src="/static/images/hint-ico.jpg" id="hint-span" onmouseover="this.style.backgroundColor='#D3D3D3'" onMouseOut="this.style.backgroundColor='white'"  style="background: url(/static/images/hint-ico.jpg)no-repeat;">-->
       <#--</div>-->
 
       <div id="pageListContainer" class="page-list-container" style="
@@ -48,7 +48,14 @@
       <@checkPrivilege url="/cms/packUpResource.do">
         <div id="downloadResource" style="cursor: pointer;padding: 10px 40px;">
           <div style="padding: 8px 10px;color: #000; display: inline-block">批量下载</div>
-          <div style="display: inline-block"><img src="/static/images/download.png" style="width: 20px"></div>
+          <div style="display: inline-block">
+              <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}" match="TRUE">
+                <img src="<@staticPath/>/images/${Session.subDomainStyle.style!'original'}/download.png" style="width: 20px">
+              </@checkDefaultTheme>
+              <@checkDefaultTheme env="${Session.subDomainStyle.style!'original'}" match="FALSE">
+                <img src="<@staticPath/>/images/download.png" style="width: 20px">
+              </@checkDefaultTheme>
+          </div>
         </div>
       </@checkPrivilege>
     </div>

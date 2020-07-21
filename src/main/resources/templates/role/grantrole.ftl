@@ -5,6 +5,7 @@
 <@script src="/js/common/global.js"/>
 <@script src="/js/common/frame.js"/>
 <@link href="/css/style.css" rel="stylesheet"/>
+<@link href="/css/branding-${Session.subDomainStyle.style!'original'}.css" rel="stylesheet" />
     <script>
       layui.use(['layer', 'form'], function () {
         var layer = layui.layer,

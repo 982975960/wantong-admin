@@ -20,12 +20,6 @@ wantong.frame = (function () {
         $('.list-title').click();
         _initAssisCenter();
         _initAuthTip();
-        _event();
-      },
-      _event = function(){
-        $("body").on("contextmenu","img",function(e) {
-           return false;
-        });
       },
       _initAssisCenter = function () {
         $(".assis-nav li").has("ul").mouseover(function () {
@@ -37,15 +31,17 @@ wantong.frame = (function () {
         });
       },
       _initTopMenu = function () {
-        $(".main-w-nav").delegate(".direct-menu", "click", function () {
-          $(this).parents("ul").children("li").removeClass("active");
+        $(".accordion").delegate(".direct-menu", "click", function () {
+          // console.log('test', $(".accordion").find("li.active"));
+          $(".accordion").find("li").removeClass("active");
+          // $(this).parents("ul").children("li").removeClass("active");
           $(this).parent("li").addClass("active");
           var url = $(this).attr("url");
           var moduleName = $(this).attr("name");
           _switchModule(moduleName, url);
           $(this).attr('url', _removeURLParameter($(this).attr('url')));
         });
-        $(".topMenuItem:first").click();
+        $(".accordion li:first .direct-menu").click();
       },
       _removeURLParameter = function (url) {
         var urlparts = url.split('?');
@@ -149,7 +145,7 @@ wantong.frame = (function () {
                 $.post(AUTH_TIP_PATH, {
                   "flag": false
                 }, function (data) {
-
+                  
                 });
               }, function (index) {
                 layer.close(index);

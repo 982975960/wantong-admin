@@ -1,11 +1,11 @@
 <div class="main-w">
   <div class="content-wrap-w">
-    <div class="user-profile-w">欢迎回来<span id="emailSpan" style="margin-left: 10px">${email}</span></div>
+    <div class="user-profile-w">欢迎回来<span id="emailSpan" class="branding-textcolor" style="margin-left: 10px">${email}</span></div>
     <div class="blorck-con">
       <!-- 授权数据 min-width: 352px -->
       <div class="l-block row-r block-back" style="width: 22%;">
         <div class="l-block-title">
-          <span class="block-start"></span>
+          <span class="branding-titleFontico"></span>
           <div class="l-block-title-left">装机量数据
             <div id="consumeHelp" class="button" style="margin-left: 5px;display: inline-block; cursor: pointer">
               <img src="/static/images/help.png" style="width: 15px">
@@ -74,7 +74,7 @@
       <!-- 用户数据 -->
       <div class="c-block row-r block-back" style="width: 55%">
         <div class="c-block-title">
-          <span class="block-start"></span>
+          <span class="branding-titleFontico"></span>
           <div class="c-block-title-left">用户数据
             <div id="customerHelp" class="button" style="margin-left: 5px;display: inline-block; cursor: pointer">
               <img src="/static/images/help.png" style="width: 15px">
@@ -172,7 +172,7 @@
       <!-- 公告数据 -->
       <div class="r-block  block-back">
         <div class="r-block-title">
-          <span class="block-start"></span>
+          <span class="branding-titleFontico"></span>
           <div class="r-block-title-left">公告</div>
             <#--          <div class="l-block-title-right" id="messageMore"><a href="#">更多</a></div>-->
           <div class="r-block-title-right"><a href="https://www.showdoc.cc/vtnotice" target="_blank">更多</a></div>
@@ -200,7 +200,7 @@
       </div>
       <div class="pro-block row-r row-t block-back">
         <div class="pro-block-title">
-          <span class="block-start"></span>
+          <span class="branding-titleFontico"></span>
           <div class="pro-block-title-left">最新上线</div>
           <div class="pro-block-title-right" id="moreBooks"><a href="#">更多</a></div>
         </div>
@@ -225,29 +225,24 @@
       <div class="pro-right row-t"></div>
       <div class="text-block row-t block-back">
         <div class="text-block-title">
-          <span class="block-start"></span>
+          <span class="branding-titleFontico"></span>
           <div class="text-block-title-left">书本需求反馈</div>
           <div class="text-block-title-right" id="moreFeekBack"><a href="#">更多</a></div>
         </div>
         <div class="text-block-con row-t" id="feekBackDiv">
           <ul>
             <li>
-              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <table class="frame-feedback" width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr class="text-block-head">
-                  <td width="32%" align="left" valign="middle" nowrap="nowrap" bgcolor="#f6f7fb"
-                      style="border-bottom:none;">书名
+                  <td width="32%" align="left" valign="middle" nowrap="nowrap" style="border-bottom:none;">书名
                   </td>
-                  <td width="22%" align="left" valign="middle" nowrap="nowrap" bgcolor="#f6f7fb"
-                      style="border-bottom:none;">作者
+                  <td width="22%" align="left" valign="middle" nowrap="nowrap" style="border-bottom:none;">作者
                   </td>
-                  <td width="22%" align="left" valign="middle" nowrap="nowrap" bgcolor="#f6f7fb"
-                      style="border-bottom:none;">出版社
+                  <td width="22%" align="left" valign="middle" nowrap="nowrap" style="border-bottom:none;">出版社
                   </td>
-                  <td width="18%" align="left" valign="middle" nowrap="nowrap" bgcolor="#f6f7fb"
-                      style="border-bottom:none;">ISBN
+                  <td width="18%" align="left" valign="middle" nowrap="nowrap" style="border-bottom:none;">ISBN
                   </td>
-                  <td width="6%" align="left" valign="middle" nowrap="nowrap" bgcolor="#f6f7fb"
-                      style="border-bottom:none;">反馈人数
+                  <td width="6%" align="left" valign="middle" nowrap="nowrap" style="border-bottom:none;">反馈人数
                   </td>
                 </tr>
                   <#if (fbData?size>0)>

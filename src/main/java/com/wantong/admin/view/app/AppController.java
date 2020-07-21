@@ -224,6 +224,14 @@ public class AppController extends BaseController {
             }
         }
         convertSkillsToAppPO(appPo, appVo.getSkills());
+        if(appVo.getAppTypeId() == 10 && appVo.getOcrSupport() != -1){
+            appVo.getFunctions().add(appVo.getOnLine());
+        }
+
+        if (appVo.getOnLine() != -1) {
+            appVo.getFunctions().add(appVo.getOnLine());
+        }
+
         Long appId = appRelatedService.createApp(appPo);
         if (appId == null || appId <= 0) {
             log.info("创建app失败");
@@ -674,6 +682,14 @@ public class AppController extends BaseController {
         }
         BeanUtils.copyProperties(appVo, db, getNullPropertyNames(appVo));
         convertSkillsToAppPO(db, appVo.getSkills());
+        if(appVo.getAppTypeId() == 10 && appVo.getOcrSupport() != -1){
+            appVo.getFunctions().add(appVo.getOcrSupport());
+        }
+
+        if (appVo.getOnLine() != -1) {
+            appVo.getFunctions().add(appVo.getOnLine());
+        }
+
         if (!appRelatedService.updateApp(db)) {
             log.info("更新app失败");
             throw new ServiceException(ServiceError.creatFail(Base.ERROR, "更新app失败"));

@@ -1,0 +1,46 @@
+.create-partner-container{
+    width: 98%;
+    margin-top: 20px;
+    margin-left:  auto;
+    margin-right:  auto;
+}
+
+.create-partner-container .authority-title{
+    margin-top: 30px;
+    /* line-height: 50px; */
+    padding-bottom: 0px;
+}
+
+.create-partner-container .authority-title h5{
+    margin-top: 5px;
+}
+
+
+.create-partner-container .authority-list{
+    width: 98%;
+    margin-left: auto;
+    margin-right:  auto;
+}
+#bindDeviceIdRecordDiv .center{
+    text-align: center;
+    background-color: #f6f7fb;
+    border-bottom: none;
+    font-size: 14px;
+}
+
+#bindDeviceIdRecordDiv .center2{
+    text-align: center;
+    border-top: 1px solid #eceff8;
+}
+
+#bindDeviceIdRecordDiv .down-btn {
+    padding-left: 34%;
+    border-bottom: 1px solid #eceff8;
+    border-top: 1px solid #eceff8;
+}
+
+#bindDeviceIdRecordDiv .bind-btn{
+    background-color: #3dbeed;
+    border: none;
+}
+#bindDeviceIdRecordDiv .bind-btn:hover{background: #18b0e7;}

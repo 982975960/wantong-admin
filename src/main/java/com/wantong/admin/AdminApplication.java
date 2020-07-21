@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -37,10 +38,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
                 "com.wantong.common.order",
                 "com.wantong.common.cms",
                 "com.wantong.common.device",
-                "com.wantong.common.mq.config"
+                "com.wantong.common.mq.config",
+                "com.wantong.common.api"
         },basePackageClasses = {SpringUtil.class})
 @EnableLock
 @EnableScheduling
+@EnableFeignClients
 public class AdminApplication {
 
     private static final Logger log = LoggerFactory.getLogger(AdminApplication.class);

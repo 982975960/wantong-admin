@@ -164,7 +164,7 @@
                         <#elseif (productType==12)>卡片
                         </#if>
                     </td>
-                    <td align="left"><#if (authorityType==0)>License授权<#elseif (authorityType==1)>授权码</#if></td>
+                    <td align="left"><#if (authorityType==0)>License授权-限定授权数量<#elseif (authorityType==1)>授权码<#elseif (authorityType==2)>License授权-限定设备ID</#if></td>
                     <td align="center">${app.usedAmount + app.unusedAmount}</td>
 
                     <#if ( "${showActiveNum}" == "1" )>
@@ -207,18 +207,29 @@
                             </button>
                           </@checkPrivilege>
                         </#if>
-                      <#elseif (authorityType==0)>
-                        <@checkPrivilege url="/app/downloadlicense.do">
-                          <button type="button" appId="${app.id}" partnerId="${currentPartnerId}"
-                                  class="download-license-button Button-line btn-info">下载License
-                          </button>
-                        </@checkPrivilege>
-                        <#if (authorityType==0)>
-                          <@checkPrivilege url="/app/leadingInDeviceID.do">
-                            <button type="button" appId="${app.id}" unusedAmount="${app.unusedAmount}"
-                                    partnerId="${currentPartnerId}"
+                      <#elseif (authorityType==0 || authorityType==2)>
+                          <@checkPrivilege url="/app/downloadlicense.do">
+                            <button type="button" appId="${app.id}" partnerId="${currentPartnerId}"
+                                    class="download-license-button Button-line btn-info">下载License
+                            </button>
+                          </@checkPrivilege>
+                          <#if (authorityType==2)>
+                          <@checkPrivilege url="/app/showLeadDevice.do">
+                            <button type="button" appId="${app.id}" partnerId="${currentPartnerId}"
                                     class="leadingin-deviceId-button Button-line btn-info">
                               导入设备ID
+                            </button>
+                          </@checkPrivilege>
+                          <@checkPrivilege url="/app/showBindDeviceId.do">
+                            <button type="button" appId="${app.id}"
+                                    class="show-bind-deviceId Button-line btn-info">
+                              查看导入设备ID
+                            </button>
+                          </@checkPrivilege>
+                          <@checkPrivilege url="/app/getDeviceIdLoginException.do">
+                            <button type="button" appId="${app.id}"
+                                    class="show-bind-deviceId-excepition Button-line btn-info">
+                              查看异常设备ID
                             </button>
                           </@checkPrivilege>
                         </#if>
@@ -315,35 +326,6 @@
       </#if>
       <!--分页-->
 
-      <div id="leadingDeviceDialog" style="display: none">
-        <div id="error" style="display:none" class="alert alert-danger" role="alert"></div>
-
-        <div class="input-group row  short-input-group">
-          <div id="uploader" class="wu-example">
-            <div class="btns">
-              <div id="uploadFilePicker">导入设备Id表</div>
-              <div id="uploadFileList" class="alert alert-success"
-                   style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:300px;"
-                   role="alert">
-                还没有选择任何xls格式的Excel文件
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="uploadProgress" style="display:none" class="toy-upload-progress progress">
-          <div class="toy-upload-progress-bar progress-bar progress-bar-success" role="progressbar"
-               aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-            <span class="sr-only">0% Complete (success)</span>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" id="saveButton" class="pop-padding frame-Button-b">保存</button>
-          <button type="button" id="closeButton" class="pop-padding frame-Button">关闭</button>
-        </div>
-      </div>
-
       <div id="createNewAppDialog" style="display: none;border-top:1px solid rgb(236,239,248);padding: 2%;" appId=""
            class="popups-con">
         <div class="tab-toggle">
@@ -351,14 +333,22 @@
           <label id="repoSettingToggle" class="tab-unit" style="display: none">关联资源库</label>
         </div>
         <!-- AppTab -->
-        <div id="appSetting" class="tab-container" style="padding-bottom: 110px;height: 340px;">
+        <div id="appSetting" class="tab-container" style="padding-bottom: 110px;height: 440px;">
           <div class="input-group short-input-group" style="width: 100%;margin-left: 0;">
             <span class="input-group-addon" id="basic-addon3" style="padding-left: 10px;">应用名称</span>
             <input type="text" class="form-control" id="name" style="width: 482px;margin-left: 9px;"
                    aria-describedby="basic-addon3" placeholder="不能大于50个字符">
             <input type="hidden" id="partnerId" value="${currentPartnerId}">
           </div>
-          <div id="appTypeList">
+          <div id="nbeSetting" style="width: 100%;float: left;margin-top: 10px;">
+              <span class="input-group-addon" style="font-size:12px;padding-left: 4px; float: left;">是否包含NBE</span>
+              <select class="con-r-top-l-frame frame-line" name="nbeOpen" id="nbeOpen"
+                      style="margin-left: 71px;">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+              </select>
+          </div>
+          <div id="appTypeList" style="margin-top: 50px;">
             <form class="form-inline">
               <div class="form-group" id="appTypeSelect">
                 <span class="input-group-addon" id="basic-addon3" style="float: left;padding-left: 10px;">产品类型</span>
@@ -382,6 +372,7 @@
                   <option id="selectWantong" value="3">仅使用共享资源库</option>
                 </select>
               </div>
+              <div style="clear: both;"></div>
             </form>
           </div>
           <div class="show-grid" id="authSelect" style="display: none;width: 100%;float: left;margin-bottom: 0px;">
@@ -389,7 +380,8 @@
               <span class="input-group-addon" style="padding-left: 10px;">授权方式</span>
               <div class="form-group">
                 <select class="con-r-top-l-frame frame-line" id="authorityTypeSelect" style="margin-left: 9px;">
-                  <option value="0">License授权</option>
+                  <option value="0">License授权-限定授权数量</option>
+                  <option value="2">License授权-限定设备ID</option>
                   <option value="1">授权码</option>
                 </select>
               </div>
@@ -432,7 +424,7 @@
                     title="点读配音">--请选择--</span>
                 <span class="img-selector"
                       style="float: right;background: url(static/images/ico6.png) no-repeat 97% center transparent;width: 25px;height: 20px;margin-top: -25px;margin-right: 15px;"></span>
-                <ul class="select">
+                <ul class="select" style="width: 300px;margin-left: -109px;">
                   <div id="bookSkill" class="product-skill" style="display: none;">
                     <li><input type="checkbox" value="0" checked="checked" disabled="disabled"/>领读</li>
                     <li><input type="checkbox" value="1" />点读</li>
@@ -442,16 +434,31 @@
                     <li><input type="checkbox" value="5" />手指查词</li>
                   </div>
                   <div id="k12Skill" class="product-skill" style="display: none">
-                    <li><input type="checkbox" value="0"
-<#--                               disabled="disabled"-->
-                      />领读</li>
+                    <div style="width: 100%;height: 30px;border-bottom: 1px solid #cccccc">
+                    <li><input type="checkbox" value="0"/>领读</li>
                     <li><input type="checkbox" value="4"/>评测</li>
                     <li><input type="checkbox" value="5" />手指查词</li>
-                    <div class="point-read" style="float: left">
-                      <div style="display: inline-block; float: left;margin: 0 5px 0 15px;">点读:</div>
-                      <div style="display: inline-block">
-                        <div><input id="pointReadNormal" name="pointRead" type="checkbox" value="1"/><span class="radio-check">常规点读</span></div>
-                        <div><input id="pointReadHigh" name="pointRead" type="checkbox" value="6"/><span class="radio-check">高精点读</span></div>
+                    </div>
+                    <div class="point-read" style="float: left;width: 100%;">
+                      <div style="display: inline-block; float: left;margin: 0 5px 0 15px;width: 10%;">点读:</div>
+                      <div style="display: inline-block;width: 83%;float: left;">
+                        <div style="width: 30%;float: left;">
+                          <div><input id="pointReadNormal" name="pointRead" type="checkbox" value="1"/><span class="radio-check">常规点读</span></div>
+                          <div><input id="pointReadHigh" name="pointRead" type="checkbox" value="6"/><span class="radio-check">高精点读</span></div>
+                        </div>
+                        <div style="width: 70%;float: left;background: #f6f7fb;border-left: 1px solid #cccccc;padding-left: 10px;">
+                          <div id="onlineDiv">
+                              <span>选择获取手指坐标的方式：</span>
+                              <div style="width: 40px;display: inline-block;"><input type="checkbox" name="online" value="50"><span class="radio-check">在线</span></div>
+                              <div style="width: 40px;display: inline-block;"><input type="checkbox" name="online" value="51"><span class="radio-check" >离线</span></div>
+                            </div>
+                          <div id="ocrSupport" style="display: none; width: 130px">
+                            <span>选择OCR服务提供方</span>
+                            <div style="width: 40px;display: inline-block;"><input type="checkbox" name="support" value="100" checked="checked"><span class="radio-check">玩瞳</span></div>
+                            <div style="width: 40px;display: inline-block;"><input type="checkbox" name="support" value="101"><span class="radio-check" >有道</span></div>
+                            <div style="width: 40px;display: inline-block;"><input type="checkbox" name="support" value="102"><span class="radio-check" >百度</span></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -524,18 +531,6 @@
                                 <#--                    <option value="2">用户授权</option>-->
                             </select>
                           </div>
-                        </div>
-                      </#list>
-                  </div>
-                  <div class="card-repo-list repo-list">
-                    <div class="table-title" style="width:698px;height: 32px; background-color: #F6F7FB; margin:10px 0 10px 10px;">
-                      <div style="width: 195px;height: 32px; float: left; line-height:32px; padding-left: 10px;">资源库名</div>
-                    </div>
-                      <#list cardRepoList as cardRepo >
-                          <#assign n3 = cardRepo_index + 1 />
-                        <div repoId="${cardRepo.id}" model="${cardRepo.id}" priority=${n3} class="oneRepo" style="margin-left: 10px;">
-                          <div class="enableRepo"><input class="normalRepoCheck" type="checkbox"/></div>
-                          <div class="repoName">${cardRepo.name}</div>
                         </div>
                       </#list>
                   </div>
@@ -871,7 +866,7 @@ AI技术智慧共读，秒翻即识别
   </div>
   <style>
     .normalRepoCheck.active {
-      /*background: url(/static/images/ico11.jpg) no-repeat 0 0;
+      /*background: url(/static/images/ico_unchecked.jpg) no-repeat 0 0;
       background-size: 100%;*/
     }
 

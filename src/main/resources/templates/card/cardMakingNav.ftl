@@ -32,13 +32,7 @@
                 <div class="content-box">
                     <#--头部模块 -->
                     <div class="con-r-top">
-                        <div class="cardSearchGroup" style="display: inline-block;width: 45%; padding: 1% 0">
-                            <label  style="font-size: 14px">卡片名称：</label>
-                            <el-input  placeholder="请输入内容" v-model="inputCardName" style="width: 50%" ></el-input>
-                            <input name="" type="button" value="搜索" class="frame-Button-b"  style="height: 32px;margin-left: 30px" @click="clickSearchByCardNameHandle"/>
-                            <input name="" type="button" value="清空" class="search-Button02" style="margin-top: 6px;margin-left: 20px;" @click="clearCardNameInputHandle"/>
-                        </div>
-                        <div class="con-search-input"  style="width: 55%;">
+                        <div class="con-search-input" >
                             <div v-if="currentTab == 0">
                                 <@checkPrivilege url = "/card/moveCardIntoResourceEditState.do">
                                     <div v-if="body.length <= 0" style="display: inline-block">
@@ -75,24 +69,11 @@
                                     <input name="" type="button" value="训练卡片"   class="frame-Button-b search-Button" @click="moveCardToTrainEvent" />
                                 </div>
                             </div>
-                        </div>
-                        <#-- 卡片标定状态的下拉列表 0为待采样 1为资源待编辑-->
-                        <div v-if="currentTab == 0 || currentTab == 1" style="width: 45%">
-                            <div class="selectTab" >
-                                <label style="font-size: 14px">卡片标定状态：</label>
-                                <template>
-                                    <el-select v-model="value" placeholder="请选择" style="width: 45.5%" @change="selectFn($event)">
-                                        <el-option
-                                                v-for="item in calibrationType"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value">
-                                        </el-option>
-                                    </el-select>
-                                </template>
-                            </div>
+
+
                         </div>
                     </div>
+
                     <#--不同模块 -->
                     <div v-for="navItem in navList">
                         <div :id="navItem.id"  :class="navItem.class" :style="navItem.tabStyle" style="width: 100%; overflow: hidden;float: left;">
